@@ -42,6 +42,7 @@ function App() {
       <Judges />
       <Requirements />
       <Prizes />
+      
       <FAQ />
       <Contact />
       <Footer />

@@ -42,7 +42,7 @@ const Contact = () => {
     {
       id: 'discord',
       href: 'https://discord.gg/hackunited',
-      icon: 'public/icons/discord.png',
+      icon: '/icons/discord.png',
       label: 'Discord',
     },
     {
