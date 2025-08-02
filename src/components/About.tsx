@@ -15,17 +15,17 @@ const COLORS = {
 const About = () => {
   const features = [
     {
-      icon: <Clock className="w-8 h-8" />,
+      icon: "/icons/clock.png",
       title: "48 Hours of Innovation",
       description: "Non-stop coding, learning, and building with developers from 50+ countries worldwide.",
     },
     {
-      icon: <Trophy className="w-8 h-8" />,
+      icon: "/icons/trophy.png",
       title: "$50,000+ in Prizes",
       description: "Compete for cash prizes, internships, and exclusive opportunities with top tech companies.",
     },
     {
-      icon: <Users className="w-8 h-8" />,
+      icon: "/icons/peoples.png",
       title: "Learn from the Best",
       description: "Workshops, mentorship, and guidance from industry experts and successful entrepreneurs.",
     }
@@ -52,11 +52,20 @@ const About = () => {
         <div className="text-center mb-20">
           <h2
             className="text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent leading-tight"
-            style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+            style={{ 
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+              fontFamily: 'var(--font-heading)'
+            }}
           >
             What is United Hacks V6?
           </h2>
-          <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-light" style={{ color: COLORS.TEXT_MUTED }}>
+          <p 
+            className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-light" 
+            style={{ 
+              color: COLORS.TEXT_MUTED,
+              fontFamily: 'var(--font-body)'
+            }}
+          >
             The premier global online hackathon bringing together the brightest minds from around the world. 
             Join us for 48 hours of innovation, collaboration, and world-changing solutions.
           </p>
@@ -85,17 +94,27 @@ const About = () => {
                 className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300"
                 style={{ backgroundColor: COLORS.PRIMARY_ACCENT }}
               >
-                {feature.icon}
+                <img src={feature.icon} alt={feature.title} className="w-10 h-10" />
               </div>
               
               {/* Content */}
               <h3 
                 className="text-2xl font-bold mb-4 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300"
-                style={{ color: COLORS.TEXT_MAIN, backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+                style={{ 
+                  color: COLORS.TEXT_MAIN, 
+                  backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                  fontFamily: 'var(--font-heading)'
+                }}
               >
                 {feature.title}
               </h3>
-              <p className="leading-relaxed group-hover:text-gray-200 transition-colors duration-300" style={{ color: COLORS.TEXT_MUTED }}>
+              <p 
+                className="leading-relaxed group-hover:text-gray-200 transition-colors duration-300" 
+                style={{ 
+                  color: COLORS.TEXT_MUTED,
+                  fontFamily: 'var(--font-body)'
+                }}
+              >
                 {feature.description}
               </p>
               
@@ -139,11 +158,20 @@ const About = () => {
                 </div>
                 <h3 
                   className="text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
-                  style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+                  style={{ 
+                    backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                    fontFamily: 'var(--font-heading)'
+                  }}
                 >
                   Watch Official Trailer
                 </h3>
-                <p className="group-hover:text-gray-300 transition-colors duration-300" style={{ color: COLORS.TEXT_MUTED }}>
+                <p 
+                  className="group-hover:text-gray-300 transition-colors duration-300" 
+                  style={{ 
+                    color: COLORS.TEXT_MUTED,
+                    fontFamily: 'var(--font-body)'
+                  }}
+                >
                   See what United Hacks is all about
                 </p>
               </div>
@@ -162,7 +190,8 @@ const About = () => {
               className="group relative px-8 py-4 rounded-full text-white font-semibold text-lg hover:scale-105 hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto"
               style={{
                 backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
-                boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`
+                boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`,
+                fontFamily: 'var(--font-body)'
               }}
             >
               <Play className="w-5 h-5" fill="currentColor" />

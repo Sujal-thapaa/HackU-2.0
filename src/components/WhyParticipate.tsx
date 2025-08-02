@@ -260,7 +260,7 @@ function WhyParticipate() {
               boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
             }}
           >
-            Join the Movement 🚀
+            Join the Movement 
           </motion.a>
         </motion.div>
       </div>

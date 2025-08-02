@@ -13,66 +13,123 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['Home', 'About', 'Previous', 'Why Join', 'Judges', 'FAQ', 'Contact'];
+  const navItems = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Previous', href: '#previous' },
+    { name: 'Why Join', href: '#why-join' },
+    { name: 'Judges', href: '#judges' },
+    { name: 'More Info', href: '#requirements' },
+    { name: 'Prizes', href: '#prizes' },
+    { name: 'FAQ', href: '#faq' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  const COLORS = {
+    PRIMARY_BG: '#121212',      // Deep Charcoal
+    PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
+    SECONDARY_ACCENT: '#F6C177', // Warm Gold
+    SURFACE: '#262626',         // Graphite Gray
+    TEXT_MAIN: '#F1F1F1',       // Soft White
+    TEXT_MUTED: '#B0B0B0',      // Mid Gray
+    LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+  };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-gray-900/95 backdrop-blur-md border-b border-blue-500/20' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <a href="#home" className="flex items-center">
-              <img 
-                src="/HackUnitedLogo2.webp" 
-                alt="United Hacks V6" 
-                className="h-10 w-auto"
-              />
-            </a>
+    <>
+      {/* Global Typography Styles */}
+      <style jsx global>{`
+        @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
+        @import url('https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+        :root {
+          --font-heading: 'Clash Display', sans-serif;
+          --font-body: 'General Sans', sans-serif;
+          --font-code: 'IBM Plex Mono', monospace;
+        }
+
+        body {
+          font-family: var(--font-body);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          font-family: var(--font-heading);
+        }
+
+        code, pre {
+          font-family: var(--font-code);
+        }
+      `}</style>
+      
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'backdrop-blur-md border-b' : 'bg-transparent'
+      }`} style={{ backgroundColor: scrolled ? COLORS.SURFACE : 'transparent', borderColor: COLORS.SURFACE }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <a href="#home" className="flex items-center">
+                <img 
+                  src="images/logo.webp" 
+                  alt="United Hacks V6" 
+                  className="h-10 w-auto"
+                />
+              </a>
+            </div>
+            
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    style={{
+                      color: COLORS.TEXT_MUTED,
+                      '--hover-color': COLORS.PRIMARY_ACCENT,
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = COLORS.PRIMARY_ACCENT}
+                    onMouseLeave={(e) => e.currentTarget.style.color = COLORS.TEXT_MUTED}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-md text-white hover:text-white focus:outline-none"
+                style={{ backgroundColor: isOpen ? COLORS.SURFACE : 'transparent' }}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-          
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+        </div>
+
+        {isOpen && (
+          <div className="md:hidden" style={{ backgroundColor: COLORS.SURFACE }}>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navItems.map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
-                  className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  key={item.name}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  style={{ color: COLORS.TEXT_MUTED }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = COLORS.PRIMARY_ACCENT}
+                  onMouseLeave={(e) => e.currentTarget.style.color = COLORS.TEXT_MUTED}
+                  onClick={() => setIsOpen(false)}
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
             </div>
           </div>
-          
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-white focus:outline-none focus:text-white"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900/95 backdrop-blur-md">
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
-                className="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+    </>
   );
 };
 

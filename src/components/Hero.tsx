@@ -264,11 +264,20 @@ const Hero = () => {
           <div className="lg:w-1/2 mb-12 lg:mb-0">
             <h1
               className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent animate-pulse"
-              style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+              style={{ 
+                backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                fontFamily: 'var(--font-heading)'
+              }}
             >
               United Hacks V6
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto lg:mx-0" style={{ color: COLORS.TEXT_MUTED }}>
+            <p 
+              className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto lg:mx-0" 
+              style={{ 
+                color: COLORS.TEXT_MUTED,
+                fontFamily: 'var(--font-body)'
+              }}
+            >
               The Ultimate Global Online Hackathon - Code. Create. Compete.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -279,7 +288,8 @@ const Hero = () => {
                 className="text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform flex items-center justify-center gap-2"
                 style={{
                   backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
-                  boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`
+                  boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`,
+                  fontFamily: 'var(--font-body)'
                 }}
               >
                 <Play size={20} />
@@ -293,7 +303,8 @@ const Hero = () => {
                 className="text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform flex items-center justify-center gap-2"
                 style={{
                   backgroundImage: `linear-gradient(to right, ${COLORS.SECONDARY_ACCENT}, ${COLORS.PRIMARY_ACCENT})`,
-                  boxShadow: `0 0 20px ${COLORS.SECONDARY_ACCENT}40`
+                  boxShadow: `0 0 20px ${COLORS.SECONDARY_ACCENT}40`,
+                  fontFamily: 'var(--font-body)'
                 }}
               >
                 <UserPlus size={20} />
@@ -313,7 +324,7 @@ const Hero = () => {
                 <div className="absolute inset-0 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${COLORS.PRIMARY_BG}80`}}>
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: MODEL_COLOR }}></div>
-                    <p style={{ color: MODEL_COLOR }}>Loading 3D Model...</p>
+                    <p style={{ color: MODEL_COLOR, fontFamily: 'var(--font-body)' }}>Loading 3D Model...</p>
                   </div>
                 </div>
               )}
