@@ -25,21 +25,21 @@ const stages = [
   },
   {
     id: 'learn',
-    icon: Lightbulb,
+    icon: "public/icons/learn.png",
     title: 'Learn & Grow',
     subtitle: 'Expand your skills with expert guidance',
     description: 'Join workshops, mentorships, and masterclasses led by top tech professionals. Level up your abilities and accelerate your developer journey.',
   },
   {
     id: 'network',
-    icon: Users,
+    icon: "/icons/collab.png",
     title: 'Collaborate & Network',
     subtitle: 'Build lasting connections',
     description: 'Meet and team up with developers, founders, and innovators from around the world. Forge partnerships that go beyond the hackathon.',
   },
   {
     id: 'win',
-    icon: Trophy,
+    icon: "/icons/win.png",
     title: 'Win Big',
     subtitle: 'Unlock prizes and opportunities',
     description: 'Stand out and earn recognition, cash rewards, and career-changing opportunities that can shape your future.',
@@ -76,6 +76,8 @@ const StageCard = ({ stage, index }) => {
     }
   }, [isInView, stage.id, hasTriggeredConfetti]);
 
+  const isImage = typeof stage.icon === 'string';
+
   return (
     <motion.div
       ref={cardRef}
@@ -109,7 +111,11 @@ const StageCard = ({ stage, index }) => {
           whileHover={{ rotate: 5 }}
           transition={{ duration: 0.3 }}
         >
-          <stage.icon className="w-6 h-6 text-white" />
+          {isImage ? (
+            <img src={stage.icon} alt={stage.title} className="w-6 h-6 filter invert" />
+          ) : (
+            <stage.icon className="w-6 h-6 text-white" />
+          )}
         </motion.div>
         
         <h3 className="text-2xl font-bold mb-2" style={{ color: COLORS.TEXT_MAIN }}>
@@ -260,7 +266,7 @@ function WhyParticipate() {
               boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
             }}
           >
-            Join the Movement 
+            Join the Movement
           </motion.a>
         </motion.div>
       </div>

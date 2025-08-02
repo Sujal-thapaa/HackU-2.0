@@ -42,19 +42,19 @@ const Contact = () => {
     {
       id: 'discord',
       href: 'https://discord.gg/hackunited',
-      icon: MessageSquare,
+      icon: 'public/icons/discord.png',
       label: 'Discord',
     },
     {
       id: 'linkedin',
       href: 'https://www.linkedin.com/company/hack-united/posts/?feedView=all',
-      icon: Linkedin,
+      icon: '/icons/linkedin.png',
       label: 'LinkedIn',
     },
     {
       id: 'instagram',
       href: 'https://www.instagram.com/hack_united/',
-      icon: Instagram,
+      icon: '/icons/instagram.png',
       label: 'Instagram',
     }
   ];
@@ -125,7 +125,7 @@ const Contact = () => {
             {/* Social Links */}
             <div className="grid grid-cols-3 gap-4">
               {socialLinks.map((social) => {
-                const Icon = social.icon;
+                const isCurrent = isHovered === social.id;
                 return (
                   <motion.a
                     key={social.id}
@@ -146,14 +146,14 @@ const Contact = () => {
                       className="relative flex flex-col items-center p-6 rounded-xl border transition-all duration-300"
                       style={{
                         backgroundColor: COLORS.SURFACE,
-                        borderColor: isHovered === social.id ? COLORS.PRIMARY_ACCENT : COLORS.SURFACE
+                        borderColor: isCurrent ? COLORS.PRIMARY_ACCENT : COLORS.SURFACE
                       }}
                     >
                       <div
                         className="w-12 h-12 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"
                         style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}
                       >
-                        <Icon className="text-white" size={24} />
+                        <img src={social.icon} alt={social.label} className="w-6 h-6 filter invert" />
                       </div>
                       <span className="text-white font-medium transition-colors" style={{ color: COLORS.PRIMARY_ACCENT }}>{social.label}</span>
                     </div>

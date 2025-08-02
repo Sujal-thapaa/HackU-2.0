@@ -38,29 +38,32 @@ const Navbar = () => {
   return (
     <>
       {/* Global Typography Styles */}
-      <style jsx global>{`
-        @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
-        @import url('https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
+      <style>
+  {`
+    @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
+    @import url('https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
 
-        :root {
-          --font-heading: 'Clash Display', sans-serif;
-          --font-body: 'General Sans', sans-serif;
-          --font-code: 'IBM Plex Mono', monospace;
-        }
+    :root {
+      --font-heading: 'Clash Display', sans-serif;
+      --font-body: 'General Sans', sans-serif;
+      --font-code: 'IBM Plex Mono', monospace;
+    }
 
-        body {
-          font-family: var(--font-body);
-        }
+    body {
+      font-family: var(--font-body);
+    }
 
-        h1, h2, h3, h4, h5, h6 {
-          font-family: var(--font-heading);
-        }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+    }
 
-        code, pre {
-          font-family: var(--font-code);
-        }
-      `}</style>
+    code, pre {
+      font-family: var(--font-code);
+    }
+  `}
+</style>
+
       
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled ? 'backdrop-blur-md border-b' : 'bg-transparent'

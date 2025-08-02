@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Play, UserPlus } from 'lucide-react';
+import { motion } from 'framer-motion'; // <-- This import was added
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { TextureLoader } from 'three';
@@ -281,7 +282,7 @@ const Hero = () => {
               The Ultimate Global Online Hackathon - Code. Create. Compete.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a
+              <motion.a
                 href="https://www.youtube.com/watch?v=p8CHaDP3Bxg"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -291,12 +292,14 @@ const Hero = () => {
                   boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`,
                   fontFamily: 'var(--font-body)'
                 }}
+                whileHover={{ scale: 1.05, y: -5, boxShadow: `0 10px 30px ${COLORS.PRIMARY_ACCENT}80` }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Play size={20} />
                 Watch Trailer
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform?pli=1&pli=1&pli=1&edit2=2_ABaOnucxaiQsOarIkNlEYleII0UX-lueNbcBAdyYHXPLfyUWP_s7iGIDg6UiFGUzpQ"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -306,10 +309,12 @@ const Hero = () => {
                   boxShadow: `0 0 20px ${COLORS.SECONDARY_ACCENT}40`,
                   fontFamily: 'var(--font-body)'
                 }}
+                whileHover={{ scale: 1.05, y: -5, boxShadow: `0 10px 30px ${COLORS.SECONDARY_ACCENT}80` }}
+                whileTap={{ scale: 0.95 }}
               >
                 <UserPlus size={20} />
                 Register Now
-              </a>
+              </motion.a>
             </div>
           </div>
 
