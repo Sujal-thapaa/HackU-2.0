@@ -20,8 +20,8 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
       setFlipDirection('next');
       setTimeout(() => {
         setCurrentPage(currentPage + 1);
-        setTimeout(() => setIsFlipping(false), 300);
-      }, 300);
+        setTimeout(() => setIsFlipping(false), 800);
+      }, 400);
     }
   };
 
@@ -31,8 +31,19 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
       setFlipDirection('prev');
       setTimeout(() => {
         setCurrentPage(currentPage - 1);
-        setTimeout(() => setIsFlipping(false), 300);
-      }, 300);
+        setTimeout(() => setIsFlipping(false), 800);
+      }, 400);
+    }
+  };
+
+  const goToPage = (targetPage: number) => {
+    if (targetPage !== currentPage && !isFlipping) {
+      setIsFlipping(true);
+      setFlipDirection(targetPage > currentPage ? 'next' : 'prev');
+      setTimeout(() => {
+        setCurrentPage(targetPage);
+        setTimeout(() => setIsFlipping(false), 800);
+      }, 400);
     }
   };
 
@@ -51,19 +62,16 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
     // Listen for navigation events from Navbar
     const handleNavigation = (e: CustomEvent) => {
       const targetPage = e.detail;
-      if (targetPage !== currentPage && !isFlipping) {
-        setIsFlipping(true);
-        setFlipDirection(targetPage > currentPage ? 'next' : 'prev');
-        setTimeout(() => {
-          setCurrentPage(targetPage);
-          setTimeout(() => setIsFlipping(false), 300);
-        }, 300);
-      }
+      goToPage(targetPage);
     };
+
     window.addEventListener('keydown', handleKeyPress);
     window.addEventListener('navigateToPage', handleNavigation as EventListener);
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
       window.removeEventListener('navigateToPage', handleNavigation as EventListener);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    };
   }, [currentPage, isFlipping]);
 
   const notebookBgStyle: React.CSSProperties = {
@@ -77,34 +85,6 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
     minHeight: '100vh',
     position: 'relative',
     overflow: 'hidden',
-  };
-
-  const pageVariants = {
-    enter: (direction: 'next' | 'prev') => ({
-      rotateY: direction === 'next' ? 180 : -180,
-      opacity: 0,
-      scale: 0.8,
-      transformOrigin: direction === 'next' ? 'left center' : 'right center',
-    }),
-    center: {
-      rotateY: 0,
-      opacity: 1,
-      scale: 1,
-      transformOrigin: 'center center',
-    },
-    exit: (direction: 'next' | 'prev') => ({
-      rotateY: direction === 'next' ? -180 : 180,
-      opacity: 0,
-      scale: 0.8,
-      transformOrigin: direction === 'next' ? 'right center' : 'left center',
-    }),
-  };
-
-  const pageTransition = {
-    type: 'spring',
-    stiffness: 300,
-    damping: 30,
-    duration: 0.6,
   };
 
   return (
@@ -149,34 +129,75 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      {/* Page content with flip animation */}
-      <div className="relative min-h-screen perspective-1000">
-        <AnimatePresence mode="wait" custom={flipDirection}>
-          <motion.div
-            key={currentPage}
-            custom={flipDirection}
-            variants={pageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={pageTransition}
-            className="absolute inset-0 w-full"
-            style={{
-              transformStyle: 'preserve-3d',
-              backfaceVisibility: 'hidden',
-            }}
-          >
-            {/* Page shadow effect during flip */}
-            {isFlipping && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-400/20 to-transparent pointer-events-none z-10" />
-            )}
-            
-            {/* Actual page content */}
-            <div className="relative z-0">
-              {children[currentPage]}
+      {/* Book container with realistic page flipping */}
+      <div className="relative min-h-screen overflow-hidden">
+        {/* Current page (always visible) */}
+        <div className="absolute inset-0 w-full h-full">
+          {children[currentPage]}
+        </div>
+
+        {/* Flipping page overlay */}
+        {isFlipping && (
+          <div className="absolute inset-0 w-full h-full pointer-events-none">
+            {/* Page being flipped */}
+            <div
+              className={`absolute inset-0 w-full h-full origin-left transform-gpu`}
+              style={{
+                transformStyle: 'preserve-3d',
+                animation: flipDirection === 'next' 
+                  ? 'flipPageNext 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
+                  : 'flipPagePrev 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
+              }}
+            >
+              {/* Front of the flipping page (current content) */}
+              <div 
+                className="absolute inset-0 w-full h-full backface-hidden"
+                style={{ 
+                  backfaceVisibility: 'hidden',
+                  transform: 'rotateY(0deg)'
+                }}
+              >
+                <div style={notebookBgStyle} className="w-full h-full">
+                  <div className="absolute left-[40px] top-0 w-[2px] h-full bg-red-400 opacity-70"></div>
+                  {children[flipDirection === 'next' ? currentPage : currentPage]}
+                </div>
+              </div>
+
+              {/* Back of the flipping page (next/prev content) */}
+              <div 
+                className="absolute inset-0 w-full h-full backface-hidden"
+                style={{ 
+                  backfaceVisibility: 'hidden',
+                  transform: 'rotateY(180deg)'
+                }}
+              >
+                <div style={notebookBgStyle} className="w-full h-full">
+                  <div className="absolute left-[40px] top-0 w-[2px] h-full bg-red-400 opacity-70"></div>
+                  {children[flipDirection === 'next' ? currentPage + 1 : currentPage - 1]}
+                </div>
+              </div>
+
+              {/* Page shadow during flip */}
+              <div 
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+                  opacity: 0,
+                  animation: 'pageShadow 0.8s ease-in-out'
+                }}
+              />
             </div>
-          </motion.div>
-        </AnimatePresence>
+
+            {/* Binding shadow effect */}
+            <div 
+              className="absolute left-0 top-0 w-2 h-full bg-gradient-to-r from-black/20 to-transparent pointer-events-none"
+              style={{
+                opacity: 0,
+                animation: 'bindingShadow 0.8s ease-in-out'
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Page dots indicator */}
@@ -184,21 +205,13 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
         {Array.from({ length: totalPages }).map((_, index) => (
           <button
             key={index}
-            onClick={() => {
-              if (index !== currentPage && !isFlipping) {
-                setIsFlipping(true);
-                setFlipDirection(index > currentPage ? 'next' : 'prev');
-                setTimeout(() => {
-                  setCurrentPage(index);
-                  setTimeout(() => setIsFlipping(false), 300);
-                }, 300);
-              }
-            }}
+            onClick={() => goToPage(index)}
+            disabled={isFlipping}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentPage
                 ? 'bg-blue-600 scale-125'
                 : 'bg-gray-300 hover:bg-gray-400'
-            }`}
+            } ${isFlipping ? 'cursor-not-allowed opacity-50' : ''}`}
             title={pageNames[index]}
           />
         ))}
@@ -215,19 +228,79 @@ const PageManager: React.FC<PageManagerProps> = ({ children, pageNames }) => {
         </div>
       </div>
 
+      {/* CSS Animations for realistic page flipping */}
       <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
+        .backface-hidden {
+          backface-visibility: hidden;
         }
-        
-        @keyframes pageFlip {
-          0% { transform: rotateY(0deg); }
-          50% { transform: rotateY(-90deg); }
-          100% { transform: rotateY(-180deg); }
+
+        @keyframes flipPageNext {
+          0% {
+            transform: rotateY(0deg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          }
+          25% {
+            transform: rotateY(-45deg);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+          }
+          50% {
+            transform: rotateY(-90deg);
+            box-shadow: -20px 0 40px rgba(0,0,0,0.3);
+          }
+          75% {
+            transform: rotateY(-135deg);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+          }
+          100% {
+            transform: rotateY(-180deg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          }
         }
-        
-        .page-flip-animation {
-          animation: pageFlip 0.6s ease-in-out;
+
+        @keyframes flipPagePrev {
+          0% {
+            transform: rotateY(0deg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          }
+          25% {
+            transform: rotateY(45deg);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+          }
+          50% {
+            transform: rotateY(90deg);
+            box-shadow: 20px 0 40px rgba(0,0,0,0.3);
+          }
+          75% {
+            transform: rotateY(135deg);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+          }
+          100% {
+            transform: rotateY(180deg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+          }
+        }
+
+        @keyframes pageShadow {
+          0%, 100% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes bindingShadow {
+          0%, 100% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .transform-gpu {
+          transform: translateZ(0);
+          will-change: transform;
         }
       `}</style>
     </div>
