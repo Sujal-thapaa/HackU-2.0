@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
+import PageManager from './components/PageManager';
 import Hero from './components/Hero';
 import GalaxySection from './components/GalaxySection';
 import About from './components/About';
@@ -14,36 +15,36 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
-  useEffect(() => {
-    // Smooth scrolling for anchor links
-    const handleClick = (e: Event) => {
-      const target = e.target as HTMLAnchorElement;
-      if (target.hash) {
-        e.preventDefault();
-        const element = document.querySelector(target.hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
+  const pages = [
+    <Hero key="hero" />,
+    <About key="about" />,
+    <GalaxySection key="galaxy" />,
+    <WhyParticipate key="why-participate" />,
+    <Judges key="judges" />,
+    <Requirements key="requirements" />,
+    <Prizes key="prizes" />,
+    <FAQ key="faq" />,
+    <Contact key="contact" />,
+  ];
 
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
+  const pageNames = [
+    'Home',
+    'About',
+    'Previous Hackathons',
+    'Why Join',
+    'Judges & Sponsors',
+    'Requirements',
+    'Prizes',
+    'FAQ',
+    'Contact',
+  ];
 
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
-      <Hero />
-      
-      <About />
-      <GalaxySection />
-      <WhyParticipate />
-      <Judges />
-      <Requirements />
-      <Prizes />
-      <FAQ />
-      <Contact />
+      <PageManager pageNames={pageNames}>
+        {pages}
+      </PageManager>
       <Footer />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, BookOpen } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,24 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['Home', 'About', 'Previous', 'Why Join', 'Judges', 'FAQ', 'Contact'];
+  // Updated to reflect the new page-based navigation
+  const navItems = [
+    { name: 'Home', page: 0 },
+    { name: 'About', page: 1 },
+    { name: 'Previous', page: 2 },
+    { name: 'Why Join', page: 3 },
+    { name: 'Judges', page: 4 },
+    { name: 'Requirements', page: 5 },
+    { name: 'Prizes', page: 6 },
+    { name: 'FAQ', page: 7 },
+    { name: 'Contact', page: 8 },
+  ];
+
+  const handleNavClick = (pageIndex: number) => {
+    // Dispatch a custom event to communicate with PageManager
+    window.dispatchEvent(new CustomEvent('navigateToPage', { detail: pageIndex }));
+    setIsOpen(false);
+  };
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -22,25 +39,25 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <a href="#home" className="flex items-center">
+            <button onClick={() => handleNavClick(0)} className="flex items-center hover:opacity-80 transition-opacity">
               <img 
                 src="/HackUnitedLogo2.webp" 
                 alt="United Hacks V6" 
                 className="h-10 w-auto"
               />
-            </a>
+            </button>
           </div>
           
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
+                <button
+                  key={item.name}
+                  onClick={() => handleNavClick(item.page)}
                   className="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </button>
               ))}
             </div>
           </div>
@@ -60,14 +77,13 @@ const Navbar = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900/95 backdrop-blur-md">
             {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.page)}
                 className="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
               >
-                {item}
-              </a>
+                {item.name}
+              </button>
             ))}
           </div>
         </div>
