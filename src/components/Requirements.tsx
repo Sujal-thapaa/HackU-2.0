@@ -2,11 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Calendar, Github, Video, ExternalLink, AlertTriangle, MessageCircle, Clock, Users, Trophy, Zap } from 'lucide-react';
 
+// Define the new color palette
+const COLORS = {
+  PRIMARY_BG: '#121212',      // Deep Charcoal
+  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
+  SECONDARY_ACCENT: '#F6C177', // Warm Gold
+  SURFACE: '#262626',         // Graphite Gray
+  TEXT_MAIN: '#F1F1F1',       // Soft White
+  TEXT_MUTED: '#B0B0B0',      // Mid Gray
+  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+};
+
 // Particle component for background
-const Particle = ({ index }: { index: number }) => {
+const Particle = ({ index }) => {
   return (
     <motion.div
-      className="absolute w-1 h-1 bg-blue-400/20 rounded-full"
+      className="absolute w-1 h-1 rounded-full"
+      style={{ backgroundColor: COLORS.PRIMARY_ACCENT, opacity: 0.2 }}
       initial={{
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -45,37 +57,33 @@ const Requirements = () => {
       icon: Github,
       title: 'Public Github/Alternative Repository',
       description: 'Your project code must be publicly accessible',
-      color: 'from-purple-500 to-pink-500',
-      bgColor: 'bg-purple-500/10',
-      borderColor: 'border-purple-500/20',
-      textColor: 'text-purple-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     },
     {
       icon: Video,
       title: 'Demo Video of your Project (2-5 mins)',
       description: 'A video demonstration of your project functionality',
-      color: 'from-blue-500 to-cyan-500',
-      bgColor: 'bg-blue-500/10',
-      borderColor: 'border-blue-500/20',
-      textColor: 'text-blue-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     },
     {
       icon: FileText,
       title: 'Written Explanation of your Project',
       description: 'Detailed project description done via Devpost',
-      color: 'from-green-500 to-emerald-500',
-      bgColor: 'bg-green-500/10',
-      borderColor: 'border-green-500/20',
-      textColor: 'text-green-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     },
     {
       icon: ExternalLink,
       title: 'Link to Live Demo (Optional)',
       description: 'Link to live demo of your project (helpful but not required)',
-      color: 'from-orange-500 to-red-500',
-      bgColor: 'bg-orange-500/10',
-      borderColor: 'border-orange-500/20',
-      textColor: 'text-orange-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     }
   ];
 
@@ -86,10 +94,9 @@ const Requirements = () => {
       date: 'January 16th, 2026',
       time: '7:00 PM EST',
       description: 'Kickoff event with theme announcement and team formation',
-      color: 'from-yellow-500 to-orange-500',
-      bgColor: 'bg-yellow-500/10',
-      borderColor: 'border-yellow-500/20',
-      textColor: 'text-yellow-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     },
     {
       icon: Clock,
@@ -97,10 +104,9 @@ const Requirements = () => {
       date: 'January 18th, 2026',
       time: '12:00 PM EST',
       description: 'Final deadline for all project submissions',
-      color: 'from-red-500 to-pink-500',
-      bgColor: 'bg-red-500/10',
-      borderColor: 'border-red-500/20',
-      textColor: 'text-red-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     },
     {
       icon: Trophy,
@@ -108,10 +114,9 @@ const Requirements = () => {
       date: 'January 18th, 2025',
       time: '8:00 PM EST',
       description: 'Awards ceremony and winner announcements',
-      color: 'from-purple-500 to-blue-500',
-      bgColor: 'bg-purple-500/10',
-      borderColor: 'border-purple-500/20',
-      textColor: 'text-purple-400'
+      iconColor: COLORS.SECONDARY_ACCENT,
+      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+      textColor: COLORS.PRIMARY_ACCENT
     }
   ];
 
@@ -207,13 +212,13 @@ const Requirements = () => {
       scale: 1.05,
       rotateY: 5,
       rotateX: 5,
-      boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+      boxShadow: `0 20px 40px ${COLORS.PRIMARY_ACCENT}4D`, // Primary Accent shadow
       transition: { duration: 0.3 }
     }
   };
 
   return (
-    <section id="requirements" className="py-20 bg-gray-800 relative overflow-hidden">
+    <section id="requirements" className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
       {/* Particle Background */}
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 25 }).map((_, i) => (
@@ -228,10 +233,15 @@ const Requirements = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+            style={{ 
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
+            }}
+          >
             Requirements & Important Info
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto" style={{ color: COLORS.TEXT_MUTED }}>
             Everything you need to know about participating in United Hacks V6
           </p>
         </motion.div>
@@ -251,9 +261,16 @@ const Requirements = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                    : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50'
+                    ? 'text-white shadow-lg'
+                    : 'text-white'
                 }`}
+                style={{ 
+                  backgroundColor: COLORS.SURFACE,
+                  color: COLORS.TEXT_MAIN,
+                  background: activeTab === tab.id 
+                    ? `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` 
+                    : undefined 
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -282,18 +299,22 @@ const Requirements = () => {
                     key={index}
                     variants={cardVariants}
                     whileHover="hover"
-                    className={`p-6 rounded-xl border transform rotate-1 hover:rotate-0 transition-transform duration-300 ${req.bgColor} ${req.borderColor}`}
+                    className="p-6 rounded-xl border transform rotate-1 hover:rotate-0 transition-transform duration-300"
                     style={{
-                      background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                      background: COLORS.SURFACE,
+                      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
                     }}
                   >
                     <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${req.color}`}>
+                      <div 
+                        className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={{ backgroundColor: req.iconColor }}
+                      >
                         <IconComponent className="text-white" size={24} />
                       </div>
                       <div>
-                        <h4 className={`text-lg font-semibold mb-2 ${req.textColor}`}>{req.title}</h4>
-                        <p className="text-gray-300 leading-relaxed">{req.description}</p>
+                        <h4 className="text-lg font-semibold mb-2" style={{ color: req.textColor }}>{req.title}</h4>
+                        <p style={{ color: COLORS.TEXT_MUTED }}>{req.description}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -319,28 +340,36 @@ const Requirements = () => {
                     key={index}
                     variants={cardVariants}
                     whileHover="hover"
-                    className={`p-6 rounded-xl border transform -rotate-1 hover:rotate-0 transition-transform duration-300 ${date.bgColor} ${date.borderColor}`}
+                    className="p-6 rounded-xl border transform -rotate-1 hover:rotate-0 transition-transform duration-300"
                     style={{
-                      background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                      background: COLORS.SURFACE,
+                      borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
                     }}
                   >
                     <div className="text-center">
-                      <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-gradient-to-br ${date.color}`}>
+                      <div 
+                        className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: date.iconColor }}
+                      >
                         <IconComponent className="text-white" size={28} />
                       </div>
-                      <h4 className="text-xl font-bold text-white mb-2">{date.event}</h4>
-                      <p className={`font-semibold mb-1 ${date.textColor}`}>{date.date}</p>
-                      <p className={`text-sm mb-3 ${date.textColor}`}>{date.time}</p>
-                      <p className="text-gray-300 text-sm leading-relaxed">{date.description}</p>
+                      <h4 className="text-xl font-bold text-white mb-2" style={{ color: COLORS.TEXT_MAIN }}>{date.event}</h4>
+                      <p className="font-semibold mb-1" style={{ color: date.textColor }}>{date.date}</p>
+                      <p className="text-sm mb-3" style={{ color: date.textColor }}>{date.time}</p>
+                      <p className="text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>{date.description}</p>
                     </div>
                   </motion.div>
                 );
               })}
               <motion.div
                 variants={itemVariants}
-                className="lg:col-span-3 mt-6 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20"
+                className="lg:col-span-3 mt-6 p-4 rounded-lg"
+                style={{ 
+                  backgroundColor: COLORS.SURFACE, 
+                  borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
+                }}
               >
-                <p className="text-blue-300 text-center">
+                <p className="text-center" style={{ color: COLORS.TEXT_MUTED }}>
                   <strong>Note:</strong> The link to the live streams will be posted in our Discord server.
                 </p>
               </motion.div>
@@ -360,13 +389,14 @@ const Requirements = () => {
               {/* Rules */}
               <motion.div
                 variants={itemVariants}
-                className="p-8 rounded-xl border border-red-500/20 bg-red-500/5 transform rotate-1"
+                className="p-8 rounded-xl border transform rotate-1"
                 style={{
-                  background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                  background: COLORS.SURFACE,
+                  borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
                 }}
               >
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <AlertTriangle className="text-red-400" size={28} />
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3" style={{ color: COLORS.TEXT_MAIN }}>
+                  <AlertTriangle style={{ color: COLORS.PRIMARY_ACCENT }} size={28} />
                   Other Criteria
                 </h3>
                 <div className="space-y-6">
@@ -375,12 +405,16 @@ const Requirements = () => {
                     return (
                       <motion.div
                         key={index}
-                        className="flex items-start gap-4 p-4 rounded-lg bg-red-500/10 border border-red-500/20"
+                        className="flex items-start gap-4 p-4 rounded-lg"
+                        style={{
+                          backgroundColor: `${COLORS.PRIMARY_ACCENT}1A`,
+                          borderColor: `${COLORS.PRIMARY_ACCENT}1A`
+                        }}
                         whileHover={{ scale: 1.02, x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <IconComponent className="text-red-400 mt-1 flex-shrink-0" size={20} />
-                        <p className="text-gray-300 leading-relaxed">{rule.text}</p>
+                        <IconComponent style={{ color: COLORS.PRIMARY_ACCENT }} className="mt-1 flex-shrink-0" size={20} />
+                        <p style={{ color: COLORS.TEXT_MUTED }}>{rule.text}</p>
                       </motion.div>
                     );
                   })}
@@ -390,13 +424,14 @@ const Requirements = () => {
               {/* Registration Steps */}
               <motion.div
                 variants={itemVariants}
-                className="p-8 rounded-xl border border-green-500/20 bg-green-500/5 transform -rotate-1"
+                className="p-8 rounded-xl border transform -rotate-1"
                 style={{
-                  background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                  background: COLORS.SURFACE,
+                  borderColor: `${COLORS.SECONDARY_ACCENT}1A`,
                 }}
               >
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <ExternalLink className="text-green-400" size={28} />
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3" style={{ color: COLORS.TEXT_MAIN }}>
+                  <ExternalLink style={{ color: COLORS.SECONDARY_ACCENT }} size={28} />
                   How To Register
                 </h3>
                 <div className="space-y-6">
@@ -405,16 +440,23 @@ const Requirements = () => {
                     return (
                       <motion.div
                         key={index}
-                        className="flex items-start gap-4 p-4 rounded-lg bg-green-500/10 border border-green-500/20"
+                        className="flex items-start gap-4 p-4 rounded-lg"
+                        style={{
+                          backgroundColor: `${COLORS.SECONDARY_ACCENT}1A`,
+                          borderColor: `${COLORS.SECONDARY_ACCENT}1A`
+                        }}
                         whileHover={{ scale: 1.02, x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        <div 
+                          className="w-8 h-8 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                          style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}
+                        >
                           {index + 1}
                         </div>
                         <div className="flex-1">
-                          <IconComponent className="text-green-400 mb-2" size={20} />
-                          <p className="text-gray-300 leading-relaxed">{step.step}</p>
+                          <IconComponent style={{ color: COLORS.SECONDARY_ACCENT }} className="mb-2" size={20} />
+                          <p style={{ color: COLORS.TEXT_MUTED }}>{step.step}</p>
                         </div>
                       </motion.div>
                     );
@@ -437,35 +479,44 @@ const Requirements = () => {
               {/* Theme */}
               <motion.div
                 variants={itemVariants}
-                className="p-8 rounded-xl border border-green-500/20 transform rotate-1"
+                className="p-8 rounded-xl border transform rotate-1"
                 style={{
-                  background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                  background: COLORS.SURFACE,
+                  borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
                 }}
               >
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <FileText className="text-green-400" size={28} />
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3" style={{ color: COLORS.TEXT_MAIN }}>
+                  <FileText style={{ color: COLORS.PRIMARY_ACCENT }} size={28} />
                   {themeInfo.title}
                 </h3>
                 <div className="space-y-6">
                   <motion.div 
-                    className="p-4 bg-green-500/10 rounded-lg border border-green-500/20"
+                    className="p-4 rounded-lg border"
+                    style={{ 
+                      backgroundColor: `${COLORS.PRIMARY_ACCENT}1A`, 
+                      borderColor: `${COLORS.PRIMARY_ACCENT}1A` 
+                    }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <h4 className="text-green-400 font-semibold mb-2 flex items-center gap-2">
+                    <h4 className="font-semibold mb-2 flex items-center gap-2" style={{ color: COLORS.PRIMARY_ACCENT }}>
                       <Trophy size={18} />
                       Theme Track
                     </h4>
-                    <p className="text-gray-300">{themeInfo.themeTrack}</p>
+                    <p style={{ color: COLORS.TEXT_MUTED }}>{themeInfo.themeTrack}</p>
                   </motion.div>
                   <motion.div 
-                    className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20"
+                    className="p-4 rounded-lg border"
+                    style={{ 
+                      backgroundColor: `${COLORS.PRIMARY_ACCENT}1A`, 
+                      borderColor: `${COLORS.PRIMARY_ACCENT}1A` 
+                    }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <h4 className="text-blue-400 font-semibold mb-2 flex items-center gap-2">
+                    <h4 className="font-semibold mb-2 flex items-center gap-2" style={{ color: COLORS.PRIMARY_ACCENT }}>
                       <Zap size={18} />
                       General Track
                     </h4>
-                    <p className="text-gray-300">{themeInfo.generalTrack}</p>
+                    <p style={{ color: COLORS.TEXT_MUTED }}>{themeInfo.generalTrack}</p>
                   </motion.div>
                 </div>
               </motion.div>
@@ -473,24 +524,34 @@ const Requirements = () => {
               {/* Workshop Schedule */}
               <motion.div
                 variants={itemVariants}
-                className="p-8 rounded-xl border border-orange-500/20 transform -rotate-1"
+                className="p-8 rounded-xl border transform -rotate-1"
                 style={{
-                  background: `linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)`,
+                  background: COLORS.SURFACE,
+                  borderColor: `${COLORS.SECONDARY_ACCENT}1A`,
                 }}
               >
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <MessageCircle className="text-orange-400" size={28} />
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3" style={{ color: COLORS.TEXT_MAIN }}>
+                  <MessageCircle style={{ color: COLORS.SECONDARY_ACCENT }} size={28} />
                   {workshopInfo.title}
                 </h3>
                 <motion.div 
-                  className="p-6 bg-orange-500/10 rounded-lg border border-orange-500/20 text-center"
+                  className="p-6 rounded-lg border text-center"
+                  style={{ 
+                    backgroundColor: `${COLORS.SECONDARY_ACCENT}1A`, 
+                    borderColor: `${COLORS.SECONDARY_ACCENT}1A` 
+                  }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                  <div 
+                    className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
+                    style={{ 
+                      backgroundColor: COLORS.SECONDARY_ACCENT
+                    }}
+                  >
                     <Clock className="text-white" size={28} />
                   </div>
-                  <h4 className="text-orange-400 font-semibold mb-2 text-xl">{workshopInfo.status}</h4>
-                  <p className="text-gray-300">{workshopInfo.description}</p>
+                  <h4 className="font-semibold mb-2 text-xl" style={{ color: COLORS.SECONDARY_ACCENT }}>{workshopInfo.status}</h4>
+                  <p style={{ color: COLORS.TEXT_MUTED }}>{workshopInfo.description}</p>
                 </motion.div>
               </motion.div>
             </motion.div>

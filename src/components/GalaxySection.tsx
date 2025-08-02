@@ -625,13 +625,19 @@ const GalaxySection = () => {
 
       {/* Title Section */}
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-10">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-          Previous Hackathons
-        </h2>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-          Explore our legacy of innovation through an interactive galaxy
-        </p>
-      </div>
+  <h2
+    className="text-4xl md:text-5xl font-bold mb-6"
+    style={{ color: '#FF6849' }} // PRIMARY_ACCENT
+  >
+    Previous Hackathons
+  </h2>
+  <p
+    className="text-xl max-w-3xl mx-auto"
+    style={{ color: '#F1F1F1' }} // TEXT_MAIN
+  >
+    Explore our legacy of innovation through an interactive galaxy
+  </p>
+</div>
 
       {/* Main container */}
       <div 

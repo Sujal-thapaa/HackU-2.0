@@ -60,7 +60,7 @@ const Judges = () => {
           transition={{ duration: 1, ease: "easeOut" }} // Smooth animation duration
           className="text-white text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
         >
-          judges & sponsors section Under Construction
+          judges & sponsors section sUnder Construction
         </motion.h2>
 
         {/* Animated descriptive text */}

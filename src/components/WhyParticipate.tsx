@@ -3,6 +3,17 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Code2, Lightbulb, Users, Trophy, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+// Define the new color palette
+const COLORS = {
+  PRIMARY_BG: '#121212',      // Deep Charcoal
+  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
+  SECONDARY_ACCENT: '#F6C177', // Warm Gold
+  SURFACE: '#262626',         // Graphite Gray
+  TEXT_MAIN: '#F1F1F1',       // Soft White
+  TEXT_MUTED: '#B0B0B0',      // Mid Gray
+  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+};
+
 // Define the stages for the hackathon journey
 const stages = [
   {
@@ -11,8 +22,6 @@ const stages = [
     title: 'Hack & Compete',
     subtitle: 'Innovate with cutting-edge tech',
     description: 'Build powerful solutions using the latest technologies. Challenge yourself against global talent and showcase your skills in the ultimate coding competition.',
-    color: 'from-purple-600 to-pink-600',
-    bgColor: 'bg-gradient-to-br from-purple-900/20 to-pink-900/20',
   },
   {
     id: 'learn',
@@ -20,8 +29,6 @@ const stages = [
     title: 'Learn & Grow',
     subtitle: 'Expand your skills with expert guidance',
     description: 'Join workshops, mentorships, and masterclasses led by top tech professionals. Level up your abilities and accelerate your developer journey.',
-    color: 'from-amber-500 to-orange-600',
-    bgColor: 'bg-gradient-to-br from-amber-900/20 to-orange-900/20',
   },
   {
     id: 'network',
@@ -29,8 +36,6 @@ const stages = [
     title: 'Collaborate & Network',
     subtitle: 'Build lasting connections',
     description: 'Meet and team up with developers, founders, and innovators from around the world. Forge partnerships that go beyond the hackathon.',
-    color: 'from-emerald-500 to-teal-600',
-    bgColor: 'bg-gradient-to-br from-emerald-900/20 to-teal-900/20',
   },
   {
     id: 'win',
@@ -38,8 +43,6 @@ const stages = [
     title: 'Win Big',
     subtitle: 'Unlock prizes and opportunities',
     description: 'Stand out and earn recognition, cash rewards, and career-changing opportunities that can shape your future.',
-    color: 'from-yellow-400 to-amber-500',
-    bgColor: 'bg-gradient-to-br from-yellow-900/20 to-amber-900/20',
   }
 ];
 
@@ -60,7 +63,7 @@ const StageCard = ({ stage, index }) => {
         particleCount: 50,
         spread: 60,
         origin: { y: 0.7 },
-        colors: ['#FFD700', '#FFA500', '#FF6347']
+        colors: [COLORS.PRIMARY_ACCENT, COLORS.SECONDARY_ACCENT] // Use specified colors
       });
     }
   };
@@ -76,7 +79,11 @@ const StageCard = ({ stage, index }) => {
   return (
     <motion.div
       ref={cardRef}
-      className={`relative ${stage.bgColor} backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-xl`}
+      className="relative backdrop-blur-sm border rounded-2xl p-6 shadow-xl"
+      style={{
+        backgroundColor: `${COLORS.SURFACE}80`, // 50% opacity
+        borderColor: `${COLORS.PRIMARY_ACCENT}1A` // 10% opacity
+      }}
       // Initial state of the animation
       initial={{ opacity: 0, y: 50 }}
       // Animate to this state when the element is in view
@@ -97,22 +104,26 @@ const StageCard = ({ stage, index }) => {
     >
       <div className="relative z-10">
         <motion.div
-          className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${stage.color} mb-4`}
+          className="inline-flex p-3 rounded-xl mb-4"
+          style={{ backgroundColor: COLORS.PRIMARY_ACCENT }}
           whileHover={{ rotate: 5 }}
           transition={{ duration: 0.3 }}
         >
           <stage.icon className="w-6 h-6 text-white" />
         </motion.div>
         
-        <h3 className="text-2xl font-bold text-white mb-2">
+        <h3 className="text-2xl font-bold mb-2" style={{ color: COLORS.TEXT_MAIN }}>
           {stage.title}
         </h3>
         
-        <p className={`text-base font-semibold bg-gradient-to-r ${stage.color} bg-clip-text text-transparent mb-3`}>
+        <p
+          className="text-base font-semibold bg-clip-text text-transparent mb-3"
+          style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+        >
           {stage.subtitle}
         </p>
         
-        <p className="text-gray-300 text-sm leading-relaxed">
+        <p className="text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>
           {stage.description}
         </p>
       </div>
@@ -149,10 +160,8 @@ const AnimatedPath = () => {
         />
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="33%" stopColor="#F59E0B" />
-            <stop offset="66%" stopColor="#10B981" />
-            <stop offset="100%" stopColor="#F59E0B" />
+            <stop offset="0%" stopColor={COLORS.PRIMARY_ACCENT} />
+            <stop offset="100%" stopColor={COLORS.SECONDARY_ACCENT} />
           </linearGradient>
         </defs>
       </svg>
@@ -165,9 +174,12 @@ function WhyParticipate() {
   const containerRef = useRef(null);
   
   return (
-    <section id="why-join" className="relative min-h-screen bg-black py-16 overflow-hidden font-inter">
+    <section id="why-join" className="relative min-h-screen py-16 overflow-hidden font-inter" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-black to-blue-900/10" />
+      <div 
+        className="absolute inset-0" 
+        style={{ backgroundImage: `linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT}1A 0%, ${COLORS.SECONDARY_ACCENT}1A 100%)` }}
+      />
 
       <div ref={containerRef} className="relative max-w-5xl mx-auto px-6">
         {/* Header section with text and animations */}
@@ -178,14 +190,20 @@ function WhyParticipate() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
-            <Sparkles className="w-5 h-5 text-purple-500" />
-            <span className="text-sm font-semibold uppercase tracking-wider">The Journey</span>
+          <div 
+            className="inline-flex items-center gap-2 bg-clip-text text-transparent mb-4"
+            style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+          >
+            <Sparkles className="w-5 h-5" style={{ color: COLORS.PRIMARY_ACCENT }} />
+            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: COLORS.PRIMARY_ACCENT }}>The Journey</span>
           </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-            Why <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Participate?</span>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-4 leading-tight" style={{ color: COLORS.TEXT_MAIN }}>
+            Why <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+            >Participate?</span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: COLORS.TEXT_MUTED }}>
             Embark on a transformative journey through four stages of innovation
           </p>
         </motion.div>
@@ -194,10 +212,10 @@ function WhyParticipate() {
         <div className="relative">
           <AnimatedPath />
           
-          <div className="grid gap-12 lg:gap-16">
+          <div className="grid gap-2 lg:gap-4">
             {stages.map((stage, index) => (
               <div key={stage.id} className={`flex items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:pr-12' : 'lg:pl-12'}`}>
+                <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:pr-2' : 'lg:pl-2'}`}>
                   <StageCard
                     stage={stage}
                     index={index}
@@ -222,17 +240,20 @@ function WhyParticipate() {
             href="https://unitedhacksv6.devpost.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg rounded-full shadow-lg"
+            className="px-8 py-4 text-white font-bold text-lg rounded-full shadow-lg"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
+            }}
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 0 30px rgba(147, 51, 234, 0.4)"
+              boxShadow: `0 0 30px ${COLORS.PRIMARY_ACCENT}40`
             }}
             whileTap={{ scale: 0.95 }}
             animate={{
               boxShadow: [
-                "0 0 15px rgba(147, 51, 234, 0.2)",
-                "0 0 25px rgba(147, 51, 234, 0.3)",
-                "0 0 15px rgba(147, 51, 234, 0.2)"
+                `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`,
+                `0 0 25px ${COLORS.PRIMARY_ACCENT}40`,
+                `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`
               ]
             }}
             transition={{

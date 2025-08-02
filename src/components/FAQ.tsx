@@ -2,8 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
+// Define the new color palette
+const COLORS = {
+  PRIMARY_BG: '#121212',      // Deep Charcoal
+  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
+  SECONDARY_ACCENT: '#F6C177', // Warm Gold
+  SURFACE: '#262626',         // Graphite Gray
+  TEXT_MAIN: '#F1F1F1',       // Soft White
+  TEXT_MUTED: '#B0B0B0',      // Mid Gray
+  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+  ERROR_WARNING: '#FF4E4E'    // Ember Red
+};
+
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -28,7 +40,7 @@ const FAQ = () => {
     { question: 'I have more questions', answer: 'You can ask your questions on the Discord or email us at humans@hackunited.org.' }
   ];
 
-  const toggleFAQ = (index: number) => setOpenIndex(openIndex === index ? null : index);
+  const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -61,13 +73,12 @@ const FAQ = () => {
     },
   };
   
-  // Variants for the answer content to animate height and opacity
   const answerVariants = {
     hidden: { opacity: 0, height: 0, marginTop: 0 },
     visible: { 
       opacity: 1, 
       height: 'auto',
-      marginTop: '1rem', // Adjust margin as needed
+      marginTop: '1rem',
       transition: {
         opacity: { duration: 0.2 },
         height: { duration: 0.4, ease: "easeInOut" }
@@ -80,17 +91,11 @@ const FAQ = () => {
       id="faq"
       className="py-20 relative overflow-hidden"
       style={{
-        backgroundColor: '#F8F8F8',
-        backgroundImage:
-          'linear-gradient(to bottom, #d3e1f0 1px, transparent 1px), ' +
-          'linear-gradient(to bottom, #2b3a4a 1px, transparent 1px)',
-        backgroundSize: '100% 2em',
-        backgroundPosition: 'left top',
-        backgroundBlendMode: 'difference, normal',
+        backgroundColor: COLORS.PRIMARY_BG,
         minHeight: '100vh',
       }}
     >
-      <div className="absolute left-[40px] top-0 w-[2px] h-full bg-red-400 opacity-70 pointer-events-none"></div>
+      <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-full" style={{ backgroundColor: COLORS.PRIMARY_ACCENT, opacity: 0.7 }}></div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-16"
@@ -98,10 +103,13 @@ const FAQ = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+            style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
+          >
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-700">
+          <p className="text-xl" style={{ color: COLORS.TEXT_MUTED }}>
             Got questions? We've got answers!
           </p>
         </motion.div>
@@ -128,7 +136,7 @@ const FAQ = () => {
                         rotateX: 5,
                         rotateZ: 2,
                         scale: 1.05,
-                        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+                        boxShadow: `0 20px 40px ${COLORS.PRIMARY_ACCENT}4D`,
                         transition: { duration: 0.3 }
                       }
                 }
@@ -139,21 +147,22 @@ const FAQ = () => {
                   className="absolute inset-0 rounded-xl backface-hidden"
                   style={{
                     transformStyle: 'preserve-3d',
-                    background: '#FEF9C3',
+                    background: COLORS.SURFACE,
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
                     transform: 'rotate(2deg)',
                     zIndex: 2,
+                    borderColor: COLORS.SECONDARY_ACCENT
                   }}
                 >
                   <div className="p-4 h-full flex flex-col justify-between">
-                    <h3 className="text-gray-900 font-semibold text-lg leading-tight mb-2">
+                    <h3 className="font-semibold text-lg leading-tight mb-2" style={{ color: COLORS.TEXT_MAIN }}>
                       {faq.question}
                     </h3>
                     <div className="flex justify-center">
                       <motion.div
                         animate={{
                           rotate: openIndex === index ? 180 : 0,
-                          color: openIndex === index ? '#a855f7' : '#3b82f6'
+                          color: openIndex === index ? COLORS.PRIMARY_ACCENT : COLORS.SECONDARY_ACCENT
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -161,28 +170,31 @@ const FAQ = () => {
                       </motion.div>
                     </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                  <div 
+                    className="absolute inset-0 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}1A, ${COLORS.SECONDARY_ACCENT}1A)`}}
+                  />
                 </div>
                 {/* Back Side: Only Answer (Desktop), or expanded below on mobile */}
                 {!isMobile ? (
                   <div
                     className="absolute inset-0 rounded-xl backface-hidden"
                     style={{
-                      background: 'linear-gradient(135deg, #1e40af 0%, #7c3aed 100%)',
+                      background: `linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT} 0%, ${COLORS.SECONDARY_ACCENT} 100%)`,
                       transform: 'rotateY(180deg) rotate(2deg)',
                       transformStyle: 'preserve-3d',
                       zIndex: 3,
                     }}
                   >
                     <div className="p-4 h-full flex flex-col justify-between">
-                      <p className="text-white leading-relaxed text-sm">
+                      <p className="text-white leading-relaxed text-sm" style={{ color: COLORS.TEXT_MAIN }}>
                         {faq.answer}
                       </p>
                       <div className="flex justify-center">
                         <motion.div
                           animate={{
                             rotate: 180,
-                            color: '#fff'
+                            color: COLORS.TEXT_MAIN
                           }}
                         >
                           <ChevronUp size={24} />
@@ -198,13 +210,14 @@ const FAQ = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="absolute top-full left-0 right-0 mt-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-4"
+                        className="absolute top-full left-0 right-0 mt-2 rounded-xl p-4"
                         style={{
                           zIndex: 10,
-                          transform: 'rotate(2deg)'
+                          transform: 'rotate(2deg)',
+                          backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
                         }}
                       >
-                        <p className="text-white leading-relaxed text-sm">
+                        <p className="text-white leading-relaxed text-sm" style={{ color: COLORS.TEXT_MAIN }}>
                           {faq.answer}
                         </p>
                       </motion.div>
