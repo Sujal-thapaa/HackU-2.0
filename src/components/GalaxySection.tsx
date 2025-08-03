@@ -178,41 +178,13 @@ const GalaxySection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const renderFloatingParticles = () => {
-    const particles = [];
-    for (let i = 0; i < 50; i++) {
-      const size = Math.random() * 4 + 1;
-      const opacity = Math.random() * 0.6 + 0.2;
-      const animationDelay = Math.random() * 5;
-      const duration = Math.random() * 3 + 2;
-      
-      particles.push(
-        <div
-          key={i}
-          className="absolute rounded-full bg-blue-400 animate-pulse"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            opacity,
-            animationDelay: `${animationDelay}s`,
-            animationDuration: `${duration}s`,
-            transform: `translateZ(${Math.random() * 100 - 50}px)`
-          }}
-        />
-      );
-    }
-    return particles;
-  };
-
   const renderMemoryShards = () => {
     return hackathonData.map((hackathon) => {
       const isHovered = hoveredShard === hackathon.id;
       const isSelected = selectedShard?.id === hackathon.id;
       
-      // Fast rotation for all versions (same as V1 and V2)
-      const rotationSpeed = 2.0;
+      // Increased rotation speed for V1-V5
+      const rotationSpeed = 10.0;
 
       return (
         <div
@@ -238,23 +210,19 @@ const GalaxySection = () => {
           >
             {/* Shard body with glassmorphism */}
             <div
-              className="w-full h-full rounded-lg backdrop-blur-md border border-opacity-30 relative overflow-hidden"
+              className="w-full h-full rounded-full backdrop-blur-md border border-opacity-30 relative overflow-hidden"
               style={{
                 background: `linear-gradient(135deg, ${hackathon.glowColor}, transparent 70%)`,
                 borderColor: hackathon.color,
-                boxShadow: `0 8px 32px ${hackathon.glowColor}, inset 0 0 20px ${hackathon.glowColor}`
+                boxShadow: `0 8px 32px ${hackathon.glowColor}, inset 0 0 20px ${hackathon.glowColor}`,
+                transformStyle: 'preserve-3d'
               }}
             >
-              {/* Inner glow effect */}
-              <div 
-                className="absolute inset-0 rounded-lg opacity-50"
-                style={{
-                  background: `radial-gradient(circle at 30% 30%, ${hackathon.color}80, transparent 70%)`
-                }}
-              />
-              
               {/* Version label */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div 
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ backfaceVisibility: 'hidden' }}
+              >
                 <span 
                   className="text-white font-bold text-lg md:text-xl"
                   style={{ textShadow: `0 0 10px ${hackathon.color}` }}
@@ -262,10 +230,10 @@ const GalaxySection = () => {
                   {hackathon.version}
                 </span>
               </div>
-
+              
               {/* Animated border */}
               <div 
-                className="absolute inset-0 rounded-lg"
+                className="absolute inset-0 rounded-full"
                 style={{
                   background: `conic-gradient(from 0deg, ${hackathon.color}, transparent, ${hackathon.color})`,
                   mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
@@ -428,15 +396,15 @@ const GalaxySection = () => {
     const isV6Selected = selectedShard?.id === 6;
     const isV6Hovered = hoveredShard === 6;
     
-    // Fast rotation for V6 core (same as other versions)
-    const rotationSpeed = 2.0;
+    // Increased rotation speed for V6 core
+    const rotationSpeed = 0.00001;
 
     return (
       <>
         <div 
           className="relative z-10 cursor-pointer transition-all duration-300"
           style={{
-            transform: `rotateY(${coreRotation * rotationSpeed}deg)`,
+            transform: `rotateZ(${coreRotation * rotationSpeed}deg)`,
             transformStyle: 'preserve-3d'
           }}
           onClick={() => setSelectedShard(isV6Selected ? null : v6Data)}
@@ -457,11 +425,14 @@ const GalaxySection = () => {
           />
           
           {/* Core body */}
-          <div className="relative w-full h-full rounded-full backdrop-blur-md border-2 border-gray-400 overflow-hidden">
+          <div className="relative w-full h-full rounded-full backdrop-blur-md border-2 border-gray-400 overflow-hidden" style={{ transformStyle: 'preserve-3d' }}>
             <div className="absolute inset-0 bg-gradient-radial from-gray-400/30 via-gray-500/20 to-transparent" />
-            
+           
             {/* Core content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+            <div 
+              className="absolute inset-0 flex flex-col items-center justify-center text-white"
+              style={{ backfaceVisibility: 'hidden' }}
+            >
               <div className="text-lg md:text-xl font-bold mb-1" style={{ textShadow: '0 0 10px #888888' }}>
                 United Hacks
               </div>
@@ -469,7 +440,7 @@ const GalaxySection = () => {
                 V6
               </div>
             </div>
-
+            
             {/* Rotating inner rings */}
             <div 
               className="absolute inset-4 rounded-full border border-gray-400/50"
@@ -616,24 +587,25 @@ const GalaxySection = () => {
   };
 
   return (
-    <section id="previous" className="relative w-full min-h-screen bg-black overflow-hidden perspective-1000">
-      {/* Background with floating particles */}
+    <section id="previous" className="relative w-full min-h-screen overflow-hidden perspective-1000" style={{ backgroundColor: '#0E0B16' }}>
+      {/* Background with a subtle radial gradient */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 via-purple-900/10 to-transparent" />
-        {renderFloatingParticles()}
+        <div className="absolute inset-0 bg-gradient-radial from-purple-800/20 via-purple-950/10 to-transparent" />
       </div>
 
       {/* Title Section */}
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-10">
-  <h2
-    className="text-4xl md:text-5xl font-bold mb-6"
-    style={{ color: '#FF6849' }} // PRIMARY_ACCENT
-  >
-    Previous Hackathons
-  </h2>
+      <h2
+  className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+  style={{
+    backgroundImage: `linear-gradient(to right,rgb(51, 23, 108), #F1F1F1)` // SECONDARY_ACCENT → TEXT_MAIN
+  }}
+>
+  Previous Hackathons
+</h2>
   <p
     className="text-xl max-w-3xl mx-auto"
-    style={{ color: '#F1F1F1' }} // TEXT_MAIN
+    style={{ color: '#FFFFFF' }} // TEXT_MAIN
   >
     Explore our legacy of innovation through an interactive galaxy
   </p>
@@ -678,6 +650,11 @@ const GalaxySection = () => {
         @keyframes scan {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         .perspective-1000 {

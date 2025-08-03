@@ -3,13 +3,15 @@ import { Trophy, Award, Users, Video, Zap, Gift, Star, RotateCcw } from 'lucide-
 
 // Define the color palette
 const COLORS = {
-  PRIMARY_BG: '#121212',
-  PRIMARY_ACCENT: '#FF6849',
-  SECONDARY_ACCENT: '#F6C177',
-  SURFACE: '#262626',
-  TEXT_MAIN: '#F1F1F1',
-  TEXT_MUTED: '#B0B0B0',
-  LINK_HOVER: '#FFD39A',
+  
+
+  PRIMARY_BG: '#0E0B16',      // Dark Plum
+  PRIMARY_ACCENT: '#9370DB',  // Medium Purple
+  SECONDARY_ACCENT: '#D8BFD8', // Thistle
+  SURFACE: '#1A162B',         // Darker Plum
+  TEXT_MAIN: '#E0E0E0',       // Soft White
+  TEXT_MUTED: '#BDBDBD',      // Lighter Gray
+  LINK_HOVER: '#B799FF',      // Soft Vibrant Violet (Optional refinement)
 };
 
 interface Prize {

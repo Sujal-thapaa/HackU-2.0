@@ -1,42 +1,23 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Users, Instagram, Linkedin, Send, Sparkles } from 'lucide-react';
+import { Mail, MessageSquare, Users, Instagram, Linkedin, Send, Sparkles, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Define the new color palette
 const COLORS = {
-  PRIMARY_BG: '#121212',      // Deep Charcoal
-  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
-  SECONDARY_ACCENT: '#F6C177', // Warm Gold
-  SURFACE: '#262626',         // Graphite Gray
-  TEXT_MAIN: '#F1F1F1',       // Soft White
-  TEXT_MUTED: '#B0B0B0',      // Mid Gray
-  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
-  ERROR_WARNING: '#FF4E4E'    // Ember Red
+  PRIMARY_BG: '#0E0B16',        // Dark Plum
+  PRIMARY_ACCENT: '#9370DB',    // Medium Purple
+  SECONDARY_ACCENT: '#D8BFD8',  // Thistle
+  SURFACE: '#1A162B',           // Deeper Plum
+  TEXT_MAIN: '#E0E0E0',         // Soft White
+  TEXT_MUTED: '#BDBDBD',        // Light Gray
+  LINK_HOVER: '#B799FF',        // Vibrant Violet
+  ERROR_WARNING: '#D9534F',   
+  White: '#FFFFFF'
+     
 };
 
 const Contact = () => {
-  const [email, setEmail] = useState('');
   const [isHovered, setIsHovered] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage('');
-
-    // Simulate API call
-    try {
-      console.log('Newsletter signup:', email);
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitMessage('Thanks for subscribing! Check your email for a confirmation.');
-      setEmail('');
-    } catch (error) {
-      setSubmitMessage('There was an error. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const socialLinks = [
     {
@@ -163,10 +144,10 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Newsletter Form */}
+          {/* Registration Section */}
           <div
             className="group relative overflow-hidden"
-            onMouseEnter={() => setIsHovered('newsletter')}
+            onMouseEnter={() => setIsHovered('register')}
             onMouseLeave={() => setIsHovered(null)}
           >
             <div 
@@ -174,70 +155,53 @@ const Contact = () => {
               style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}1A, ${COLORS.SECONDARY_ACCENT}1A)`}}
             ></div>
             <div
-              className="relative p-8 rounded-xl border transition-all duration-300"
+              className="relative p-8 rounded-xl border transition-all duration-300 h-full flex flex-col justify-between"
               style={{
                 backgroundColor: COLORS.SURFACE,
-                borderColor: isHovered === 'newsletter' ? COLORS.PRIMARY_ACCENT : COLORS.SURFACE
+                borderColor: isHovered === 'register' ? COLORS.PRIMARY_ACCENT : COLORS.SURFACE
               }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div 
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`}}
-                >
-                  <Sparkles className="text-white" size={16} />
-                </div>
-                <h3 className="text-2xl font-bold text-white" style={{ color: COLORS.PRIMARY_ACCENT }}>Stay Updated</h3>
-              </div>
-              <p className="mb-6 leading-relaxed" style={{ color: COLORS.TEXT_MAIN }}>
-                Subscribe to our newsletter for the latest updates, announcements, and hackathon tips.
-              </p>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="relative">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="w-full px-4 py-3 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all duration-300"
-                    style={{
-                      backgroundColor: `${COLORS.PRIMARY_BG}`,
-                      borderColor: COLORS.SURFACE,
-                      color: COLORS.TEXT_MAIN,
-                      '--placeholder-color': `${COLORS.TEXT_MUTED}`
-                    }}
-                    required
-                  />
+              <div>
+                <div className="flex items-center gap-3 mb-6">
                   <div 
-                    className="absolute inset-0 rounded-lg opacity-0 focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}33, ${COLORS.SECONDARY_ACCENT}33)`}}
-                  ></div>
+                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`}}
+                  >
+                    <Sparkles className="text-white" size={16} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white" style={{ color: COLORS.PRIMARY_ACCENT }}>Don't wait! Register now!</h3>
                 </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
-                  style={{
-                    backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
-                    boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`
-                  }}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      Subscribing...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      Subscribe to Newsletter
-                    </>
-                  )}
-                </button>
-              </form>
-              {submitMessage && (
-                <p className="mt-4 text-center text-sm font-semibold" style={{ color: COLORS.PRIMARY_ACCENT }}>{submitMessage}</p>
-              )}
+                <p className="mb-6 leading-relaxed" style={{ color: COLORS.TEXT_MAIN }}>
+                  Join us on this innovation journey and push the boundaries of creativity and technology!
+                </p>
+                <div className="text-left space-y-2 mb-6" style={{ color: COLORS.TEXT_MAIN }}>
+                  <p className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}></span>
+                    Click on the Register button below & fill out the form.
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}></span>
+                    Sign up on <a href="https://unitedhacksv6.devpost.com/" target="_blank" rel="noopener noreferrer" className="underline font-semibold" style={{ color: COLORS.White}}>Devpost</a>.
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}></span>
+                    Join our <a href="https://discord.gg/hackunited" target="_blank" rel="noopener noreferrer" className="underline font-semibold" style={{ color: COLORS.White }}>Discord Server</a>.
+                  </p>
+                </div>
+              </div>
+              <a 
+                href="https://unitedhacksv6.devpost.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 mt-4"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                  boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`
+                }}
+              >
+                <Send size={18} />
+                Register Now!
+              </a>
             </div>
           </div>
         </div>

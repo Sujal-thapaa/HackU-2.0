@@ -7,13 +7,14 @@ import { TextureLoader } from 'three';
 
 // Define the new, darker color palette
 const COLORS = {
-  PRIMARY_BG: '#000000',      // Deep Charcoal (now pure black)
-  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
-  SECONDARY_ACCENT: '#F6C177', // Warm Gold
-  SURFACE: '#1A1A1A',         // Graphite Gray (darkened for more subtle contrast)
-  TEXT_MAIN: '#F1F1F1',       // Soft White
-  TEXT_MUTED: '#B0B0B0',      // Mid Gray
-  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+  PRIMARY_BG: '#0E0B16',        // Dark Plum
+  PRIMARY_ACCENT: '#9370DB',    // Medium Purple
+  SECONDARY_ACCENT: '#D8BFD8',  // Thistle
+  SURFACE: '#1A162B',           // Deeper Plum
+  TEXT_MAIN: '#E0E0E0',         // Soft White
+  TEXT_MUTED: '#BDBDBD',        // Light Gray
+  LINK_HOVER: '#B799FF',        // Vibrant Violet
+  ERROR_WARNING: '#D9534F'      
 };
 
 // Define a separate color for the 3D model

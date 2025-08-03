@@ -26,13 +26,13 @@ const Navbar = () => {
   ];
 
   const COLORS = {
-    PRIMARY_BG: '#121212',      // Deep Charcoal
-    PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
-    SECONDARY_ACCENT: '#F6C177', // Warm Gold
-    SURFACE: '#262626',         // Graphite Gray
-    TEXT_MAIN: '#F1F1F1',       // Soft White
-    TEXT_MUTED: '#B0B0B0',      // Mid Gray
-    LINK_HOVER: '#FFD39A',      // Soft Amber Glow
+    PRIMARY_BG: '#0E0B16',      // Charcoal Night (Main background, nav, footers)
+  PRIMARY_ACCENT: '#6C2BD9',   // Royal Purple (Buttons, highlights, active states)
+  SECONDARY_ACCENT: '#4A2A80', // A darker, more muted purple
+  SURFACE: '#1A162B',         // Darker plum for cards
+  TEXT_MAIN: '#BDBDBD',       // Soft Gray for main text
+  TEXT_MUTED: '#BDBDBD',      // Soft Gray for muted text
+  LINK_HOVER: '#6C2BD9', 
   };
 
   return (

@@ -4,14 +4,14 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 // Define the new color palette
 const COLORS = {
-  PRIMARY_BG: '#121212',      // Deep Charcoal
-  PRIMARY_ACCENT: '#FF6849',   // Burnt Coral
-  SECONDARY_ACCENT: '#F6C177', // Warm Gold
-  SURFACE: '#262626',         // Graphite Gray
-  TEXT_MAIN: '#F1F1F1',       // Soft White
-  TEXT_MUTED: '#B0B0B0',      // Mid Gray
-  LINK_HOVER: '#FFD39A',      // Soft Amber Glow
-  ERROR_WARNING: '#FF4E4E'    // Ember Red
+  PRIMARY_BG: '#0E0B16',        // Dark Plum
+  PRIMARY_ACCENT: '#9370DB',    // Medium Purple
+  SECONDARY_ACCENT: '#D8BFD8',  // Thistle
+  SURFACE: '#1A162B',           // Deeper Plum
+  TEXT_MAIN: '#E0E0E0',         // Soft White
+  TEXT_MUTED: '#BDBDBD',        // Light Gray
+  LINK_HOVER: '#B799FF',        // Vibrant Violet
+  ERROR_WARNING: '#D9534F'      // Soft Crimson (keeps error noticeable, not purple)
 };
 
 const FAQ = () => {
