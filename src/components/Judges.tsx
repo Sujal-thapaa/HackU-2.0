@@ -53,66 +53,68 @@ const Judges = () => {
       </div>
 
       {/* Main content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* JUDGES SECTION */}
-        <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent px-4 sm:px-0"
-          style={{
-            backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
-            fontFamily: 'var(--font-heading)'
-          }}
-        >
-          Our Judges
-        </motion.h2>
+        <div className="text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent px-4 sm:px-0"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+              fontFamily: 'var(--font-heading)'
+            }}
+          >
+            Our Judges
+          </motion.h2>
+        </div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-          className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
-          style={{
-            color: COLORS.TEXT_MUTED,
-            fontFamily: 'var(--font-body)'
-          }}
+          className="text-left max-w-2xl mx-auto mb-8 sm:mb-12"
+          style={{ fontFamily: 'var(--font-body)' }}
         >
-        Our panel of judges features 15+ seasoned experts from across the fields of technology, entrepreneurship, and design. With years of experience and a shared passion for innovation, they bring diverse perspectives and deep industry knowledge to the table.
-
-At United Hacks V6, these judges will evaluate submissions based on specific judging criteria—assessing creativity, technical skill, impact, and overall execution. Beyond scoring, they'll provide valuable feedback to help teams grow and improve, while recognizing and rewarding those who push boundaries or address real-world problems in meaningful ways.
-
-Stay tuned for more details on the judging criteria and our full list of judges!  
-        </motion.p>
-        
-        {/* Placeholder for Rubric and Contact Info */}
-        <div className="mb-12">
-          <p className="text-md italic" style={{ color: COLORS.TEXT_MUTED, fontFamily: 'var(--font-body)' }}>
-            
+          <p className="text-lg sm:text-xl md:text-2xl px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
+            Our panel of judges features 15+ seasoned experts from across the fields of technology, entrepreneurship, and design. With years of experience and a shared passion for innovation, they bring diverse perspectives and deep industry knowledge to the table.
           </p>
+          <p className="text-lg sm:text-xl md:text-2xl mt-4 px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
+            At United Hacks V6, these judges will evaluate submissions based on specific judging criteria—assessing creativity, technical skill, impact, and overall execution. Beyond scoring, they'll provide valuable feedback to help teams grow and improve, while recognizing and rewarding those who push boundaries or address real-world problems in meaningful ways.
+          </p>
+          <p className="text-lg sm:text-xl md:text-2xl mt-4 px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
+            Stay tuned for more details on the judging criteria and our full list of judges!
+          </p>
+        </motion.div>
+        
+        <div className="mb-12">
+          <p className="text-md italic text-center" style={{ color: COLORS.TEXT_MUTED, fontFamily: 'var(--font-body)' }}></p>
         </div>
 
         <div className="w-full h-px bg-white/20 my-16" />
 
         {/* SPONSORS SECTION */}
-        <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent"
-          style={{
-            backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
-            fontFamily: 'var(--font-heading)'
-          }}
-        >
-          Our Sponsors
-        </motion.h2>
+        <div className="text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+              fontFamily: 'var(--font-heading)'
+            }}
+          >
+            Our Sponsors
+          </motion.h2>
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-          className="text-xl md:text-2xl max-w-2xl mx-auto mb-12"
+          className="text-left text-xl md:text-2xl max-w-2xl mx-auto mb-12"
           style={{
             color: COLORS.TEXT_MUTED,
             fontFamily: 'var(--font-body)'
@@ -142,3 +144,4 @@ Stay tuned for more details on the judging criteria and our full list of judges!
 };
 
 export default Judges;
+
