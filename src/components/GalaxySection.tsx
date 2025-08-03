@@ -200,7 +200,7 @@ const GalaxySection = () => {
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, []);
+  }, [isMobile]); // Add isMobile dependency
 
   const renderMemoryShards = () => {
     return hackathonData.map((hackathon) => {
@@ -218,9 +218,20 @@ const GalaxySection = () => {
               transform: `translate3d(${isMobile ? hackathon.position.x * 0.6 : hackathon.position.x}px, ${isMobile ? hackathon.position.y * 0.6 : hackathon.position.y}px, ${isMobile ? hackathon.position.z * 0.6 : hackathon.position.z}px)`,
               transformStyle: 'preserve-3d'
             }}
-          onClick={() => setSelectedShard(isSelected ? null : hackathon)}
-          onMouseEnter={() => setHoveredShard(hackathon.id)}
-          onMouseLeave={() => setHoveredShard(null)}
+          onClick={() => {
+            // Add small delay on mobile to prevent accidental touches
+            if (isMobile) {
+              setTimeout(() => {
+                setSelectedShard(isSelected ? null : hackathon);
+              }, 100);
+            } else {
+              setSelectedShard(isSelected ? null : hackathon);
+            }
+          }}
+          onMouseEnter={() => !isMobile && setHoveredShard(hackathon.id)}
+          onMouseLeave={() => !isMobile && setHoveredShard(null)}
+          onTouchStart={() => isMobile && setHoveredShard(hackathon.id)}
+          onTouchEnd={() => isMobile && setHoveredShard(null)}
         >
           {/* Memory Shard */}
                       <div
@@ -291,16 +302,20 @@ const GalaxySection = () => {
               className="absolute z-50"
               style={{ 
                 animation: 'slideInFromRight 0.5s ease-out',
-                // Simpler positioning to avoid overlaps
-                left: hackathon.version === "V1" ? '390%' : // V1 top - panel to the right
-                      hackathon.version === "V2" ? '150%' : // V2 right - panel to the left
-                      hackathon.version === "V3" ? '150%' : // V3 right - panel to the left
-                      hackathon.version === "V4" ? '-400%' : // V4 left - panel to the right
-                      hackathon.version === "V5" ? '-400%' : // V5 left - panel to the right
-                      '130%',
-                top: '50%',
-                transform: 'translateY(-50%) perspective(1000px) rotateY(-5deg)',
-                width: '300px',
+                // Mobile-first positioning
+                left: isMobile ? '50%' : (
+                  hackathon.version === "V1" ? '390%' : // V1 top - panel to the right
+                  hackathon.version === "V2" ? '150%' : // V2 right - panel to the left
+                  hackathon.version === "V3" ? '150%' : // V3 right - panel to the left
+                  hackathon.version === "V4" ? '-400%' : // V4 left - panel to the right
+                  hackathon.version === "V5" ? '-400%' : // V5 left - panel to the right
+                  '130%'
+                ),
+                top: isMobile ? '60%' : '50%',
+                transform: isMobile 
+                  ? 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)' 
+                  : 'translateY(-50%) perspective(1000px) rotateY(-5deg)',
+                width: isMobile ? '280px' : '300px',
                 maxWidth: '90vw'
               }}
             >
@@ -313,14 +328,14 @@ const GalaxySection = () => {
                 }}
               >
                 {/* Header */}
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <div 
-                    className="w-3 h-3 rounded-full animate-pulse"
+                    className="w-2 h-2 sm:w-3 sm:h-3 rounded-full animate-pulse"
                     style={{ backgroundColor: hackathon.color }}
                   />
-                  <h3 className="text-white text-xl font-bold">{hackathon.title}</h3>
+                  <h3 className="text-white text-lg sm:text-xl font-bold">{hackathon.title}</h3>
                   <span 
-                    className="text-sm px-2 py-1 rounded-full"
+                    className="text-xs sm:text-sm px-2 py-1 rounded-full"
                     style={{ 
                       backgroundColor: hackathon.glowColor,
                       color: hackathon.color
@@ -331,28 +346,28 @@ const GalaxySection = () => {
                 </div>
 
                 {/* Info Grid */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-gray-300">
-                    <Calendar className="w-4 h-4" style={{ color: hackathon.color }} />
-                    <span className="text-sm">{hackathon.dates}</span>
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
+                    <span className="text-xs sm:text-sm">{hackathon.dates}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-gray-300">
+                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
                     {hackathon.themeIcon}
-                    <span className="text-sm">{hackathon.theme}</span>
+                    <span className="text-xs sm:text-sm">{hackathon.theme}</span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-gray-300">
-                    <Users className="w-4 h-4" style={{ color: hackathon.color }} />
-                    <span className="text-sm">
+                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
+                    <span className="text-xs sm:text-sm">
                       <AnimatedCounter target={hackathon.participants} isVisible={isSelected} /> Participants
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-gray-300">
-                    <DollarSign className="w-4 h-4" style={{ color: hackathon.color }} />
+                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                    <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
                     <span 
-                      className="text-lg font-bold"
+                      className="text-base sm:text-lg font-bold"
                       style={{ 
                         color: hackathon.color,
                         textShadow: `0 0 10px ${hackathon.color}`
@@ -364,19 +379,19 @@ const GalaxySection = () => {
                 </div>
 
                 {/* Summary */}
-                <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                     {hackathon.summary[0]}
                   </p>
-                  <p className="text-gray-400 text-sm leading-relaxed mt-1">
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
                     {hackathon.summary[1]}
                   </p>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
                   <button 
-                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                    className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
                     style={{
                       background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
                       boxShadow: `0 4px 20px ${hackathon.glowColor}`
@@ -387,11 +402,11 @@ const GalaxySection = () => {
                     }}
                   >
                     <span className="text-white">Devpost</span>
-                    <ExternalLink className="w-4 h-4 text-white" />
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </button>
                   
                   <button 
-                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                    className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
                     style={{
                       background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
                       boxShadow: `0 4px 20px ${hackathon.glowColor}`
@@ -401,8 +416,8 @@ const GalaxySection = () => {
                       window.open(hackathon.articleLink, '_blank');
                     }}
                   >
-                    <span className="text-white text-sm">Article</span>
-                    <ExternalLink className="w-4 h-4 text-white" />
+                    <span className="text-white">Article</span>
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </button>
                 </div>
 
@@ -435,13 +450,24 @@ const GalaxySection = () => {
         <div 
           className="relative z-10 cursor-pointer transition-all duration-300"
           style={{
-            transform: `translate3d(${v6Data.position.x}px, ${v6Data.position.y}px, ${v6Data.position.z}px)`,  // No rotation
+            transform: `translate3d(${isMobile ? v6Data.position.x * 0.6 : v6Data.position.x}px, ${isMobile ? v6Data.position.y * 0.6 : v6Data.position.y}px, ${isMobile ? v6Data.position.z * 0.6 : v6Data.position.z}px)`,
             transformStyle: 'preserve-3d',
             willChange: 'transform'
           }}
-          onClick={() => setSelectedShard(isV6Selected ? null : v6Data)}
-          onMouseEnter={() => setHoveredShard(6)}
-          onMouseLeave={() => setHoveredShard(null)}
+          onClick={() => {
+            // Add small delay on mobile to prevent accidental touches
+            if (isMobile) {
+              setTimeout(() => {
+                setSelectedShard(isV6Selected ? null : v6Data);
+              }, 100);
+            } else {
+              setSelectedShard(isV6Selected ? null : v6Data);
+            }
+          }}
+          onMouseEnter={() => !isMobile && setHoveredShard(6)}
+          onMouseLeave={() => !isMobile && setHoveredShard(null)}
+          onTouchStart={() => isMobile && setHoveredShard(6)}
+          onTouchEnd={() => isMobile && setHoveredShard(null)}
         >
           <div className={`relative w-32 h-32 md:w-40 md:h-40 transition-all duration-300 ${
             isV6Hovered || isV6Selected ? 'scale-110' : 'scale-100'
@@ -495,13 +521,15 @@ const GalaxySection = () => {
           <div 
             className="absolute z-50"
             style={{ 
-              left: '85%',
-              top: '50%',
-              transform: 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)',
+              left: isMobile ? '50%' : '85%',
+              top: isMobile ? '60%' : '50%',
+              transform: isMobile 
+                ? 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)' 
+                : 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)',
               opacity: 0,
               willChange: 'transform, opacity',
               animation: 'fadeSlideIn 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
-              width: '320px',
+              width: isMobile ? '280px' : '320px',
               maxWidth: '90vw'
             }}
           >
@@ -514,14 +542,14 @@ const GalaxySection = () => {
               }}
             >
               {/* Header */}
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <div 
-                  className="w-3 h-3 rounded-full animate-pulse"
+                  className="w-2 h-2 sm:w-3 sm:h-3 rounded-full animate-pulse"
                   style={{ backgroundColor: v6Data.color }}
                 />
-                <h3 className="text-white text-xl font-bold">{v6Data.title}</h3>
+                <h3 className="text-white text-lg sm:text-xl font-bold">{v6Data.title}</h3>
                 <span 
-                  className="text-sm px-2 py-1 rounded-full"
+                  className="text-xs sm:text-sm px-2 py-1 rounded-full"
                   style={{ 
                     backgroundColor: v6Data.glowColor,
                     color: v6Data.color
@@ -532,28 +560,28 @@ const GalaxySection = () => {
               </div>
 
               {/* Info Grid */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-gray-300">
-                  <Calendar className="w-4 h-4" style={{ color: v6Data.color }} />
-                  <span className="text-sm">{v6Data.dates}</span>
+              <div className="space-y-2 sm:space-y-3">
+                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
+                  <span className="text-xs sm:text-sm">{v6Data.dates}</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-gray-300">
+                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
                   {v6Data.themeIcon}
-                  <span className="text-sm">{v6Data.theme}</span>
+                  <span className="text-xs sm:text-sm">{v6Data.theme}</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-gray-300">
-                  <Users className="w-4 h-4" style={{ color: v6Data.color }} />
-                  <span className="text-sm">
+                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
+                  <span className="text-xs sm:text-sm">
                     <AnimatedCounter target={v6Data.participants} isVisible={isV6Selected} /> Participants
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 text-gray-300">
-                  <DollarSign className="w-4 h-4" style={{ color: v6Data.color }} />
+                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
+                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
                   <span 
-                    className="text-lg font-bold"
+                    className="text-base sm:text-lg font-bold"
                     style={{ 
                       color: v6Data.color,
                       textShadow: `0 0 10px ${v6Data.color}`
@@ -565,19 +593,19 @@ const GalaxySection = () => {
               </div>
 
               {/* Summary */}
-              <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: v6Data.color }}>
-                <p className="text-gray-300 text-sm leading-relaxed">
+              <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: v6Data.color }}>
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                   {v6Data.summary[0]}
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed mt-1">
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
                   {v6Data.summary[1]}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 mt-4">
+              <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
                 <button 
-                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                  className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
                   style={{
                     background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
                     boxShadow: `0 4px 20px ${v6Data.glowColor}`
@@ -588,11 +616,11 @@ const GalaxySection = () => {
                   }}
                 >
                   <span className="text-white">Devpost</span>
-                  <ExternalLink className="w-4 h-4 text-white" />
+                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                 </button>
                 
                 <button 
-                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                  className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
                   style={{
                     background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
                     boxShadow: `0 4px 20px ${v6Data.glowColor}`
@@ -602,8 +630,8 @@ const GalaxySection = () => {
                     window.open(v6Data.articleLink, '_blank');
                   }}
                 >
-                  <span className="text-white text-sm">Article</span>
-                  <ExternalLink className="w-4 h-4 text-white" />
+                  <span className="text-white">Article</span>
+                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                 </button>
               </div>
 
