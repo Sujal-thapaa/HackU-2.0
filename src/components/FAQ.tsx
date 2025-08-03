@@ -40,7 +40,16 @@ const FAQ = () => {
     { question: 'I have more questions', answer: 'You can ask your questions on the Discord or email us at humans@hackunited.org.' }
   ];
 
-  const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
+  const toggleFAQ = (index) => {
+    // Add a small delay on mobile to prevent accidental touches
+    if (isMobile) {
+      setTimeout(() => {
+        setOpenIndex(openIndex === index ? null : index);
+      }, 50);
+    } else {
+      setOpenIndex(openIndex === index ? null : index);
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,7 +78,7 @@ const FAQ = () => {
     open: {
       rotateY: isMobile ? 0 : 180,
       scale: isMobile ? 1 : 1.02,
-      transition: { duration: 0.6, ease: "easeInOut" },
+      transition: { duration: 0.4, ease: "easeInOut" },
     },
   };
   
@@ -89,32 +98,32 @@ const FAQ = () => {
   return (
     <section
       id="faq"
-      className="py-20 relative overflow-hidden"
+      className="py-16 sm:py-20 relative overflow-hidden"
       style={{
         backgroundColor: COLORS.PRIMARY_BG,
         minHeight: '100vh',
       }}
     >
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-8 sm:pb-0">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent px-4 sm:px-0"
             style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
           >
             Frequently Asked Questions
           </h2>
-          <p className="text-xl" style={{ color: COLORS.TEXT_MUTED }}>
+          <p className="text-lg sm:text-xl px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
             Got questions? We've got answers!
           </p>
         </motion.div>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -123,7 +132,7 @@ const FAQ = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="relative perspective-1000 h-36 md:h-40"
+              className={`relative perspective-1000 ${isMobile ? 'min-h-32 mb-4' : 'h-36 md:h-40'}`}
             >
               <motion.div
                 className="relative w-full h-full cursor-pointer preserve-3d"
@@ -141,6 +150,7 @@ const FAQ = () => {
                       }
                 }
                 onClick={() => toggleFAQ(index)}
+                style={{ minHeight: isMobile ? '8rem' : 'auto' }}
               >
                 {/* Front Side: Only Question */}
                 <div
@@ -149,13 +159,13 @@ const FAQ = () => {
                     transformStyle: 'preserve-3d',
                     background: COLORS.SURFACE,
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    transform: 'rotate(2deg)',
+                    transform: isMobile ? 'rotate(0deg)' : 'rotate(2deg)',
                     zIndex: 2,
                     borderColor: COLORS.SECONDARY_ACCENT
                   }}
                 >
-                  <div className="p-4 h-full flex flex-col justify-between">
-                    <h3 className="font-semibold text-lg leading-tight mb-2" style={{ color: COLORS.TEXT_MAIN }}>
+                  <div className="p-3 sm:p-4 h-full flex flex-col justify-between">
+                    <h3 className="font-semibold text-base sm:text-lg leading-tight mb-2" style={{ color: COLORS.TEXT_MAIN }}>
                       {faq.question}
                     </h3>
                     <div className="flex justify-center">
@@ -166,7 +176,7 @@ const FAQ = () => {
                         }}
                         transition={{ duration: 0.3 }}
                       >
-                        <ChevronDown size={24} />
+                        <ChevronDown size={20} className="sm:w-6 sm:h-6" />
                       </motion.div>
                     </div>
                   </div>
@@ -206,18 +216,19 @@ const FAQ = () => {
                   <AnimatePresence>
                     {openIndex === index && (
                       <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="absolute top-full left-0 right-0 mt-2 rounded-xl p-4"
+                        initial={{ opacity: 0, height: 0, y: -10 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="absolute top-full left-0 right-0 mt-2 rounded-xl p-3 sm:p-4"
                         style={{
                           zIndex: 10,
-                          transform: 'rotate(2deg)',
-                          backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
+                          transform: 'rotate(0deg)',
+                          backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
                         }}
                       >
-                        <p className="text-white leading-relaxed text-sm" style={{ color: COLORS.TEXT_MAIN }}>
+                        <p className="text-white leading-relaxed text-xs sm:text-sm" style={{ color: COLORS.TEXT_MAIN }}>
                           {faq.answer}
                         </p>
                       </motion.div>
@@ -238,6 +249,12 @@ const FAQ = () => {
   }
   .backface-hidden {
     backface-visibility: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .perspective-1000 {
+      perspective: none;
+    }
   }
 `}</style>
 
