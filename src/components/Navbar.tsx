@@ -73,7 +73,7 @@ const Navbar = () => {
             <div className="flex-shrink-0">
               <a href="#home" className="flex items-center">
                 <img 
-                  src="images/logo.webp" 
+                  src="/images/logo.webp" 
                   alt="United Hacks V6" 
                   className="h-10 w-auto"
                 />

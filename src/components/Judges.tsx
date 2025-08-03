@@ -128,9 +128,9 @@ const Judges = () => {
           <img src="/logos/logo7.png" alt="Sponsor 7" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
           <img src="/logos/logo8.png" alt="Sponsor 8" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
           <img src="/logos/logo9.webp" alt="Sponsor 9" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
-          <img src="/logos/logo5.png" alt="Sponsor 10" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
-          <img src="/logos/logo11.png" alt="Sponsor 11" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
-          <img src="/logos/logo77.png" alt="Sponsor 12" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
+          <img src="/logos/logo5.svg" alt="Sponsor 10" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
+          <img src="/logos/logo6.png" alt="Sponsor 11" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
+          <img src="/logos/logo12.png" alt="Sponsor 12" className="w-36 filter grayscale brightness-200 opacity-70 hover:opacity-100 hover:filter-none transition" />
         </div>
       </div>
     </section>
