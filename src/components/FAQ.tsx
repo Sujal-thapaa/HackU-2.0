@@ -157,9 +157,9 @@ const FAQ = () => {
             ))}
           </div>
         ) : (
-          // Desktop view: 3D Flip Cards with 2 columns
+          // Desktop view: 3D Flip Cards with 3 columns
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"

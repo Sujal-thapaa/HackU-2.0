@@ -18,7 +18,7 @@ const Navbar = () => {
     { name: 'About', href: '#about' },
     { name: 'Previous', href: '#previous' },
     { name: 'Why Join', href: '#why-join' },
-    { name: 'Judges', href: '#judges' },
+    { name: 'Judges & Sponsors', href: '#judges' },
     { name: 'More Info', href: '#requirements' },
     { name: 'Prizes', href: '#prizes' },
     { name: 'FAQ', href: '#faq' },

@@ -1,6 +1,25 @@
-import { useState, useRef, useEffect } from 'react';
-import { Calendar, Users, DollarSign, ExternalLink, Zap, Heart, Building } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, Users, DollarSign, ExternalLink, Zap, Heart, Building, CheckCircle } from 'lucide-react';
 
+// Define the color palette
+const COLORS = {
+  PRIMARY_BG: '#0E0B16',
+  PRIMARY_ACCENT: '#9370DB',
+  SECONDARY_ACCENT: '#D8BFD8',
+  SURFACE: '#1A162B',
+  TEXT_MAIN: '#E0E0E0',
+  TEXT_MUTED: '#BDBDBD',
+  LINK_HOVER: '#B799FF',
+  ERROR_WARNING: '#D9534F',
+  LIGHT_BLUE: '#45B7D1',
+  BRIGHT_GREEN: '#88E788',
+  YELLOW: '#FECA57',
+  RED: '#FF6B6B',
+  PINK: '#FEC5E5',
+};
+
+// Data for each hackathon version
 interface HackathonData {
   id: number;
   version: string;
@@ -12,34 +31,48 @@ interface HackathonData {
   prize: string;
   summary: [string, string];
   color: string;
-  glowColor: string;
-  position: { x: number; y: number; z: number };
   link: string;
   articleLink: string;
 }
 
-const hackathonData: HackathonData[] = [
+// Combined data for all hackathons
+const hackathons: HackathonData[] = [
   {
-    id: 1,
+    id: 6,
+    version: "V6",
+    title: "United Hacks V6",
+    dates: "January 16–18, 2026",
+    theme: "TBD",
+    themeIcon: <Zap className="w-4 h-4" />,
+    participants: 0,
+    prize: "$50,700",
+    summary: [
+      "The most awaited edition yet",
+      "More innovation, more impact"
+    ],
+    color: COLORS.PRIMARY_ACCENT,
+    link: "https://unitedhacksv6.devpost.com/",
+    articleLink: "#"
+  },
+  {
+    id: 5,
     version: "V5",
     title: "United Hacks V5",
-  dates: "July 11–13, 2025",
-  theme: "Entertainment + General",
-  themeIcon: <Zap className="w-4 h-4" />,
-  participants: 1231,
-  prize: "$51,000",
-  summary: [
-    "Enhance how people enjoy entertainment",
-    "From new tech to novel experiences"
+    dates: "July 11–13, 2025",
+    theme: "Entertainment + General",
+    themeIcon: <Zap className="w-4 h-4" />,
+    participants: 1231,
+    prize: "$51,000",
+    summary: [
+      "Enhance how people enjoy entertainment",
+      "From new tech to novel experiences"
     ],
-    color: "#FF6B6B",
-    glowColor: "#FF6B6B40",
-    position: { x: -220, y: -20, z: -40 }, // Left center top (shifted down)
+    color: COLORS.RED,
     link: "https://unitedhacksv5.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-recap-tackling-mental-health-challenges-through-technology"
   },
   {
-    id: 2,
+    id: 4,
     version: "V4",
     title: "United Hacks V4",
     dates: "January 17–19, 2025",
@@ -51,98 +84,68 @@ const hackathonData: HackathonData[] = [
       "Theme revealed during kickoff",
       "Unleash creativity in any direction"
     ],
-    color: "#FEC5E5",
-    glowColor: "#F646AA",
-    position: { x: -220, y: 200, z: -30 }, // Left low (shifted down)
+    color: COLORS.PINK,
     link: "https://unitedhacksv4.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v4-celebrating-innovation-creativity-and-impact"
   },
   {
     id: 3,
     version: "V3",
-  title: "United Hacks V3",
-  dates: "September 6–8, 2024",
-  theme: "Mini Hacks + General",
+    title: "United Hacks V3",
+    dates: "September 6–8, 2024",
+    theme: "Mini Hacks + General",
     themeIcon: <Heart className="w-4 h-4" />,
     participants: 151,
-  prize: "$44,200",
-  summary: [
-    "Solve small problems with big impact",
-    "Freedom to innovate without limits"
+    prize: "$44,200",
+    summary: [
+      "Solve small problems with big impact",
+      "Freedom to innovate without limits"
     ],
-    color: "#45B7D1",
-    glowColor: "#45B7D140",
-    position: { x: 220, y: 200, z: 40 }, // Right low (shifted down)
+    color: COLORS.LIGHT_BLUE,
     link: "https://unitedhacksv3.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v3-recap"
   },
   {
-    id: 4,
+    id: 2,
     version: "V2",
     title: "United Hacks V2",
-  dates: "January 12–14, 2024",
-  theme: "Resolution + General",
+    dates: "January 12–14, 2024",
+    theme: "Resolution + General",
     themeIcon: <Building className="w-4 h-4" />,
     participants: 392,
-  prize: "$39,500",
-  summary: [
-    "Build for self-growth or explore any domain",
-    "Celebrate innovation with or without boundaries"
+    prize: "$39,500",
+    summary: [
+      "Build for self-growth or explore any domain",
+      "Celebrate innovation with or without boundaries"
     ],
-    color: "#88E788",
-    glowColor: "#013220",
-    position: { x: 220, y: -20, z: 30 }, // Right center top (shifted down)
+    color: COLORS.BRIGHT_GREEN,
     link: "https://unitedhacksv2.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v2-hackathon-recap"
   },
   {
-    id: 5,
+    id: 1,
     version: "V1",
     title: "United Hacks 2023",
-  dates: "August 4–6, 2023",
-  theme: "Mental Health + General",
+    dates: "August 4–6, 2023",
+    theme: "Mental Health + General",
     themeIcon: <Zap className="w-4 h-4" />,
     participants: 386,
-  prize: "$115,860",
+    prize: "$115,860",
     summary: [
       "Collaborate with like-minded innovators",
-    "Tackle mental health or compete in the general track"
+      "Tackle mental health or compete in the general track"
     ],
-    color: "#FECA57",
-    glowColor: "#FECA5740",
-    position: { x: 0, y: -160, z: -50 }, // Top center (shifted down)
+    color: COLORS.YELLOW,
     link: "https://unitedhacks23.devpost.com/",
     articleLink: "#"
   }
 ];
-
-// V6 Core Data
-const v6Data: HackathonData = {
-  id: 6,
-  version: "V6",
-  title: "United Hacks V6",
-  dates: "January 16–18, 2026", // update when you know the dates
-  theme: "TBD",
-  themeIcon: <Zap className="w-4 h-4" />,
-  participants: 0, // update later
-  prize: "$50,700",
-  summary: [
-    "The most awaited edition yet",
-    "More innovation, more impact"
-  ],
-  color: "#C0C0C0",
-  glowColor: "#888888",
-  position: { x: 0, y: 60, z: 0 }, // Shifted down to match V1-V5
-  link: "https://unitedhacksv6.devpost.com/",
-  articleLink: "#"
-};
 
 const AnimatedCounter: React.FC<{ target: number; isVisible: boolean }> = ({ target, isVisible }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (!isVisible) return;
-
     const duration = 2000;
     const steps = 60;
     const increment = target / steps;
@@ -164,587 +167,194 @@ const AnimatedCounter: React.FC<{ target: number; isVisible: boolean }> = ({ tar
   return <span>{count.toLocaleString()}</span>;
 };
 
-const GalaxySection = () => {
-  const [selectedShard, setSelectedShard] = useState<HackathonData | null>(null);
-  const [hoveredShard, setHoveredShard] = useState<number | null>(null);
-  const [coreRotation, setCoreRotation] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+// New component for the info panel, now a full-screen modal
+const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onClose: () => void }) => {
+  const panelRef = useRef<HTMLDivElement>(null);
 
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    let animationFrame: number;
-    let lastTime = 0;
-    
-    const animate = (currentTime: number) => {
-      if (currentTime - lastTime >= (isMobile ? 200 : 100)) { // Slower updates on mobile
-        setCoreRotation(prev => prev + (isMobile ? 0.1 : 0.2));
-        lastTime = currentTime;
-      }
-      animationFrame = requestAnimationFrame(animate);
-    };
-    
-    animationFrame = requestAnimationFrame(animate);
-    
-    return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [isMobile]); // Add isMobile dependency
-
-  const renderMemoryShards = () => {
-    return hackathonData.map((hackathon) => {
-      const isHovered = hoveredShard === hackathon.id;
-      const isSelected = selectedShard?.id === hackathon.id;
-      
-      // Optimized rotation speed for V1-V5 (reduced for better performance)
-      const rotationSpeed = 2.0;
-
-      return (
-                  <div
-            key={hackathon.id}
-            className="absolute transition-all duration-300 cursor-pointer"
-            style={{
-              transform: `translate3d(${isMobile ? hackathon.position.x * 0.6 : hackathon.position.x}px, ${isMobile ? hackathon.position.y * 0.6 : hackathon.position.y}px, ${isMobile ? hackathon.position.z * 0.6 : hackathon.position.z}px)`,
-              transformStyle: 'preserve-3d'
-            }}
-          onClick={() => {
-            // Add small delay on mobile to prevent accidental touches
-            if (isMobile) {
-              setTimeout(() => {
-                setSelectedShard(isSelected ? null : hackathon);
-              }, 100);
-            } else {
-              setSelectedShard(isSelected ? null : hackathon);
-            }
-          }}
-          onMouseEnter={() => !isMobile && setHoveredShard(hackathon.id)}
-          onMouseLeave={() => !isMobile && setHoveredShard(null)}
-          onTouchStart={() => isMobile && setHoveredShard(hackathon.id)}
-          onTouchEnd={() => isMobile && setHoveredShard(null)}
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        ref={panelRef}
+        initial={{ scale: 0.9, y: 50, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.9, y: -50, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-md relative p-6 rounded-xl border border-opacity-40"
+        style={{
+          background: `linear-gradient(135deg, ${hackathon.color}40, rgba(0,0,0,0.8))`,
+          borderColor: hackathon.color,
+          boxShadow: `0 20px 40px ${hackathon.color}40, inset 0 0 30px ${hackathon.color}40`
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white text-lg font-bold p-1 rounded-full bg-black bg-opacity-40 hover:bg-opacity-60 transition-colors"
         >
-          {/* Memory Shard */}
-                      <div
-              className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 transition-all duration-300 ${
-                isHovered || isSelected ? 'scale-110' : 'scale-100'
-              }`}
-              style={{
-                transform: `rotateX(${isHovered ? 15 : 0}deg) rotateY(${isHovered ? 15 : 0}deg) rotateZ(${coreRotation * rotationSpeed}deg)`,
-                transformStyle: 'preserve-3d',
-                willChange: 'transform'
-              }}
-            >
-            {/* Shard body with glassmorphism */}
-            <div
-              className="w-full h-full rounded-none backdrop-blur-md border border-opacity-30 relative overflow-hidden"
-              style={{
-                background: `linear-gradient(135deg, ${hackathon.glowColor}, transparent 70%)`,
-                borderColor: hackathon.color,
-                boxShadow: `0 8px 32px ${hackathon.glowColor}, inset 0 0 20px ${hackathon.glowColor}`,
-                transformStyle: 'preserve-3d'
-              }}
-            >
-              {/* Version label */}
-              <div 
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ 
-                  backfaceVisibility: 'hidden',
-                  transform: `rotateX(${isHovered ? -15 : 0}deg) rotateY(${isHovered ? -15 : 0}deg) rotateZ(${-coreRotation * rotationSpeed}deg)`,
-                  transformStyle: 'preserve-3d'
-                }}
-              >
-                <span 
-                  className="text-white font-bold text-base sm:text-lg md:text-xl"
-                  style={{ textShadow: `0 0 10px ${hackathon.color}` }}
-                >
-                  {hackathon.version}
-                </span>
-              </div>
-              
-              {/* Animated border */}
-              <div 
-                className="absolute inset-0 rounded-none"
-                style={{
-                  background: `conic-gradient(from 0deg, ${hackathon.color}, transparent, ${hackathon.color})`,
-                  mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                  maskComposite: 'xor',
-                  padding: '2px',
-                  animation: isHovered ? 'spin 3s linear infinite' : 'none'
-                }}
-              />
-            </div>
+          &times;
+        </button>
 
-            {/* Floating connection lines */}
-            <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle, ${hackathon.glowColor} 1px, transparent 1px)`,
-                backgroundSize: '20px 20px',
-                opacity: isHovered ? 0.3 : 0.1,
-                animation: 'float 4s ease-in-out infinite'
-              }}
-            />
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-4">
+          <h3 className="text-white text-xl font-bold">{hackathon.title}</h3>
+          <span
+            className="text-xs px-2 py-1 rounded-full font-bold"
+            style={{
+              backgroundColor: hackathon.color,
+              color: COLORS.PRIMARY_BG
+            }}
+          >
+            {hackathon.version}
+          </span>
+        </div>
+
+        {/* Info Grid */}
+        <div className="space-y-3 text-sm">
+          <div className="flex items-center gap-3 text-gray-300">
+            <Calendar className="w-4 h-4" style={{ color: hackathon.color }} />
+            <span>{hackathon.dates}</span>
           </div>
+          <div className="flex items-center gap-3 text-gray-300">
+            {hackathon.themeIcon}
+            <span>{hackathon.theme}</span>
+          </div>
+          <div className="flex items-center gap-3 text-gray-300">
+            <Users className="w-4 h-4" style={{ color: hackathon.color }} />
+            <span><AnimatedCounter target={hackathon.participants} isVisible={true} /> Participants</span>
+          </div>
+          <div className="flex items-center gap-3 text-gray-300">
+            <DollarSign className="w-4 h-4" style={{ color: hackathon.color }} />
+            <span className="text-lg font-bold" style={{ color: hackathon.color }}>{hackathon.prize}</span>
+          </div>
+        </div>
 
-          {/* Holographic Info Panel - Positioned to avoid overlap */}
-          {isSelected && (
-            <div 
-              className="absolute z-50"
-              style={{ 
-                animation: 'slideInFromRight 0.5s ease-out',
-                // Mobile-first positioning
-                left: isMobile ? '50%' : (
-                  hackathon.version === "V1" ? '390%' : // V1 top - panel to the right
-                  hackathon.version === "V2" ? '150%' : // V2 right - panel to the left
-                  hackathon.version === "V3" ? '150%' : // V3 right - panel to the left
-                  hackathon.version === "V4" ? '-400%' : // V4 left - panel to the right
-                  hackathon.version === "V5" ? '-400%' : // V5 left - panel to the right
-                  '130%'
-                ),
-                top: isMobile ? '60%' : '50%',
-                transform: isMobile 
-                  ? 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)' 
-                  : 'translateY(-50%) perspective(1000px) rotateY(-5deg)',
-                width: isMobile ? '280px' : '300px',
-                maxWidth: '90vw'
-              }}
-            >
-              <div 
-                className="backdrop-blur-lg rounded-xl border border-opacity-40 p-6 relative overflow-hidden"
+        {/* Summary */}
+        <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
+          <p className="text-gray-300 text-sm leading-relaxed">{hackathon.summary[0]}</p>
+          <p className="text-gray-400 text-xs leading-relaxed mt-1">{hackathon.summary[1]}</p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 mt-4">
+          <a
+            href={hackathon.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
+            style={{
+              background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
+              boxShadow: `0 4px 20px ${hackathon.color}40`
+            }}
+          >
+            <span className="text-white">Devpost</span>
+            <ExternalLink className="w-4 h-4 text-white" />
+          </a>
+          <a
+            href={hackathon.articleLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
+            style={{
+              background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
+              boxShadow: `0 4px 20px ${hackathon.color}40`
+            }}
+          >
+            <span className="text-white">Article</span>
+            <ExternalLink className="w-4 h-4 text-white" />
+          </a>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Mobile-friendly card layout component
+const MobileGalaxySection = () => {
+  const [selectedHackathon, setSelectedHackathon] = useState<HackathonData | null>(null);
+
+  return (
+    <section id="previous" className="relative w-full min-h-screen overflow-hidden py-16" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
+            }}
+          >
+            Previous Hackathons
+          </h2>
+          <p className="text-lg sm:text-xl" style={{ color: COLORS.TEXT_MUTED }}>
+            Explore our legacy of innovation
+          </p>
+        </motion.div>
+
+        {/* Grid of cards for all devices */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {hackathons.map((hackathon) => (
+            <div key={hackathon.id} className="relative">
+              <motion.div
+                className="group relative cursor-pointer rounded-xl overflow-hidden shadow-lg p-6 flex flex-col justify-between h-48 transition-all duration-300 transform hover:scale-105 hover:z-30"
                 style={{
-                  background: `linear-gradient(135deg, ${hackathon.glowColor}, rgba(0,0,0,0.8))`,
+                  backgroundColor: COLORS.SURFACE,
                   borderColor: hackathon.color,
-                  boxShadow: `0 20px 40px ${hackathon.glowColor}, inset 0 0 30px ${hackathon.glowColor}`
+                  borderWidth: '2px',
+                  boxShadow: `0 4px 20px ${hackathon.color}40`
                 }}
+                onClick={() => setSelectedHackathon(hackathon)}
+                whileHover={{ rotate: 1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {/* Header */}
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <div 
-                    className="w-2 h-2 sm:w-3 sm:h-3 rounded-full animate-pulse"
-                    style={{ backgroundColor: hackathon.color }}
-                  />
-                  <h3 className="text-white text-lg sm:text-xl font-bold">{hackathon.title}</h3>
-                  <span 
-                    className="text-xs sm:text-sm px-2 py-1 rounded-full"
-                    style={{ 
-                      backgroundColor: hackathon.glowColor,
-                      color: hackathon.color
+                {/* Header with version and title */}
+                <div className="flex items-center gap-3">
+                  <span
+                    className="text-sm font-bold px-3 py-1 rounded-full"
+                    style={{
+                      backgroundColor: hackathon.color,
+                      color: COLORS.PRIMARY_BG
                     }}
                   >
                     {hackathon.version}
                   </span>
+                  <h3 className="text-lg font-bold" style={{ color: hackathon.color }}>{hackathon.title}</h3>
                 </div>
 
-                {/* Info Grid */}
-                <div className="space-y-2 sm:space-y-3">
-                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
-                    <span className="text-xs sm:text-sm">{hackathon.dates}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                    {hackathon.themeIcon}
-                    <span className="text-xs sm:text-sm">{hackathon.theme}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                    <Users className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
-                    <span className="text-xs sm:text-sm">
-                      <AnimatedCounter target={hackathon.participants} isVisible={isSelected} /> Participants
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                    <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: hackathon.color }} />
-                    <span 
-                      className="text-base sm:text-lg font-bold"
-                      style={{ 
-                        color: hackathon.color,
-                        textShadow: `0 0 10px ${hackathon.color}`
-                      }}
-                    >
-                      {hackathon.prize}
-                    </span>
-                  </div>
+                {/* Main content */}
+                <div className="mt-auto">
+                  <p className="text-sm font-medium" style={{ color: COLORS.TEXT_MAIN }}>{hackathon.summary[0]}</p>
+                  <p className="text-xs" style={{ color: COLORS.TEXT_MUTED }}>{hackathon.summary[1]}</p>
                 </div>
-
-                {/* Summary */}
-                <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
-                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                    {hackathon.summary[0]}
-                  </p>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
-                    {hackathon.summary[1]}
-                  </p>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
-                  <button 
-                    className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
-                    style={{
-                      background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-                      boxShadow: `0 4px 20px ${hackathon.glowColor}`
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(hackathon.link, '_blank');
-                    }}
-                  >
-                    <span className="text-white">Devpost</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                  </button>
-                  
-                  <button 
-                    className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
-                    style={{
-                      background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-                      boxShadow: `0 4px 20px ${hackathon.glowColor}`
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(hackathon.articleLink, '_blank');
-                    }}
-                  >
-                    <span className="text-white">Article</span>
-                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                  </button>
-                </div>
-
-                {/* Holographic scan lines */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <div 
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      background: `repeating-linear-gradient(90deg, transparent, transparent 2px, ${hackathon.color} 2px, ${hackathon.color} 4px)`,
-                      animation: 'scan 3s linear infinite'
-                    }}
-                  />
-                </div>
-              </div>
+              </motion.div>
             </div>
-          )}
+          ))}
         </div>
-      );
-    });
-  };
-
-  const renderV6Core = () => {
-    const isV6Selected = selectedShard?.id === 6;
-    const isV6Hovered = hoveredShard === 6;
-    // Optimized rotation speed for V6 core (reduced for better performance)
-    const rotationSpeed = 0;
-
-    return (
-      <>
-        <div 
-          className="relative z-10 cursor-pointer transition-all duration-300"
-          style={{
-            transform: `translate3d(${isMobile ? v6Data.position.x * 0.6 : v6Data.position.x}px, ${isMobile ? v6Data.position.y * 0.6 : v6Data.position.y}px, ${isMobile ? v6Data.position.z * 0.6 : v6Data.position.z}px)`,
-            transformStyle: 'preserve-3d',
-            willChange: 'transform'
-          }}
-          onClick={() => {
-            // Add small delay on mobile to prevent accidental touches
-            if (isMobile) {
-              setTimeout(() => {
-                setSelectedShard(isV6Selected ? null : v6Data);
-              }, 100);
-            } else {
-              setSelectedShard(isV6Selected ? null : v6Data);
-            }
-          }}
-          onMouseEnter={() => !isMobile && setHoveredShard(6)}
-          onMouseLeave={() => !isMobile && setHoveredShard(null)}
-          onTouchStart={() => isMobile && setHoveredShard(6)}
-          onTouchEnd={() => isMobile && setHoveredShard(null)}
-        >
-          <div className={`relative w-32 h-32 md:w-40 md:h-40 transition-all duration-300 ${
-            isV6Hovered || isV6Selected ? 'scale-110' : 'scale-100'
-          }`}>
-                      {/* Core glow */}
-          <div 
-            className="absolute inset-0 rounded-full animate-pulse"
-            style={{
-              background: 'radial-gradient(circle, #88888840, transparent 70%)',
-              filter: 'blur(20px)',
-              transform: 'scale(1.5)'
-            }}
-          />
-          
-          {/* Core body */}
-          <div className="relative w-full h-full rounded-full backdrop-blur-md border-2 border-gray-400 overflow-hidden" style={{ transformStyle: 'preserve-3d' }}>
-            <div className="absolute inset-0 bg-gradient-radial from-gray-400/30 via-gray-500/20 to-transparent" />
-           
-            {/* Core content */}
-            <div 
-              className="absolute inset-0 flex flex-col items-center justify-center text-white"
-              style={{ 
-                backfaceVisibility: 'hidden',
-                transform: `rotateZ(${-coreRotation * rotationSpeed}deg)`,
-                transformStyle: 'preserve-3d'
-              }}
-            >
-              <div className="text-lg md:text-xl font-bold mb-1" style={{ textShadow: '0 0 10px #888888' }}>
-                United Hacks
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ textShadow: '0 0 15px #888888' }}>
-                V6
-              </div>
-            </div>
-            
-            {/* Rotating inner rings */}
-            <div 
-              className="absolute inset-4 rounded-full border border-gray-400/50"
-              style={{ animation: 'spin 10s linear infinite reverse' }}
-            />
-            <div 
-              className="absolute inset-8 rounded-full border border-gray-400/30"
-              style={{ animation: 'spin 15s linear infinite' }}
-            />
-            </div>
-          </div>
-        </div>
-
-        {/* V6 Info Panel */}
-        {isV6Selected && (
-          <div 
-            className="absolute z-50"
-            style={{ 
-              left: isMobile ? '50%' : '85%',
-              top: isMobile ? '60%' : '50%',
-              transform: isMobile 
-                ? 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)' 
-                : 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)',
-              opacity: 0,
-              willChange: 'transform, opacity',
-              animation: 'fadeSlideIn 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
-              width: isMobile ? '280px' : '320px',
-              maxWidth: '90vw'
-            }}
-          >
-            <div 
-              className="backdrop-blur-lg rounded-xl border border-opacity-40 p-6 relative overflow-hidden"
-              style={{
-                background: `linear-gradient(135deg, ${v6Data.glowColor}, rgba(0,0,0,0.8))`,
-                borderColor: v6Data.color,
-                boxShadow: `0 20px 40px ${v6Data.glowColor}, inset 0 0 30px ${v6Data.glowColor}`
-              }}
-            >
-              {/* Header */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <div 
-                  className="w-2 h-2 sm:w-3 sm:h-3 rounded-full animate-pulse"
-                  style={{ backgroundColor: v6Data.color }}
-                />
-                <h3 className="text-white text-lg sm:text-xl font-bold">{v6Data.title}</h3>
-                <span 
-                  className="text-xs sm:text-sm px-2 py-1 rounded-full"
-                  style={{ 
-                    backgroundColor: v6Data.glowColor,
-                    color: v6Data.color
-                  }}
-                >
-                  {v6Data.version}
-                </span>
-              </div>
-
-              {/* Info Grid */}
-              <div className="space-y-2 sm:space-y-3">
-                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
-                  <span className="text-xs sm:text-sm">{v6Data.dates}</span>
-                </div>
-
-                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                  {v6Data.themeIcon}
-                  <span className="text-xs sm:text-sm">{v6Data.theme}</span>
-                </div>
-
-                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                  <Users className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
-                  <span className="text-xs sm:text-sm">
-                    <AnimatedCounter target={v6Data.participants} isVisible={isV6Selected} /> Participants
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 sm:gap-3 text-gray-300">
-                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" style={{ color: v6Data.color }} />
-                  <span 
-                    className="text-base sm:text-lg font-bold"
-                    style={{ 
-                      color: v6Data.color,
-                      textShadow: `0 0 10px ${v6Data.color}`
-                    }}
-                  >
-                    {v6Data.prize}
-                  </span>
-                </div>
-              </div>
-
-              {/* Summary */}
-              <div className="mt-3 sm:mt-4 p-2 sm:p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: v6Data.color }}>
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                  {v6Data.summary[0]}
-                </p>
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
-                  {v6Data.summary[1]}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
-                <button 
-                  className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
-                  style={{
-                    background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
-                    boxShadow: `0 4px 20px ${v6Data.glowColor}`
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.open(v6Data.link, '_blank');
-                  }}
-                >
-                  <span className="text-white">Devpost</span>
-                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                </button>
-                
-                <button 
-                  className="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 hover:scale-105 text-xs sm:text-sm"
-                  style={{
-                    background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
-                    boxShadow: `0 4px 20px ${v6Data.glowColor}`
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.open(v6Data.articleLink, '_blank');
-                  }}
-                >
-                  <span className="text-white">Article</span>
-                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                </button>
-              </div>
-
-              {/* Holographic scan lines */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div 
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    background: `repeating-linear-gradient(90deg, transparent, transparent 2px, ${v6Data.color} 2px, ${v6Data.color} 4px)`,
-                    animation: 'scan 3s linear infinite'
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+      </div>
+      
+      {/* Renders the info panel as a modal outside the grid */}
+      <AnimatePresence>
+        {selectedHackathon && (
+          <InfoPanelModal hackathon={selectedHackathon} onClose={() => setSelectedHackathon(null)} />
         )}
-
-      </>
-    );
-  };
-
-  return (
-    <section id="previous" className="relative w-full min-h-screen overflow-hidden perspective-1000" style={{ backgroundColor: '#0E0B16' }}>
-      {/* Background with a subtle radial gradient */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-purple-800/20 via-purple-950/10 to-transparent" />
-      </div>
-
-      {/* Title Section */}
-      <div className="absolute top-4 sm:top-8 left-1/2 transform -translate-x-1/2 text-center z-10 px-4 sm:px-0">
-      <h2
-  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-6 bg-clip-text text-transparent"
-  style={{
-    backgroundImage: `linear-gradient(to right,rgb(51, 23, 108), #F1F1F1)` // SECONDARY_ACCENT → TEXT_MAIN
-  }}
->
-  Previous Hackathons
-</h2>
-  <p
-    className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
-    style={{ color: '#FFFFFF' }} // TEXT_MAIN
-  >
-    Explore our legacy of innovation through an interactive galaxy
-  </p>
-</div>
-
-      {/* Main container */}
-      <div 
-        ref={containerRef}
-        className="relative w-full h-screen flex items-center justify-center overflow-hidden"
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        {/* Central Core - United Hacks V6 */}
-        {renderV6Core()}
-
-        {/* Memory Shards */}
-        {renderMemoryShards()}
-
-        {/* Instructions */}
-        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-center text-gray-400 px-4 sm:px-0">
-          <p className="text-xs sm:text-sm">Click on memory shards or the core to explore hackathons</p>
-        </div>
-      </div>
-
-      {/* Custom CSS animations */}
-      <style>{`
-        @keyframes slideInFromRight {
-          from {
-            opacity: 0;
-            transform: translateY(-50%) translateX(50px) perspective(1000px) rotateY(-15deg);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0) perspective(1000px) rotateY(-5deg);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotateZ(0deg); }
-          50% { transform: translateY(-10px) rotateZ(5deg); }
-        }
-
-        @keyframes scan {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-
-        @keyframes fadeSlideIn {
-          from {
-            opacity: 0;
-            transform: translate(-50%, -60%) perspective(1000px) rotateY(-5deg);
-          }
-          to {
-            opacity: 1;
-            transform: translate(-50%, -50%) perspective(1000px) rotateY(-5deg);
-          }
-        }
-
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        .bg-gradient-radial {
-          background: radial-gradient(circle, var(--tw-gradient-stops));
-        }
-      `}</style>
+      </AnimatePresence>
     </section>
   );
+};
+
+// Main GalaxySection component - always shows mobile version
+const GalaxySection = () => {
+  return <MobileGalaxySection />;
 };
 
 export default GalaxySection;
