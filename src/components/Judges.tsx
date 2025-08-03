@@ -78,13 +78,17 @@ const Judges = () => {
             fontFamily: 'var(--font-body)'
           }}
         >
-          Our panel of judges includes 15+ experts from different fields of tech, entrepreneurship, and design. Our judges have spent years working in their domains and have a passion for innovation. At United Hacks V6, they'll evaluate your projects based on [judging criteria], while also offering feedback, and incentivizing teams that push boundaries or tackle real-world problems in meaningful ways.
+        Our panel of judges features 15+ seasoned experts from across the fields of technology, entrepreneurship, and design. With years of experience and a shared passion for innovation, they bring diverse perspectives and deep industry knowledge to the table.
+
+At United Hacks V6, these judges will evaluate submissions based on specific judging criteria—assessing creativity, technical skill, impact, and overall execution. Beyond scoring, they'll provide valuable feedback to help teams grow and improve, while recognizing and rewarding those who push boundaries or address real-world problems in meaningful ways.
+
+Stay tuned for more details on the judging criteria and our full list of judges!  
         </motion.p>
         
         {/* Placeholder for Rubric and Contact Info */}
         <div className="mb-12">
           <p className="text-md italic" style={{ color: COLORS.TEXT_MUTED, fontFamily: 'var(--font-body)' }}>
-            [info here]
+            
           </p>
         </div>
 
