@@ -189,16 +189,16 @@ const Prize = () => {
       onClick={handleAdvanceToNext}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <h2
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent px-4 sm:px-0"
             style={{
               backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
             }}
           >
             Prizes
           </h2>
-          <p className="text-xl max-w-3xl mx-auto" style={{ color: COLORS.TEXT_MUTED }}>
+          <p className="text-lg sm:text-xl max-w-3xl mx-auto px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
             $50,700+ in prizes + other prizes
           </p>
         </div>
@@ -625,13 +625,13 @@ const Prize = () => {
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
               {prizes.map((prize, index) => {
                 const IconComponent = prize.icon;
                 return (
                   <div
                     key={index}
-                    className="p-8 rounded-2xl border transition-all duration-500 hover:transform hover:scale-105 hover:rotate-1 animate-fadeInUp cursor-pointer"
+                    className="p-6 sm:p-8 rounded-2xl border transition-all duration-500 hover:transform hover:scale-105 hover:rotate-1 animate-fadeInUp cursor-pointer"
                     style={{
                       backgroundColor: COLORS.SURFACE,
                       borderColor: `${COLORS.PRIMARY_ACCENT}30`,
@@ -644,32 +644,32 @@ const Prize = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                       <div
-                        className="w-16 h-16 rounded-xl flex items-center justify-center"
+                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center"
                         style={{ 
                           backgroundColor: COLORS.PRIMARY_ACCENT,
                           boxShadow: `0 4px 12px ${COLORS.PRIMARY_ACCENT}40`
                         }}
                       >
-                        <IconComponent className="text-white" size={28} />
+                        <IconComponent className="text-white" size={24} className="sm:w-7 sm:h-7" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold" style={{ color: COLORS.TEXT_MAIN }}>
+                        <h3 className="text-lg sm:text-xl font-bold" style={{ color: COLORS.TEXT_MAIN }}>
                           {prize.category}
                         </h3>
-                        <p className="text-sm" style={{ color: COLORS.TEXT_MUTED }}>
+                        <p className="text-xs sm:text-sm" style={{ color: COLORS.TEXT_MUTED }}>
                           {prize.winners}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mb-6">
-                      <p className="text-2xl font-semibold mb-3" style={{ color: COLORS.SECONDARY_ACCENT }}>
+                    <div className="mb-4 sm:mb-6">
+                      <p className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-3" style={{ color: COLORS.SECONDARY_ACCENT }}>
                         {prize.prize}
                       </p>
                       {prize.description && (
-                        <p className="text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>
+                        <p className="text-xs sm:text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>
                           {prize.description}
                         </p>
                       )}

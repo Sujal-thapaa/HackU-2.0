@@ -50,9 +50,9 @@ const About = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2
-            className="text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 bg-clip-text text-transparent leading-tight px-4 sm:px-0"
             style={{
               backgroundImage: `linear-gradient(to right, ${COLORS.SECONDARY_ACCENT}, ${COLORS.TEXT_MAIN})`,
               fontFamily: 'var(--font-heading)'
@@ -61,7 +61,7 @@ const About = () => {
             What is United Hacks V6?
           </h2>
           <p
-            className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-light"
+            className="text-lg sm:text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-light px-4 sm:px-0"
             style={{
               color: COLORS.TEXT_MAIN,
               fontFamily: 'var(--font-body)'
@@ -73,11 +73,11 @@ const About = () => {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative backdrop-blur-xl border rounded-2xl p-8 hover:bg-white/10 hover:scale-105 hover:-rotate-1 transition-all duration-500 cursor-pointer"
+              className="group relative backdrop-blur-xl border rounded-2xl p-6 sm:p-8 hover:bg-white/10 hover:scale-105 hover:-rotate-1 transition-all duration-500 cursor-pointer"
               style={{
                 backgroundColor: COLORS.SURFACE,
                 borderColor: `${COLORS.PRIMARY_ACCENT}1A`,
@@ -92,15 +92,15 @@ const About = () => {
 
               {/* Icon */}
               <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 text-white group-hover:scale-110 transition-transform duration-300"
                 style={{ backgroundColor: COLORS.PRIMARY_ACCENT }}
               >
-                <img src={feature.icon} alt={feature.title} className="w-10 h-10" />
+                <img src={feature.icon} alt={feature.title} className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
 
               {/* Content */}
               <h3
-                className="text-2xl font-bold mb-4 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300"
+                className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300"
                 style={{
                   color: COLORS.TEXT_MAIN,
                   backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,

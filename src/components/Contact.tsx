@@ -17,7 +17,7 @@ const COLORS = {
 };
 
 const Contact = () => {
-  const [isHovered, setIsHovered] = useState(null);
+  const [isHovered, setIsHovered] = useState<string | null>(null);
 
   const socialLinks = [
     {
@@ -50,24 +50,24 @@ const Contact = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
-            <Sparkles className="animate-pulse" size={24} style={{ color: COLORS.PRIMARY_ACCENT }} />
-            <span className="font-medium tracking-wide uppercase text-sm" style={{ color: COLORS.PRIMARY_ACCENT }}>Connect With Us</span>
-            <Sparkles className="animate-pulse delay-500" size={24} style={{ color: COLORS.SECONDARY_ACCENT }} />
+            <Sparkles className="animate-pulse sm:w-6 sm:h-6" size={20} style={{ color: COLORS.PRIMARY_ACCENT }} />
+            <span className="font-medium tracking-wide uppercase text-xs sm:text-sm" style={{ color: COLORS.PRIMARY_ACCENT }}>Connect With Us</span>
+            <Sparkles className="animate-pulse delay-500 sm:w-6 sm:h-6" size={20} style={{ color: COLORS.SECONDARY_ACCENT }} />
           </div>
           <h2
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent animate-gradient"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent animate-gradient px-4 sm:px-0"
             style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
           >
             Get In Touch
           </h2>
-          <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: COLORS.TEXT_MAIN }}>
+          <p className="text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed px-4 sm:px-0" style={{ color: COLORS.TEXT_MAIN }}>
             Have questions? Want to get involved? We'd love to hear from you!
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
           <div className="space-y-8">
             {/* Email Card */}
             <motion.div
@@ -104,7 +104,7 @@ const Contact = () => {
             </motion.div>
 
             {/* Social Links */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
               {socialLinks.map((social) => {
                 const isCurrent = isHovered === social.id;
                 return (
@@ -124,19 +124,19 @@ const Contact = () => {
                       style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
                     ></div>
                     <div
-                      className="relative flex flex-col items-center p-6 rounded-xl border transition-all duration-300"
+                      className="relative flex flex-col items-center p-4 sm:p-6 rounded-xl border transition-all duration-300"
                       style={{
                         backgroundColor: COLORS.SURFACE,
                         borderColor: isCurrent ? COLORS.PRIMARY_ACCENT : COLORS.SURFACE
                       }}
                     >
                       <div
-                        className="w-12 h-12 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300"
                         style={{ backgroundColor: COLORS.SECONDARY_ACCENT }}
                       >
-                        <img src={social.icon} alt={social.label} className="w-6 h-6 filter invert" />
+                        <img src={social.icon} alt={social.label} className="w-5 h-5 sm:w-6 sm:h-6 filter invert" />
                       </div>
-                      <span className="text-white font-medium transition-colors" style={{ color: COLORS.PRIMARY_ACCENT }}>{social.label}</span>
+                      <span className="text-white font-medium transition-colors text-sm sm:text-base" style={{ color: COLORS.PRIMARY_ACCENT }}>{social.label}</span>
                     </div>
                   </motion.a>
                 );
@@ -206,7 +206,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }

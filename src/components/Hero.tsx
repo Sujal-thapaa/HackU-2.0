@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Play, UserPlus } from 'lucide-react';
-import { motion } from 'framer-motion'; // <-- This import was added
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-import { TextureLoader } from 'three';
 
 // Define the new, darker color palette
 const COLORS = {
@@ -21,11 +19,11 @@ const COLORS = {
 const MODEL_COLOR = '#00b4d8';
 
 const Hero = () => {
-  const mountRef = useRef(null);
-  const sceneRef = useRef(null);
-  const rendererRef = useRef(null);
-  const modelRef = useRef(null);
-  const animationRef = useRef(null);
+  const mountRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const modelRef = useRef<THREE.Object3D | null>(null);
+  const animationRef = useRef<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -182,7 +180,7 @@ const Hero = () => {
     let lastMouseX = 0;
     let lastMouseY = 0;
 
-    const handleMouseDown = (e) => {
+    const handleMouseDown = (e: MouseEvent) => {
       if (!mountRef.current) return;
       const rect = mountRef.current.getBoundingClientRect();
       const mouseX = e.clientX;
@@ -196,7 +194,7 @@ const Hero = () => {
       }
     };
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!isMouseDown || !modelRef.current) return;
       const mouseX = e.clientX;
       const mouseY = e.clientY;
@@ -265,7 +263,7 @@ const Hero = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <div className="lg:w-1/2 mb-12 lg:mb-0">
             <h1
-              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent animate-pulse"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-6 sm:mb-8 bg-clip-text text-transparent animate-pulse text-center lg:text-left"
               style={{ 
                 backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
                 fontFamily: 'var(--font-heading)'
@@ -273,8 +271,9 @@ const Hero = () => {
             >
               United Hacks V6
             </h1>
+
             <p 
-              className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto lg:mx-0" 
+              className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 text-center lg:text-left px-4 sm:px-0" 
               style={{ 
                 color: COLORS.TEXT_MUTED,
                 fontFamily: 'var(--font-body)'
@@ -282,60 +281,85 @@ const Hero = () => {
             >
               The Ultimate Global Online Hackathon - Code. Create. Compete.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <motion.a
-                href="https://www.youtube.com/watch?v=p8CHaDP3Bxg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform flex items-center justify-center gap-2"
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 px-4 sm:px-0">
+              {/* Buttons moved directly below the title */}
+              {/* Watch Trailer Button */}
+              <button
+                className="text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold flex items-center justify-center gap-2 group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 active:scale-95 animate-fadeInUp text-sm sm:text-base"
                 style={{
                   backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
                   boxShadow: `0 0 20px ${COLORS.PRIMARY_ACCENT}40`,
-                  fontFamily: 'var(--font-body)'
+                  fontFamily: 'var(--font-body)',
+                  animationDelay: '0.3s',
+                  animationFillMode: 'both'
                 }}
-                whileHover={{ scale: 1.05, y: -5, boxShadow: `0 10px 30px ${COLORS.PRIMARY_ACCENT}80` }}
-                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  window.open('https://www.youtube.com/watch?v=p8CHaDP3Bxg', '_blank', 'noopener,noreferrer');
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 10px 30px ${COLORS.PRIMARY_ACCENT}80`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 20px ${COLORS.PRIMARY_ACCENT}40`;
+                }}
               >
-                <Play size={20} />
+                <div className="transform transition-transform duration-300 group-hover:rotate-360">
+                  <Play size={18} className="sm:w-5 sm:h-5" />
+                </div>
                 Watch Trailer
-              </motion.a>
+              </button>
 
-              <motion.a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform?pli=1&pli=1&pli=1&edit2=2_ABaOnucxaiQsOarIkNlEYleII0UX-lueNbcBAdyYHXPLfyUWP_s7iGIDg6UiFGUzpQ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform flex items-center justify-center gap-2"
+              
+
+              {/* Register Button */}
+              <button
+                className="text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold flex items-center justify-center gap-2 group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 active:scale-95 animate-fadeInUp text-sm sm:text-base"
                 style={{
                   backgroundImage: `linear-gradient(to right, ${COLORS.SECONDARY_ACCENT}, ${COLORS.PRIMARY_ACCENT})`,
                   boxShadow: `0 0 20px ${COLORS.SECONDARY_ACCENT}40`,
-                  fontFamily: 'var(--font-body)'
+                  fontFamily: 'var(--font-body)',
+                  animationDelay: '0.5s',
+                  animationFillMode: 'both'
                 }}
-                whileHover={{ scale: 1.05, y: -5, boxShadow: `0 10px 30px ${COLORS.SECONDARY_ACCENT}80` }}
-                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  window.open('https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform', '_blank', 'noopener,noreferrer');
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 10px 30px ${COLORS.SECONDARY_ACCENT}80`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 20px ${COLORS.SECONDARY_ACCENT}40`;
+                }}
               >
-                <UserPlus size={20} />
-                Register Now
-              </motion.a>
-            </div>
-          </div>
-
-          {/* 3D Model */}
-          <div className="lg:w-1/2 flex justify-center">
-            <div 
-              ref={mountRef} 
-              className="model-container relative cursor-grab active:cursor-grabbing"
-              style={{ width: '600px', height: '600px' }}
-            >
-              {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${COLORS.PRIMARY_BG}80`}}>
-                  <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: MODEL_COLOR }}></div>
-                    <p style={{ color: MODEL_COLOR, fontFamily: 'var(--font-body)' }}>Loading 3D Model...</p>
-                  </div>
+                <div className="transform transition-transform duration-300 group-hover:scale-110">
+                  <UserPlus size={18} className="sm:w-5 sm:h-5" />
                 </div>
-              )}
+                Register Now
+              </button>
             </div>
-          </div>
+            
+                      </div>
+
+            {/* Right Side Logo */}
+            <div className="lg:w-1/2 flex justify-center items-center">
+              <div className="relative">
+                <img 
+                  src="/HackUnitedLogo.webp" 
+                  alt="HackUnited Logo" 
+                  className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-contain animate-pulse"
+                  style={{ filter: 'drop-shadow(0 0 20px rgba(147, 112, 219, 0.3))' }}
+                />
+                {/* Glow effect */}
+                <div 
+                  className="absolute inset-0 rounded-full animate-ping"
+                  style={{ 
+                    background: `radial-gradient(circle, ${COLORS.PRIMARY_ACCENT}20 0%, transparent 70%)`,
+                    animationDuration: '3s'
+                  }}
+                ></div>
+              </div>
+            </div>
+
         </div>
       </div>
     </section>

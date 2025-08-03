@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Code2, Lightbulb, Users, Trophy, Sparkles } from 'lucide-react';
+import { Code2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 // Define the new color palette
@@ -49,7 +49,7 @@ const stages = [
 
 
 // StageCard component for each individual stage
-const StageCard = ({ stage, index }) => {
+const StageCard = ({ stage, index }: { stage: any, index: number }) => {
   const cardRef = useRef(null);
   // useInView hook to trigger animations when the element is in the viewport
   const isInView = useInView(cardRef, { once: true, margin: "-10%" });
@@ -182,11 +182,6 @@ function WhyParticipate() {
   
   return (
     <section id="why-join" className="relative min-h-screen py-16 overflow-hidden font-inter" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
-      {/* Background gradient */}
-      <div 
-        className="absolute inset-0" 
-        style={{ backgroundImage: `linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT}1A 0%, ${COLORS.SECONDARY_ACCENT}1A 100%)` }}
-      />
 
       <div ref={containerRef} className="relative max-w-5xl mx-auto px-6">
         {/* Header section with text and animations */}
@@ -219,9 +214,12 @@ function WhyParticipate() {
         <div className="relative">
           <AnimatedPath />
           
-          <div className="grid gap-2 lg:gap-4">
+          <div className="space-y-0">
             {stages.map((stage, index) => (
-              <div key={stage.id} className={`flex items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+              <div 
+                key={stage.id} 
+                className={`flex items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} ${index > 0 ? '-mt-32 lg:-mt-40' : ''}`}
+              >
                 <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:pr-2' : 'lg:pl-2'}`}>
                   <StageCard
                     stage={stage}

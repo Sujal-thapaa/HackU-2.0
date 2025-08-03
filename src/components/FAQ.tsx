@@ -95,7 +95,7 @@ const FAQ = () => {
         minHeight: '100vh',
       }}
     >
-      <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-full" style={{ backgroundColor: COLORS.PRIMARY_ACCENT, opacity: 0.7 }}></div>
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-16"

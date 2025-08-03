@@ -51,6 +51,15 @@ html {
   animation: fadeInUp 0.8s ease-out;
 }
 
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Button icon animations */
+.group-hover\:rotate-360:hover {
+  transform: rotate(360deg);
+}
+
 /* Glow effects */
 .glow-blue {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);

@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Lightbulb, Users, DollarSign, ExternalLink, Zap, Cpu, Globe, Heart, Building } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Calendar, Users, DollarSign, ExternalLink, Zap, Heart, Building } from 'lucide-react';
 
 interface HackathonData {
   id: number;
@@ -34,9 +34,9 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#FF6B6B",
     glowColor: "#FF6B6B40",
-    position: { x: -220, y: -100, z: -60 },
-    link: "https://unitedhacks23.devpost.com/",
-    articleLink: "#"
+    position: { x: -220, y: -20, z: -40 }, // Left center top (shifted down)
+    link: "https://unitedhacksv5.devpost.com/",
+    articleLink: "https://blog.hackunited.org/united-hacks-recap-tackling-mental-health-challenges-through-technology"
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#FEC5E5",
     glowColor: "#F646AA",
-    position: { x: -180, y: 150, z: -30 },
+    position: { x: -220, y: 200, z: -30 }, // Left low (shifted down)
     link: "https://unitedhacksv4.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v4-celebrating-innovation-creativity-and-impact"
   },
@@ -72,7 +72,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#45B7D1",
     glowColor: "#45B7D140",
-    position: { x: 150, y: 180, z: 80 },
+    position: { x: 220, y: 200, z: 40 }, // Right low (shifted down)
     link: "https://unitedhacksv3.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v3-recap"
   },
@@ -91,7 +91,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#88E788",
     glowColor: "#013220",
-    position: { x: 250, y: -50, z: 50 },
+    position: { x: 220, y: -20, z: 30 }, // Right center top (shifted down)
     link: "https://unitedhacksv2.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v2-hackathon-recap"
   },
@@ -110,9 +110,9 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#FECA57",
     glowColor: "#FECA5740",
-    position: { x: 80, y: -200, z: -40 },
-    link: "https://unitedhacksv5.devpost.com/",
-    articleLink: "https://blog.hackunited.org/united-hacks-recap-tackling-mental-health-challenges-through-technology"
+    position: { x: 0, y: -160, z: -50 }, // Top center (shifted down)
+    link: "https://unitedhacks23.devpost.com/",
+    articleLink: "#"
   }
 ];
 
@@ -132,7 +132,7 @@ const v6Data: HackathonData = {
   ],
   color: "#C0C0C0",
   glowColor: "#888888",
-  position: { x: 0, y: 0, z: 0 },
+  position: { x: 0, y: 60, z: 0 }, // Shifted down to match V1-V5
   link: "https://unitedhacksv6.devpost.com/",
   articleLink: "#"
 };
@@ -168,14 +168,38 @@ const GalaxySection = () => {
   const [selectedShard, setSelectedShard] = useState<HackathonData | null>(null);
   const [hoveredShard, setHoveredShard] = useState<number | null>(null);
   const [coreRotation, setCoreRotation] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Mobile detection
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCoreRotation(prev => prev + 0.5);
-    }, 50);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-    return () => clearInterval(interval);
+  useEffect(() => {
+    let animationFrame: number;
+    let lastTime = 0;
+    
+    const animate = (currentTime: number) => {
+      if (currentTime - lastTime >= (isMobile ? 200 : 100)) { // Slower updates on mobile
+        setCoreRotation(prev => prev + (isMobile ? 0.1 : 0.2));
+        lastTime = currentTime;
+      }
+      animationFrame = requestAnimationFrame(animate);
+    };
+    
+    animationFrame = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   const renderMemoryShards = () => {
@@ -183,34 +207,35 @@ const GalaxySection = () => {
       const isHovered = hoveredShard === hackathon.id;
       const isSelected = selectedShard?.id === hackathon.id;
       
-      // Increased rotation speed for V1-V5
-      const rotationSpeed = 10.0;
+      // Optimized rotation speed for V1-V5 (reduced for better performance)
+      const rotationSpeed = 2.0;
 
       return (
-        <div
-          key={hackathon.id}
-          className="absolute transition-all duration-500 cursor-pointer"
-          style={{
-            transform: `translate3d(${hackathon.position.x}px, ${hackathon.position.y}px, ${hackathon.position.z}px)`,
-            transformStyle: 'preserve-3d'
-          }}
+                  <div
+            key={hackathon.id}
+            className="absolute transition-all duration-300 cursor-pointer"
+            style={{
+              transform: `translate3d(${isMobile ? hackathon.position.x * 0.6 : hackathon.position.x}px, ${isMobile ? hackathon.position.y * 0.6 : hackathon.position.y}px, ${isMobile ? hackathon.position.z * 0.6 : hackathon.position.z}px)`,
+              transformStyle: 'preserve-3d'
+            }}
           onClick={() => setSelectedShard(isSelected ? null : hackathon)}
           onMouseEnter={() => setHoveredShard(hackathon.id)}
           onMouseLeave={() => setHoveredShard(null)}
         >
           {/* Memory Shard */}
-          <div
-            className={`relative w-20 h-20 md:w-24 md:h-24 transition-all duration-300 ${
-              isHovered || isSelected ? 'scale-110' : 'scale-100'
-            }`}
-            style={{
-              transform: `rotateX(${isHovered ? 15 : 0}deg) rotateY(${isHovered ? 15 : 0}deg) rotateZ(${coreRotation * rotationSpeed}deg)`,
-              transformStyle: 'preserve-3d'
-            }}
-          >
+                      <div
+              className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 transition-all duration-300 ${
+                isHovered || isSelected ? 'scale-110' : 'scale-100'
+              }`}
+              style={{
+                transform: `rotateX(${isHovered ? 15 : 0}deg) rotateY(${isHovered ? 15 : 0}deg) rotateZ(${coreRotation * rotationSpeed}deg)`,
+                transformStyle: 'preserve-3d',
+                willChange: 'transform'
+              }}
+            >
             {/* Shard body with glassmorphism */}
             <div
-              className="w-full h-full rounded-full backdrop-blur-md border border-opacity-30 relative overflow-hidden"
+              className="w-full h-full rounded-none backdrop-blur-md border border-opacity-30 relative overflow-hidden"
               style={{
                 background: `linear-gradient(135deg, ${hackathon.glowColor}, transparent 70%)`,
                 borderColor: hackathon.color,
@@ -221,10 +246,14 @@ const GalaxySection = () => {
               {/* Version label */}
               <div 
                 className="absolute inset-0 flex items-center justify-center"
-                style={{ backfaceVisibility: 'hidden' }}
+                style={{ 
+                  backfaceVisibility: 'hidden',
+                  transform: `rotateX(${isHovered ? -15 : 0}deg) rotateY(${isHovered ? -15 : 0}deg) rotateZ(${-coreRotation * rotationSpeed}deg)`,
+                  transformStyle: 'preserve-3d'
+                }}
               >
                 <span 
-                  className="text-white font-bold text-lg md:text-xl"
+                  className="text-white font-bold text-base sm:text-lg md:text-xl"
                   style={{ textShadow: `0 0 10px ${hackathon.color}` }}
                 >
                   {hackathon.version}
@@ -233,7 +262,7 @@ const GalaxySection = () => {
               
               {/* Animated border */}
               <div 
-                className="absolute inset-0 rounded-full"
+                className="absolute inset-0 rounded-none"
                 style={{
                   background: `conic-gradient(from 0deg, ${hackathon.color}, transparent, ${hackathon.color})`,
                   mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
@@ -262,14 +291,17 @@ const GalaxySection = () => {
               className="absolute z-50"
               style={{ 
                 animation: 'slideInFromRight 0.5s ease-out',
-                // Custom positioning for better visibility
-                left: hackathon.version === "V1" ? '300%' : 
-                      hackathon.version === "V5" || hackathon.version === "V4" ? '-400%' :
-                      hackathon.position.x > 0 ? '120%' : '-120%',
+                // Simpler positioning to avoid overlaps
+                left: hackathon.version === "V1" ? '390%' : // V1 top - panel to the right
+                      hackathon.version === "V2" ? '150%' : // V2 right - panel to the left
+                      hackathon.version === "V3" ? '150%' : // V3 right - panel to the left
+                      hackathon.version === "V4" ? '-400%' : // V4 left - panel to the right
+                      hackathon.version === "V5" ? '-400%' : // V5 left - panel to the right
+                      '130%',
                 top: '50%',
                 transform: 'translateY(-50%) perspective(1000px) rotateY(-5deg)',
-                width: '320px',
-                maxWidth: '80vw'
+                width: '300px',
+                maxWidth: '90vw'
               }}
             >
               <div 
@@ -395,17 +427,17 @@ const GalaxySection = () => {
   const renderV6Core = () => {
     const isV6Selected = selectedShard?.id === 6;
     const isV6Hovered = hoveredShard === 6;
-    
-    // Increased rotation speed for V6 core
-    const rotationSpeed = 0.00001;
+    // Optimized rotation speed for V6 core (reduced for better performance)
+    const rotationSpeed = 0;
 
     return (
       <>
         <div 
           className="relative z-10 cursor-pointer transition-all duration-300"
           style={{
-            transform: `rotateZ(${coreRotation * rotationSpeed}deg)`,
-            transformStyle: 'preserve-3d'
+            transform: `translate3d(${v6Data.position.x}px, ${v6Data.position.y}px, ${v6Data.position.z}px)`,  // No rotation
+            transformStyle: 'preserve-3d',
+            willChange: 'transform'
           }}
           onClick={() => setSelectedShard(isV6Selected ? null : v6Data)}
           onMouseEnter={() => setHoveredShard(6)}
@@ -431,7 +463,11 @@ const GalaxySection = () => {
             {/* Core content */}
             <div 
               className="absolute inset-0 flex flex-col items-center justify-center text-white"
-              style={{ backfaceVisibility: 'hidden' }}
+              style={{ 
+                backfaceVisibility: 'hidden',
+                transform: `rotateZ(${-coreRotation * rotationSpeed}deg)`,
+                transformStyle: 'preserve-3d'
+              }}
             >
               <div className="text-lg md:text-xl font-bold mb-1" style={{ textShadow: '0 0 10px #888888' }}>
                 United Hacks
@@ -454,17 +490,19 @@ const GalaxySection = () => {
           </div>
         </div>
 
-        {/* V6 Info Panel - Outside the rotating container */}
+        {/* V6 Info Panel */}
         {isV6Selected && (
           <div 
             className="absolute z-50"
             style={{ 
-              animation: 'slideInFromRight 0.5s ease-out',
-              left: '75%',
+              left: '85%',
               top: '50%',
-              transform: 'translateY(-50%)',
+              transform: 'translate(-50%, -50%) perspective(1000px) rotateY(-5deg)',
+              opacity: 0,
+              willChange: 'transform, opacity',
+              animation: 'fadeSlideIn 0.35s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
               width: '320px',
-              maxWidth: '80vw'
+              maxWidth: '90vw'
             }}
           >
             <div 
@@ -582,6 +620,7 @@ const GalaxySection = () => {
             </div>
           </div>
         )}
+
       </>
     );
   };
@@ -594,9 +633,9 @@ const GalaxySection = () => {
       </div>
 
       {/* Title Section */}
-      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-10">
+      <div className="absolute top-4 sm:top-8 left-1/2 transform -translate-x-1/2 text-center z-10 px-4 sm:px-0">
       <h2
-  className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
+  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-6 bg-clip-text text-transparent"
   style={{
     backgroundImage: `linear-gradient(to right,rgb(51, 23, 108), #F1F1F1)` // SECONDARY_ACCENT → TEXT_MAIN
   }}
@@ -604,7 +643,7 @@ const GalaxySection = () => {
   Previous Hackathons
 </h2>
   <p
-    className="text-xl max-w-3xl mx-auto"
+    className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
     style={{ color: '#FFFFFF' }} // TEXT_MAIN
   >
     Explore our legacy of innovation through an interactive galaxy
@@ -614,7 +653,7 @@ const GalaxySection = () => {
       {/* Main container */}
       <div 
         ref={containerRef}
-        className="relative w-full h-screen flex items-center justify-center"
+        className="relative w-full h-screen flex items-center justify-center overflow-hidden"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Central Core - United Hacks V6 */}
@@ -624,8 +663,8 @@ const GalaxySection = () => {
         {renderMemoryShards()}
 
         {/* Instructions */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center text-gray-400">
-          <p className="text-sm">Click on memory shards or the core to explore hackathons</p>
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-center text-gray-400 px-4 sm:px-0">
+          <p className="text-xs sm:text-sm">Click on memory shards or the core to explore hackathons</p>
         </div>
       </div>
 
@@ -650,6 +689,17 @@ const GalaxySection = () => {
         @keyframes scan {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translate(-50%, -60%) perspective(1000px) rotateY(-5deg);
+          }
+          to {
+            opacity: 1;
+            transform: translate(-50%, -50%) perspective(1000px) rotateY(-5deg);
+          }
         }
 
         @keyframes spin {
