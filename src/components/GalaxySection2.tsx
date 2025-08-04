@@ -73,7 +73,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#45B7D1",
     glowColor: "#45B7D140",
-    position: { x: 150, y: 180, z: 80 },
+    position: { x: 150, y: 150, z: 80 },
     link: "https://unitedhacksv3.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v3-recap"
   },
@@ -92,7 +92,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#88E788",
     glowColor: "#013220",
-    position: { x: 250, y: -50, z: 50 },
+    position: { x: 230, y: -70, z: 50 },
     link: "https://unitedhacksv2.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v2-hackathon-recap"
   },
@@ -111,7 +111,7 @@ const hackathonData: HackathonData[] = [
     ],
     color: "#FECA57",
     glowColor: "#FECA5740",
-    position: { x: 80, y: -200, z: -40 },
+    position: { x: 30, y: -200, z: -40 },
     link: "https://unitedhacksv5.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-recap-tackling-mental-health-challenges-through-technology"
   }
