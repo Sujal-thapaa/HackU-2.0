@@ -277,7 +277,8 @@ const GalaxySection2 = () => {
               style={{ 
                 animation: 'slideInFromRight 0.5s ease-out',
                 // Custom positioning for better visibility
-                left: hackathon.version === "V1" ? '300%' : 
+                left: hackathon.version === "V1" ? '400%' : 
+                      hackathon.version === "V3" ? '200%':
                       hackathon.version === "V5" || hackathon.version === "V4" ? '-400%' :
                       hackathon.position.x > 0 ? '120%' : '-120%',
                 top: '50%',
