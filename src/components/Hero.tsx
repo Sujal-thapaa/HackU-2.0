@@ -16,15 +16,6 @@ const Hero = () => {
     GRADIENT_END: '#B799FF',
   };
 
-  const featuredLogos = [
-    { name: 'FOX40', url: 'https://fox40.com/business/press-releases/ein-presswire/825280862/hack-united-unveils-united-hacks-v5-a-global-hackathon-equipping-youth-innovation-with-essential-soft-skills/', src: '/logos/Fox40.png' },
-    { name: 'AP News', url: 'https://apnews.com/press-release/ein-presswire-newsmatics/hack-united-unveils-united-hacks-v5-a-global-hackathon-equipping-youth-innovation-with-essential-soft-skills-d95d1a2b7f2b0367502ec18bd0148d08', src: '/logos/AP nesw.png' },
-    { name: 'Digital Journal', url: 'https://www.digitaljournal.com/pr/news/vehement-media/teen-led-hack-united-launches-united-1122733292.html#google_vignette', src: '/logos/digital_journal2.png' },
-    { name: 'News 10', url: 'https://www.news10.com/business/press-releases/ein-presswire/825280862/hack-united-unveils-united-hacks-v5-a-global-hackathon-equipping-youth-innovation-with-essential-soft-skills/', src: '/logos/News 10 logo.webp' },
-    { name: 'Benzinga', url: 'https://www.benzinga.com/content/46087906/hack-united-unveils-united-hacks-v5-a-global-hackathon-equipping-youth-innovation-with-essential-sof', src: '/logos/benzinga.jpg' },
-    { name: 'BarChart', url: 'https://www.theglobeandmail.com/investing/markets/markets-news/GetNews/33037175/hack-united-empowers-youth-with-soft-skills-at-united-hacks-v5/', src: '/logos/barchart.png' },
-  ];
-
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -48,7 +39,6 @@ const Hero = () => {
             font-family: var(--font-body);
           }
           
-          /* Set the background on the outermost wrapper element */
           #app-wrapper {
             background-image: url('/Background.jpg');
             background-size: cover;
@@ -242,130 +232,38 @@ const Hero = () => {
       
       <div id="app-wrapper">
         <section id="home" className="hero-gradient min-h-screen flex flex-col justify-center items-center relative py-24 sm:py-32">
-          {/* Interactive Background Effect */}
-          <div
-            className={`interactive-bg`}
-            style={{
-              left: `calc(50vw - 100px)`,
-              top: `calc(50vh - 100px)`,
-            }}
-          />
+          {/* Main Content Block for Centering */}
+          <div className="flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            {/* Main Heading */}
+            <div className={`fade-in-up`}>
+              <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight">
+                United<br />
+                Hacks V6
+              </h1>
+            </div>
 
-          {/* Floating Particles */}
-          <div className="floating-particles">
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-          </div>
+            {/* Subheading */}
+            <p className={`hero-subtitle text-xl sm:text-2xl lg:text-3xl max-w-2xl mx-auto mt-8 fade-in-up delay-1`}>
+              The Ultimate Global Online Hackathon – Code. Create. Compete.
+            </p>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
-            {isMobile ? (
-              // Mobile View
-              <div className="flex flex-col items-center justify-center w-full min-h-[calc(100vh-100px)]">
-                {/* Main Heading */}
-                <div className={`fade-in-up`}>
-                  <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight">
-                    United<br />
-                    Hacks V6
-                  </h1>
-                </div>
+            {/* CTA Buttons */}
+            <div className={`flex flex-col sm:flex-row gap-6 justify-center mt-8 fade-in-up delay-2`}>
+              <button
+                className="cta-button cta-primary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
+                onClick={() => window.open('https://www.youtube.com/watch?v=p8CHaDP3Bxg', '_blank')}
+              >
+                <Play size={20} />
+                Watch Trailer
+              </button>
 
-                {/* Subheading */}
-                <p className={`hero-subtitle text-xl sm:text-2xl lg:text-3xl max-w-2xl mx-auto mt-8 fade-in-up delay-1`}>
-                  The Ultimate Global Online Hackathon – Code. Create. Compete.
-                </p>
-
-                {/* CTA Buttons */}
-                <div className={`flex flex-col sm:flex-row gap-6 justify-center mt-8 fade-in-up delay-2`}>
-                  <button
-                    className="cta-button cta-primary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
-                    onClick={() => window.open('https://www.youtube.com/watch?v=p8CHaDP3Bxg', '_blank')}
-                  >
-                    <Play size={20} />
-                    Watch Trailer
-                  </button>
-
-                  <button
-                    className="cta-button cta-secondary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
-                    onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform', '_blank')}
-                  >
-                    <UserPlus size={20} />
-                    Register Now
-                  </button>
-                </div>
-              </div>
-            ) : (
-              // Desktop View
-              <div className="flex flex-col lg:flex-row items-center justify-between w-full">
-                {/* Left Content Block */}
-                <div className="space-y-8 flex flex-col items-center lg:items-start text-center lg:text-left">
-                  {/* Main Heading */}
-                  <div className={`fade-in-up`}>
-                    <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight">
-                      United<br />
-                      Hacks V6
-                    </h1>
-                  </div>
-
-                  {/* Subheading */}
-                  <p className={`hero-subtitle text-xl sm:text-2xl lg:text-3xl max-w-2xl mx-auto lg:mx-0 mt-8 fade-in-up delay-1`}>
-                    The Ultimate Global Online Hackathon – Code. Create. Compete.
-                  </p>
-
-                  {/* CTA Buttons */}
-                  <div className={`flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mt-8 fade-in-up delay-2`}>
-                    <button
-                      className="cta-button cta-primary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
-                      onClick={() => window.open('https://www.youtube.com/watch?v=p8CHaDP3Bxg', '_blank')}
-                    >
-                      <Play size={20} />
-                      Watch Trailer
-                    </button>
-
-                    <button
-                      className="cta-button cta-secondary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
-                      onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform', '_blank')}
-                    >
-                      <UserPlus size={20} />
-                      Register Now
-                    </button>
-                  </div>
-                </div>
-
-                {/* Right Logo Block */}
-                <div className={`mt-12 lg:mt-0 fade-in-up delay-4 flex justify-center lg:justify-end`}>
-                  <div className="relative">
-                    <a
-                      href="https://hackunited.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block cursor-pointer transform transition-all duration-300 hover:scale-105"
-                    >
-                      <img
-                        src="/HackUnitedLogo.webp"
-                        alt="HackUnited V6 Logo"
-                        className="w-full h-auto max-h-80 object-contain"
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {/* Featured In Section */}
-            <div className={`featured-logos pt-8 fade-in-up delay-3 mt-8`}>
-              <p className="text-sm font-medium mb-6" style={{ color: COLORS.TEXT_MUTED }}>
-                FEATURED IN
-              </p>
-              <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-                {featuredLogos.map((logo) => (
-                  <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">
-                    <img src={logo.src} alt={`${logo.name} Logo`} className="w-auto h-8 sm:h-10 transition-all hover:opacity-100" />
-                  </a>
-                ))}
-              </div>
+              <button
+                className="cta-button cta-secondary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform', '_blank')}
+              >
+                <UserPlus size={20} />
+                Register Now
+              </button>
             </div>
           </div>
         </section>
