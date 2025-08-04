@@ -385,39 +385,24 @@ const Navbar = () => {
           }
 
           .logo-text {
-            background: linear-gradient(135deg, ${COLORS.TEXT_MAIN}, ${COLORS.LINK_HOVER});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff; /* Changed to white */
             font-weight: 700;
             letter-spacing: -0.02em;
-            text-shadow: 0 0 30px rgba(108, 43, 217, 0.3);
             position: relative;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease-in-out;
           }
 
-          .logo-text::before {
-            content: 'HackUnited V6';
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: linear-gradient(135deg, #6C2BD9, #B799FF, #E0E0E0, #6C2BD9);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: none;
-            z-index: -1;
+          .logo-text:hover {
+            color: #ffffff;
+            transform: none;
+            filter: none;
           }
 
           @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
           }
-
-         .logo-text:hover {
-  transform: none;
-  filter: none;
-}
         `}
       </style>
       
@@ -453,7 +438,7 @@ const Navbar = () => {
                 />
                 <span className="logo-text ml-3 text-xl font-bold font-heading">
                   <span className="relative">
-                    Hack<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600">United</span> V6
+                    HackUnited V6
                   </span>
                 </span>
               </a>

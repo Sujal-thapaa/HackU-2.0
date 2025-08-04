@@ -27,12 +27,11 @@ const Hero = () => {
     <>
       <style>
         {`
-          @import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap');
-          @import url('https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap');
-
+          /* Using Times New Roman as requested */
           :root {
-            --font-heading: 'Clash Display', sans-serif;
-            --font-body: 'General Sans', sans-serif;
+            --font-heading: 'Times New Roman', serif;
+            --font-body: 'Times New Roman', serif;
+            --font-code: 'IBM Plex Mono', monospace;
           }
 
           body {
