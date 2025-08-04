@@ -310,23 +310,24 @@ const Hero = () => {
             </div>
 
             {/* Right Logo Block */}
-            <div className={`-mt-4 lg:-mt-6 fade-in-up delay-4 flex justify-center lg:justify-end`}>
- <div className="relative">
-                <a
-                  href="https://hackunited.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block cursor-pointer transform transition-all duration-300 hover:scale-105"
-                >
-                  <img
-  src="/HackUnitedLogo.webp"
-  alt="HackUnited V6 Logo"
-  className="w-64 sm:w-80 md:w-96 lg:w-[28rem] h-48 sm:h-64 md:h-80 lg:h-96"
-/>
+           {/* Right Logo Block - Stretched Horizontally */}
+<div className="-mt-4 lg:-mt-6 fade-in-up delay-4 flex justify-center lg:justify-end">
+  <div className="relative w-full max-w-7xl px-4">
+    <a
+      href="https://hackunited.org"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block cursor-pointer transform transition-all duration-300 hover:scale-105"
+    >
+      <img
+        src="/HackUnitedLogo.webp"
+        alt="HackUnited V6 Logo"
+        className="w-full max-w-full h-auto max-h-80 object-contain"
+      />
+    </a>
+  </div>
+</div>
 
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -335,4 +336,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
