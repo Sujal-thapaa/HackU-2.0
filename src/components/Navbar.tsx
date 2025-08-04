@@ -12,7 +12,6 @@ const Navbar = () => {
     PRIMARY_BG: '#0E0B16',
     PRIMARY_ACCENT: '#6C2BD9',
     SECONDARY_ACCENT: '#4A2A80',
-    SURFACE: '#1A162B',
     TEXT_MAIN: '#E0E0E0',
     TEXT_MUTED: '#BDBDBD',
     LINK_HOVER: '#B799FF',
@@ -107,15 +106,15 @@ const Navbar = () => {
 
           /* Logo entrance animation */
           .logo-container {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-          }
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 
-          .logo-container.loaded {
-            opacity: 1;
-            transform: translateX(0);
-          }
+.logo-container.loaded {
+  opacity: 1;
+  transform: none;
+}
 
           /* Enhanced nav link animations */
           .nav-link {
@@ -179,7 +178,7 @@ const Navbar = () => {
   position: relative;
   background: linear-gradient(45deg, #6a0dad, #8e44ad, #a084ca, #6a0dad);
   background-size: 300% 300%;
-  animation: flameGradient 5s ease-in-out infinite, flamePulse 3s ease-in-out infinite, flameFloat 5s ease-in-out infinite;
+  animation: flameGradient 5s ease-in-out infinite, flamePulse 3s ease-in-out infinite;
   box-shadow:
     0 0 4px rgba(138, 43, 226, 0.25),
     0 0 8px rgba(155, 89, 182, 0.2),
@@ -237,7 +236,6 @@ const Navbar = () => {
   animation:
     flameGradient 3s ease-in-out infinite,
     flamePulse 1.5s ease-in-out infinite,
-    flameFloat 3s ease-in-out infinite,
     flameShake 1s ease-in-out infinite;
   box-shadow:
     0 0 6px rgba(138, 43, 226, 0.3),
@@ -269,13 +267,6 @@ const Navbar = () => {
 @keyframes flamePulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.03); }
-}
-
-@keyframes flameFloat {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-0.5px) rotate(0.3deg); }
-  50% { transform: translateY(0px) rotate(-0.3deg); }
-  75% { transform: translateY(-0.3px) rotate(0.2deg); }
 }
 
 @keyframes flameHalo {
@@ -414,7 +405,7 @@ const Navbar = () => {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
+            animation: none;
             z-index: -1;
           }
 
@@ -423,10 +414,10 @@ const Navbar = () => {
             50% { background-position: 100% 50%; }
           }
 
-          .logo-text:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 15px rgba(183, 153, 255, 0.6));
-          }
+         .logo-text:hover {
+  transform: none;
+  filter: none;
+}
         `}
       </style>
       
@@ -443,7 +434,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo Section */}
-            <div className={`flex items-center logo-container ${logoLoaded ? 'loaded' : ''}`}>
+            <div className={`flex items-center `}>
               <a 
                 href="#home" 
                 className="logo-link flex items-center focus:outline-none"
