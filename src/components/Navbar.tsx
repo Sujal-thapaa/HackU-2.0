@@ -175,20 +175,18 @@ const Navbar = () => {
             transform-origin: bottom left;
           }
 
-         /* Flaming Hackathon Button Animations */
-.flame-button {
+     .flame-button {
   position: relative;
-  background: linear-gradient(45deg, #ff6b35, #f7931e, #ffdd00, #ff6b35);
+  background: linear-gradient(45deg, #6a0dad, #8e44ad, #a084ca, #6a0dad);
   background-size: 300% 300%;
-  animation: flameGradient 3s ease-in-out infinite, flamePulse 2s ease-in-out infinite, flameFloat 4s ease-in-out infinite;
-  box-shadow: 
-    0 0 10px rgba(255, 107, 53, 0.6),
-    0 0 20px rgba(247, 147, 30, 0.4),
-    0 0 30px rgba(255, 221, 0, 0.3),
-    inset 0 0 10px rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 221, 0, 0.6);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 221, 0, 0.6);
-  transform-style: preserve-3d;
+  animation: flameGradient 5s ease-in-out infinite, flamePulse 3s ease-in-out infinite, flameFloat 5s ease-in-out infinite;
+  box-shadow:
+    0 0 4px rgba(138, 43, 226, 0.25),
+    0 0 8px rgba(155, 89, 182, 0.2),
+    0 0 10px rgba(200, 162, 255, 0.15),
+    inset 0 0 4px rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 162, 255, 0.3);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 4px rgba(200, 162, 255, 0.1);
   cursor: pointer;
   padding: 6px 12px;
   font-size: 0.75rem;
@@ -202,17 +200,18 @@ const Navbar = () => {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, 
-    transparent, 
-    rgba(255, 107, 53, 0.3), 
-    rgba(247, 147, 30, 0.4), 
-    rgba(255, 221, 0, 0.3), 
+  background: linear-gradient(45deg,
+    transparent,
+    rgba(138, 43, 226, 0.15),
+    rgba(155, 89, 182, 0.2),
+    rgba(200, 162, 255, 0.15),
     transparent
   );
   border-radius: inherit;
   z-index: -1;
-  animation: flameHalo 2.5s ease-in-out infinite;
-  filter: blur(4px);
+  animation: flameHalo 3s ease-in-out infinite;
+  filter: blur(1px);
+  opacity: 0.4;
 }
 
 .flame-button::after {
@@ -222,40 +221,41 @@ const Navbar = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 45%, 
-    rgba(255, 255, 255, 0.5) 50%, 
-    rgba(255, 255, 255, 0.3) 55%, 
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.05) 55%,
     transparent 100%
   );
   border-radius: inherit;
-  animation: flameShimmer 3s linear infinite;
+  animation: flameShimmer 5s linear infinite;
   pointer-events: none;
 }
 
 .flame-button:hover {
-  animation: 
-    flameGradient 2s ease-in-out infinite, 
-    flamePulse 1s ease-in-out infinite, 
-    flameFloat 2s ease-in-out infinite,
-    flameShake 0.5s ease-in-out infinite;
-  box-shadow: 
-    0 0 15px rgba(255, 107, 53, 0.8),
-    0 0 30px rgba(247, 147, 30, 0.6),
-    0 0 45px rgba(255, 221, 0, 0.4),
-    inset 0 0 15px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05) translateY(-2px);
-  border-color: rgba(255, 221, 0, 1);
+  animation:
+    flameGradient 3s ease-in-out infinite,
+    flamePulse 1.5s ease-in-out infinite,
+    flameFloat 3s ease-in-out infinite,
+    flameShake 1s ease-in-out infinite;
+  box-shadow:
+    0 0 6px rgba(138, 43, 226, 0.3),
+    0 0 12px rgba(155, 89, 182, 0.25),
+    0 0 18px rgba(200, 162, 255, 0.2),
+    inset 0 0 8px rgba(255, 255, 255, 0.05);
+  transform: scale(1.03) translateY(-1px);
+  border-color: rgba(200, 162, 255, 0.4);
 }
 
 .flame-button .flame-text {
   position: relative;
   z-index: 2;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  animation: flameTextGlow 2s ease-in-out infinite;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  animation: flameTextGlow 3s ease-in-out infinite;
   font-size: 0.75rem;
+  color: #f0e8ff;
 }
 
 /* Animations */
@@ -268,19 +268,19 @@ const Navbar = () => {
 
 @keyframes flamePulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.03); }
 }
 
 @keyframes flameFloat {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-1px) rotate(0.5deg); }
-  50% { transform: translateY(0px) rotate(-0.5deg); }
-  75% { transform: translateY(-0.5px) rotate(0.3deg); }
+  25% { transform: translateY(-0.5px) rotate(0.3deg); }
+  50% { transform: translateY(0px) rotate(-0.3deg); }
+  75% { transform: translateY(-0.3px) rotate(0.2deg); }
 }
 
 @keyframes flameHalo {
-  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.05) rotate(180deg); }
+  0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.6; transform: scale(1.03) rotate(180deg); }
 }
 
 @keyframes flameShimmer {
@@ -290,25 +290,25 @@ const Navbar = () => {
 
 @keyframes flameShake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-1px); }
-  75% { transform: translateX(1px); }
+  25% { transform: translateX(-0.5px); }
+  75% { transform: translateX(0.5px); }
 }
 
 @keyframes flameTextGlow {
-  0%, 100% { 
-    text-shadow: 
-      0 0 3px rgba(255, 255, 255, 1),
-      0 0 6px rgba(255, 221, 0, 0.8),
-      0 0 10px rgba(247, 147, 30, 0.6);
+  0%, 100% {
+    text-shadow:
+      0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 2px rgba(200, 162, 255, 0.15),
+      0 0 3px rgba(155, 89, 182, 0.1);
   }
-  50% { 
-    text-shadow: 
-      0 0 6px rgba(255, 255, 255, 1),
-      0 0 12px rgba(255, 221, 0, 1),
-      0 0 18px rgba(247, 147, 30, 0.8),
-      0 0 24px rgba(255, 107, 53, 0.4);
+  50% {
+    text-shadow:
+      0 0 2px rgba(255, 255, 255, 0.3),
+      0 0 4px rgba(200, 162, 255, 0.2),
+      0 0 6px rgba(155, 89, 182, 0.15);
   }
 }
+
 
 
           /* Glassmorphism navbar */
