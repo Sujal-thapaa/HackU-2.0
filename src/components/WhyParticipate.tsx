@@ -26,7 +26,7 @@ const stages = [
   },
   {
     id: 'learn',
-    icon: "public/icons/learn.png",
+    icon: "/icons/learn.png",
     title: 'Learn & Grow',
     subtitle: 'Expand your skills with expert guidance',
     description: 'Join workshops, mentorships, and masterclasses led by top tech professionals. Level up your abilities and accelerate your developer journey.',
