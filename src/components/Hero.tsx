@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Play, UserPlus, ChevronDown } from 'lucide-react';
+import { Play, UserPlus } from 'lucide-react';
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
   const COLORS = {
     PRIMARY_BG: '#0E0B16',
@@ -27,22 +26,11 @@ const Hero = () => {
   ];
 
   useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  const scrollToNext = () => {
-    const nextSection = document.getElementById('why-join');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <>
@@ -242,10 +230,10 @@ const Hero = () => {
       <section id="home" className="hero-gradient min-h-screen flex flex-col justify-center items-center relative py-24 sm:py-32">
         {/* Interactive Background Effect */}
         <div
-          className={`interactive-bg ${isVisible ? 'active' : ''}`}
+          className={`interactive-bg ${true ? 'active' : ''}`}
           style={{
-            left: mousePosition.x - 100,
-            top: mousePosition.y - 100,
+            left: 'calc(50vw - 100px)',
+            top: 'calc(50vh - 100px)',
           }}
         />
 
@@ -265,11 +253,12 @@ const Hero = () => {
             <div className="space-y-8 flex flex-col items-center lg:items-start text-center lg:text-left">
               {/* Main Heading */}
               <div className={`fade-in-up`}>
-  <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight">
-    United<br />
-    Hacks V6
-  </h1>
-</div>
+                <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-tight">
+                  United<br />
+                  Hacks V6
+                </h1>
+              </div>
+
               {/* Subheading */}
               <p className={`hero-subtitle text-xl sm:text-2xl lg:text-3xl max-w-2xl mx-auto lg:mx-0 mt-8 fade-in-up delay-1`}>
                 The Ultimate Global Online Hackathon – Code. Create. Compete.
@@ -293,41 +282,39 @@ const Hero = () => {
                   Register Now
                 </button>
               </div>
-
-              {/* Featured In Section - Now centralized on mobile, left-aligned on PC */}
-              <div className={`featured-logos pt-8 fade-in-up delay-3 mt-8`}>
-                <p className="text-sm font-medium mb-6" style={{ color: COLORS.TEXT_MUTED }}>
-                  FEATURED IN
-                </p>
-                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-8 opacity-60">
-                  {featuredLogos.map((logo) => (
-                    <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">
-                      <img src={logo.src} alt={`${logo.name} Logo`} className="w-auto h-8 sm:h-10 transition-all hover:opacity-100" />
-                    </a>
-                  ))}
-                </div>
+            </div>
+            
+            {/* Right Logo Block */}
+            <div className={`-mt-4 lg:-mt-6 fade-in-up delay-4 flex justify-center lg:justify-end`}>
+              <div className="relative">
+                <a
+                  href="https://hackunited.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block cursor-pointer transform transition-all duration-300 hover:scale-105"
+                >
+                  <img
+                    src="/HackUnitedLogo.webp"
+                    alt="HackUnited V6 Logo"
+                    className="w-full h-auto max-h-80 object-contain"
+                  />
+                </a>
               </div>
             </div>
-
-            {/* Right Logo Block */}
-           {/* Right Logo Block - Stretched Horizontally */}
-<div className="-mt-4 lg:-mt-6 fade-in-up delay-4 flex justify-center lg:justify-end">
-  <div className="relative w-full max-w-7xl px-4">
-    <a
-      href="https://hackunited.org"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block cursor-pointer transform transition-all duration-300 hover:scale-105"
-    >
-      <img
-        src="/HackUnitedLogo.webp"
-        alt="HackUnited V6 Logo"
-        className="w-full max-w-full h-auto max-h-80 object-contain"
-      />
-    </a>
-  </div>
-</div>
-
+          </div>
+          
+          {/* Featured In Section */}
+          <div className={`featured-logos pt-8 fade-in-up delay-3 mt-8`}>
+            <p className="text-sm font-medium mb-6" style={{ color: COLORS.TEXT_MUTED }}>
+              FEATURED IN
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+              {featuredLogos.map((logo) => (
+                <a key={logo.name} href={logo.url} target="_blank" rel="noopener noreferrer">
+                  <img src={logo.src} alt={`${logo.name} Logo`} className="w-auto h-8 sm:h-10 transition-all hover:opacity-100" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
