@@ -3,6 +3,12 @@ import { Play, UserPlus } from 'lucide-react';
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
 
   const COLORS = {
     PRIMARY_BG: '#0E0B16',
@@ -21,6 +27,36 @@ const Hero = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      // Target date: January 16, 2025 at 6:00 PM CST (UTC-6)
+      // Convert to UTC: January 17, 2025 at 00:00 UTC
+      const targetDate = new Date('2026-01-18T11:00:00-06:00');
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    // Calculate immediately
+    calculateTimeLeft();
+
+    // Update every second
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Cleanup
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -168,6 +204,102 @@ const Hero = () => {
             border-color: rgba(183, 153, 255, 0.5);
           }
 
+          .countdown-container {
+            background: linear-gradient(135deg, rgba(26, 22, 43, 0.8), rgba(74, 42, 128, 0.6));
+            border: 1px solid rgba(183, 153, 255, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(108, 43, 217, 0.2);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+          }
+
+          .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(183, 153, 255, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+          }
+
+          @keyframes shimmer {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+          }
+
+          .countdown-title {
+            font-family: var(--font-heading);
+            color: ${COLORS.TEXT_MAIN};
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            text-align: center;
+          }
+
+          .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            position: relative;
+            z-10;
+          }
+
+          .countdown-item {
+            text-align: center;
+            background: rgba(14, 11, 22, 0.6);
+            border-radius: 12px;
+            padding: 16px 8px;
+            border: 1px solid rgba(183, 153, 255, 0.1);
+            transition: all 0.3s ease;
+          }
+
+          .countdown-item:hover {
+            border-color: rgba(183, 153, 255, 0.3);
+            transform: translateY(-2px);
+          }
+
+          .countdown-number {
+            font-family: var(--font-code);
+            font-size: 2rem;
+            font-weight: 800;
+            color: ${COLORS.LINK_HOVER};
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(183, 153, 255, 0.4);
+          }
+
+          .countdown-label {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: ${COLORS.TEXT_MUTED};
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 8px;
+          }
+
+          @media (max-width: 640px) {
+            .countdown-grid {
+              gap: 12px;
+            }
+            
+            .countdown-item {
+              padding: 12px 6px;
+            }
+            
+            .countdown-number {
+              font-size: 1.5rem;
+            }
+            
+            .countdown-label {
+              font-size: 0.75rem;
+            }
+          }
+
           .logo-container {
             position: relative;
             animation: logoFloat 6s ease-in-out infinite;
@@ -263,6 +395,31 @@ const Hero = () => {
                 <UserPlus size={20} />
                 Register Now
               </button>
+            </div>
+
+            {/* Countdown Timer */}
+            <div className={`countdown-container max-w-2xl mx-auto mt-12 fade-in-up delay-3`}>
+              <div className="countdown-title">
+                Event Starts In
+              </div>
+              <div className="countdown-grid">
+                <div className="countdown-item">
+                  <span className="countdown-number">{timeLeft.days}</span>
+                  <div className="countdown-label">Days</div>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{timeLeft.hours}</span>
+                  <div className="countdown-label">Hours</div>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{timeLeft.minutes}</span>
+                  <div className="countdown-label">Minutes</div>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{timeLeft.seconds}</span>
+                  <div className="countdown-label">Seconds</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
