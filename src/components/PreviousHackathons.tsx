@@ -21,7 +21,7 @@ const PreviousHackathons = () => {
   ];
 
   return (
-    <section id="previous" className="py-20" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
+    <section id="previous" className="py-20 relative" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 

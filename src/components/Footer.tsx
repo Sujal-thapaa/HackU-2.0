@@ -108,10 +108,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Mini 3-D model bottom-right */}
-        <div className="hidden md:block absolute right-4 bottom-4">
-          <MiniModel />
-        </div>
+        
       </div>
     </footer>
   );

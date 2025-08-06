@@ -182,12 +182,13 @@ const Prize = () => {
   }, []);
 
   return (
-    <section 
-      id="prizes" 
-      className="py-20 min-h-screen" 
-      style={{ backgroundColor: COLORS.PRIMARY_BG }}
-      onClick={handleAdvanceToNext}
-    >
+    <section
+  id="prizes"
+  className="py-20 min-h-screen relative"
+  style={{ backgroundColor: COLORS.PRIMARY_BG }}
+  onClick={handleAdvanceToNext}
+>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2
@@ -719,7 +720,7 @@ const Prize = () => {
       </div>
 
       {/* Enhanced CSS Animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes treasure-glow {
           0% { 
             filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8)) drop-shadow(0 5px 15px rgba(255, 104, 73, 0.6)) drop-shadow(0 0 50px rgba(255, 104, 73, 0.4));

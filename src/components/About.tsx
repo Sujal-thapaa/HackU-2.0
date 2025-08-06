@@ -33,8 +33,13 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
-      {/* Background gradient effects */}
+    <section
+    id="previous"
+    className="py-20 relative"
+    style={{ backgroundColor: COLORS.PRIMARY_BG }}
+  >
+  
+    {/* Background gradient effects */}
       <div
         className="absolute inset-0"
         style={{ backgroundImage: `linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT}08 0%, ${COLORS.SECONDARY_ACCENT}08 100%)` }}

@@ -15,6 +15,7 @@ interface HackathonData {
   color: string;
   glowColor: string;
   position: { x: number; y: number; z: number };
+  panelPosition: { x: number; y: number; align: 'left' | 'right' | 'center' };
   link: string;
   articleLink: string;
 }
@@ -24,18 +25,19 @@ const hackathonData: HackathonData[] = [
     id: 1,
     version: "V5",
     title: "United Hacks V5",
-  dates: "July 11–13, 2025",
-  theme: "Entertainment + General",
-  themeIcon: <Zap className="w-4 h-4" />,
-  participants: 1231,
-  prize: "$51,000",
-  summary: [
-    "Enhance how people enjoy entertainment",
-    "From new tech to novel experiences"
+    dates: "July 11–13, 2025",
+    theme: "Entertainment + General",
+    themeIcon: <Zap className="w-4 h-4" />,
+    participants: 1231,
+    prize: "$51,000",
+    summary: [
+      "Enhance how people enjoy entertainment",
+      "From new tech to novel experiences"
     ],
     color: "#FF6B6B",
     glowColor: "#FF6B6B40",
     position: { x: -220, y: -100, z: -60 },
+    panelPosition: { x: -60, y: -10, align: 'right' },
     link: "https://unitedhacks23.devpost.com/",
     articleLink: "#"
   },
@@ -55,25 +57,27 @@ const hackathonData: HackathonData[] = [
     color: "#FEC5E5",
     glowColor: "#F646AA",
     position: { x: -180, y: 150, z: -30 },
+    panelPosition: { x: -60, y: 0, align: 'right' },
     link: "https://unitedhacksv4.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v4-celebrating-innovation-creativity-and-impact"
   },
   {
     id: 3,
     version: "V3",
-  title: "United Hacks V3",
-  dates: "September 6–8, 2024",
-  theme: "Mini Hacks + General",
+    title: "United Hacks V3",
+    dates: "September 6–8, 2024",
+    theme: "Mini Hacks + General",
     themeIcon: <Heart className="w-4 h-4" />,
     participants: 151,
-  prize: "$44,200",
-  summary: [
-    "Solve small problems with big impact",
-    "Freedom to innovate without limits"
+    prize: "$44,200",
+    summary: [
+      "Solve small problems with big impact",
+      "Freedom to innovate without limits"
     ],
     color: "#45B7D1",
     glowColor: "#45B7D140",
-    position: { x: 150, y: 150, z: 80 },
+    position: { x: 190, y: 150, z: 80 },
+    panelPosition: { x: 150, y: 0, align: 'left' },
     link: "https://unitedhacksv3.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v3-recap"
   },
@@ -81,18 +85,19 @@ const hackathonData: HackathonData[] = [
     id: 4,
     version: "V2",
     title: "United Hacks V2",
-  dates: "January 12–14, 2024",
-  theme: "Resolution + General",
+    dates: "January 12–14, 2024",
+    theme: "Resolution + General",
     themeIcon: <Building className="w-4 h-4" />,
     participants: 392,
-  prize: "$39,500",
-  summary: [
-    "Build for self-growth or explore any domain",
-    "Celebrate innovation with or without boundaries"
+    prize: "$39,500",
+    summary: [
+      "Build for self-growth or explore any domain",
+      "Celebrate innovation with or without boundaries"
     ],
     color: "#88E788",
     glowColor: "#013220",
-    position: { x: 230, y: -70, z: 50 },
+    position: { x: 230, y: -90, z: 50 },
+    panelPosition: { x: 150, y: 0, align: 'left' },
     link: "https://unitedhacksv2.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-v2-hackathon-recap"
   },
@@ -100,18 +105,19 @@ const hackathonData: HackathonData[] = [
     id: 5,
     version: "V1",
     title: "United Hacks 2023",
-  dates: "August 4–6, 2023",
-  theme: "Mental Health + General",
+    dates: "August 4–6, 2023",
+    theme: "Mental Health + General",
     themeIcon: <Zap className="w-4 h-4" />,
     participants: 386,
-  prize: "$115,860",
+    prize: "$115,860",
     summary: [
       "Collaborate with like-minded innovators",
-    "Tackle mental health or compete in the general track"
+      "Tackle mental health or compete in the general track"
     ],
     color: "#FECA57",
     glowColor: "#FECA5740",
-    position: { x: 30, y: -200, z: -40 },
+    position: { x: 10, y: -200, z: -40 },
+    panelPosition: { x: 550, y: 50, align: 'center' },
     link: "https://unitedhacksv5.devpost.com/",
     articleLink: "https://blog.hackunited.org/united-hacks-recap-tackling-mental-health-challenges-through-technology"
   }
@@ -122,10 +128,10 @@ const v6Data: HackathonData = {
   id: 6,
   version: "V6",
   title: "United Hacks V6",
-  dates: "January 16–18, 2026", // update when you know the dates
+  dates: "January 16–18, 2026",
   theme: "TBD",
   themeIcon: <Zap className="w-4 h-4" />,
-  participants: 0, // update later
+  participants: 0,
   prize: "$50,700",
   summary: [
     "The most awaited edition yet",
@@ -134,6 +140,7 @@ const v6Data: HackathonData = {
   color: "#C0C0C0",
   glowColor: "#888888",
   position: { x: 0, y: 0, z: 0 },
+  panelPosition: { x: 100, y: 450, align: 'left' },
   link: "https://unitedhacksv6.devpost.com/",
   articleLink: "#"
 };
@@ -144,8 +151,8 @@ const AnimatedCounter: React.FC<{ target: number; isVisible: boolean }> = ({ tar
   useEffect(() => {
     if (!isVisible) return;
 
-    const duration = 2000;
-    const steps = 60;
+    const duration = 1500; // Reduced duration
+    const steps = 30; // Reduced steps
     const increment = target / steps;
     let current = 0;
 
@@ -171,141 +178,113 @@ const GalaxySection2 = () => {
   const [coreRotation, setCoreRotation] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Reduced animation frequency for Safari
   useEffect(() => {
     const interval = setInterval(() => {
-      setCoreRotation(prev => prev + 0.5);
-    }, 50);
+      setCoreRotation(prev => prev + 0.2); // Much slower rotation
+    }, 100); // Less frequent updates
 
     return () => clearInterval(interval);
   }, []);
-
-
 
   const renderMemoryShards = () => {
     return hackathonData.map((hackathon) => {
       const isHovered = hoveredShard === hackathon.id;
       const isSelected = selectedShard?.id === hackathon.id;
-      
-      // Fast rotation for all versions (same as V1 and V2)
-      const rotationSpeed = 2.0;
 
       return (
         <div
           key={hackathon.id}
-          className="absolute transition-all duration-500 cursor-pointer"
+          className="absolute transition-all duration-300 cursor-pointer"
           style={{
-            transform: `translate3d(${hackathon.position.x}px, ${hackathon.position.y}px, ${hackathon.position.z}px)`,
-            transformStyle: 'preserve-3d'
+            transform: `translate(${hackathon.position.x}px, ${hackathon.position.y}px)`, // Removed 3D transforms
+            willChange: 'transform'
           }}
           onClick={() => setSelectedShard(isSelected ? null : hackathon)}
           onMouseEnter={() => setHoveredShard(hackathon.id)}
           onMouseLeave={() => setHoveredShard(null)}
         >
-          {/* Memory Shard */}
+          {/* Memory Shard - Simplified */}
           <div
-            className={`relative w-20 h-20 md:w-24 md:h-24 transition-all duration-300 ${
+            className={`relative w-20 h-20 md:w-24 md:h-24 transition-transform duration-300 ${
               isHovered || isSelected ? 'scale-110' : 'scale-100'
             }`}
             style={{
-              transform: `rotateX(${isHovered ? 15 : 0}deg) rotateY(${isHovered ? 15 : 0}deg) rotateZ(${coreRotation * rotationSpeed}deg)`,
-              transformStyle: 'preserve-3d'
+              willChange: 'transform'
             }}
           >
-            {/* Shard body with glassmorphism */}
+            {/* Shard body with simplified styling */}
             <div
-              className="w-full h-full rounded-lg backdrop-blur-md border border-opacity-30 relative overflow-hidden"
+              className="w-full h-full rounded-lg border border-opacity-50 relative overflow-hidden"
               style={{
-                background: `linear-gradient(135deg, ${hackathon.glowColor}, transparent 70%)`,
+                background: `linear-gradient(135deg, ${hackathon.color}40, ${hackathon.color}20)`,
                 borderColor: hackathon.color,
-                boxShadow: `0 8px 32px ${hackathon.glowColor}, inset 0 0 20px ${hackathon.glowColor}`
+                boxShadow: `0 4px 16px ${hackathon.glowColor}`
               }}
             >
-              {/* Inner glow effect */}
+              {/* Inner glow effect - simplified */}
               <div 
-                className="absolute inset-0 rounded-lg opacity-50"
+                className="absolute inset-0 rounded-lg opacity-30"
                 style={{
-                  background: `radial-gradient(circle at 30% 30%, ${hackathon.color}80, transparent 70%)`
+                  background: `radial-gradient(circle at center, ${hackathon.color}60, transparent 70%)`
                 }}
               />
               
               {/* Version label */}
-              <div 
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ 
-                  backfaceVisibility: 'hidden',
-                  transform: `rotateZ(${-coreRotation * rotationSpeed}deg)`,
-                  transformStyle: 'preserve-3d'
-                }}
-              >
+              <div className="absolute inset-0 flex items-center justify-center">
                 <span 
                   className="text-white font-bold text-lg md:text-xl"
-                  style={{ textShadow: `0 0 10px ${hackathon.color}` }}
+                  style={{ textShadow: `0 0 8px ${hackathon.color}` }}
                 >
                   {hackathon.version}
                 </span>
               </div>
 
-              {/* Animated border */}
-              <div 
-                className="absolute inset-0 rounded-lg"
-                style={{
-                  background: `conic-gradient(from 0deg, ${hackathon.color}, transparent, ${hackathon.color})`,
-                  mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                  maskComposite: 'xor',
-                  padding: '2px',
-                  animation: isHovered ? 'spin 3s linear infinite' : 'none'
-                }}
-              />
+              {/* Simple animated border - only on hover */}
+              {isHovered && (
+                <div 
+                  className="absolute inset-0 rounded-lg border-2 opacity-60"
+                  style={{
+                    borderColor: hackathon.color,
+                    animation: 'pulse 2s ease-in-out infinite'
+                  }}
+                />
+              )}
             </div>
-
-            {/* Floating connection lines */}
-            <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle, ${hackathon.glowColor} 1px, transparent 1px)`,
-                backgroundSize: '20px 20px',
-                opacity: isHovered ? 0.3 : 0.1,
-                animation: 'float 4s ease-in-out infinite'
-              }}
-            />
           </div>
 
-          {/* Holographic Info Panel - Positioned to avoid overlap */}
+          {/* Info Panel - Custom positioning */}
           {isSelected && (
             <div 
               className="absolute z-50"
               style={{ 
-                animation: 'slideInFromRight 0.5s ease-out',
-                // Custom positioning for better visibility
-                left: hackathon.version === "V1" ? '400%' : 
-                      hackathon.version === "V3" ? '200%':
-                      hackathon.version === "V5" || hackathon.version === "V4" ? '-400%' :
-                      hackathon.position.x > 0 ? '120%' : '-120%',
-                top: '50%',
-                transform: 'translateY(-50%) perspective(1000px) rotateY(-5deg)',
+                left: `${hackathon.panelPosition.x}px`,
+                top: `${hackathon.panelPosition.y}px`,
+                transform: hackathon.panelPosition.align === 'center' ? 'translate(-50%, -50%)' :
+                          hackathon.panelPosition.align === 'right' ? 'translate(-100%, -50%)' : 'translateY(-50%)',
                 width: '320px',
                 maxWidth: '80vw'
               }}
             >
               <div 
-                className="backdrop-blur-lg rounded-xl border border-opacity-40 p-6 relative overflow-hidden"
+                className="backdrop-blur-sm rounded-xl border border-opacity-40 p-6 relative"
                 style={{
-                  background: `linear-gradient(135deg, ${hackathon.glowColor}, rgba(0,0,0,0.8))`,
+                  background: `linear-gradient(135deg, ${hackathon.color}20, rgba(0,0,0,0.9))`,
                   borderColor: hackathon.color,
-                  boxShadow: `0 20px 40px ${hackathon.glowColor}, inset 0 0 30px ${hackathon.glowColor}`
+                  boxShadow: `0 8px 24px ${hackathon.glowColor}`
                 }}
               >
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-4">
                   <div 
-                    className="w-3 h-3 rounded-full animate-pulse"
+                    className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: hackathon.color }}
                   />
                   <h3 className="text-white text-xl font-bold">{hackathon.title}</h3>
                   <span 
                     className="text-sm px-2 py-1 rounded-full"
                     style={{ 
-                      backgroundColor: hackathon.glowColor,
+                      backgroundColor: hackathon.color + '30',
                       color: hackathon.color
                     }}
                   >
@@ -338,7 +317,7 @@ const GalaxySection2 = () => {
                       className="text-lg font-bold"
                       style={{ 
                         color: hackathon.color,
-                        textShadow: `0 0 10px ${hackathon.color}`
+                        textShadow: `0 0 8px ${hackathon.color}`
                       }}
                     >
                       {hackathon.prize}
@@ -347,7 +326,7 @@ const GalaxySection2 = () => {
                 </div>
 
                 {/* Summary */}
-                <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
+                <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-50 border border-opacity-30" style={{ borderColor: hackathon.color }}>
                   <p className="text-gray-300 text-sm leading-relaxed">
                     {hackathon.summary[0]}
                   </p>
@@ -359,10 +338,10 @@ const GalaxySection2 = () => {
                 {/* Action Buttons */}
                 <div className="flex gap-3 mt-4">
                   <button 
-                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-transform duration-200 flex items-center justify-center gap-2 hover:scale-105"
                     style={{
                       background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-                      boxShadow: `0 4px 20px ${hackathon.glowColor}`
+                      boxShadow: `0 4px 12px ${hackathon.glowColor}`
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -374,10 +353,10 @@ const GalaxySection2 = () => {
                   </button>
                   
                   <button 
-                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                    className="flex-1 py-3 px-4 rounded-lg font-semibold transition-transform duration-200 flex items-center justify-center gap-2 hover:scale-105"
                     style={{
                       background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-                      boxShadow: `0 4px 20px ${hackathon.glowColor}`
+                      boxShadow: `0 4px 12px ${hackathon.glowColor}`
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -387,17 +366,6 @@ const GalaxySection2 = () => {
                     <span className="text-white text-sm">Article</span>
                     <ExternalLink className="w-4 h-4 text-white" />
                   </button>
-                </div>
-
-                {/* Holographic scan lines */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <div 
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      background: `repeating-linear-gradient(90deg, transparent, transparent 2px, ${hackathon.color} 2px, ${hackathon.color} 4px)`,
-                      animation: 'scan 3s linear infinite'
-                    }}
-                  />
                 </div>
               </div>
             </div>
@@ -410,94 +378,97 @@ const GalaxySection2 = () => {
   const renderV6Core = () => {
     const isV6Selected = selectedShard?.id === 6;
     const isV6Hovered = hoveredShard === 6;
-    
-    // No rotation for V6 core
-    const rotationSpeed = 0;
 
     return (
       <>
         <div 
-          className="relative z-10 cursor-pointer transition-all duration-300"
-          style={{
-            transform: `rotateY(${coreRotation * rotationSpeed}deg)`,
-            transformStyle: 'preserve-3d'
-          }}
+          className="relative z-10 cursor-pointer transition-transform duration-300"
           onClick={() => setSelectedShard(isV6Selected ? null : v6Data)}
           onMouseEnter={() => setHoveredShard(6)}
           onMouseLeave={() => setHoveredShard(null)}
         >
-          <div className={`relative w-32 h-32 md:w-40 md:h-40 transition-all duration-300 ${
+          <div className={`relative w-32 h-32 md:w-40 md:h-40 transition-transform duration-300 ${
             isV6Hovered || isV6Selected ? 'scale-110' : 'scale-100'
           }`}>
-            {/* Core glow */}
+            {/* Core glow - simplified */}
             <div 
-              className="absolute inset-0 rounded-full animate-pulse"
+              className="absolute inset-0 rounded-full"
               style={{
-                background: 'radial-gradient(circle, #88888840, transparent 70%)',
-                filter: 'blur(20px)',
-                transform: 'scale(1.5)'
+                background: 'radial-gradient(circle, #88888830, transparent 70%)',
+                filter: 'blur(15px)',
+                transform: 'scale(1.3)'
               }}
             />
             
             {/* Core body */}
-            <div className="relative w-full h-full rounded-full backdrop-blur-md border-2 border-gray-400 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-radial from-gray-400/30 via-gray-500/20 to-transparent" />
+            <div className="relative w-full h-full rounded-full border-2 border-gray-400 overflow-hidden"
+                 style={{ background: 'linear-gradient(135deg, #88888820, #88888810)' }}>
              
               {/* Core content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                <div className="text-lg md:text-xl font-bold mb-1" style={{ textShadow: '0 0 10px #888888' }}>
+                <div className="text-lg md:text-xl font-bold mb-1" style={{ textShadow: '0 0 8px #888888' }}>
                   United Hacks
                 </div>
-                <div className="text-2xl md:text-3xl font-bold" style={{ textShadow: '0 0 15px #888888' }}>
+                <div className="text-2xl md:text-3xl font-bold" style={{ textShadow: '0 0 12px #888888' }}>
                   V6
                 </div>
               </div>
 
-              {/* Rotating inner rings */}
-              <div 
-                className="absolute inset-4 rounded-full border border-gray-400/50"
-                style={{ animation: 'spin 10s linear infinite reverse' }}
-              />
-              <div 
-                className="absolute inset-8 rounded-full border border-gray-400/30"
-                style={{ animation: 'spin 15s linear infinite' }}
-              />
+              {/* Simplified rotating rings - only when hovered */}
+              {isV6Hovered && (
+                <>
+                  <div 
+                    className="absolute inset-4 rounded-full border border-gray-400/50"
+                    style={{ 
+                      animation: 'spin 8s linear infinite',
+                      transform: `rotate(${coreRotation}deg)`
+                    }}
+                  />
+                  <div 
+                    className="absolute inset-8 rounded-full border border-gray-400/30"
+                    style={{ 
+                      animation: 'spin 12s linear infinite reverse',
+                      transform: `rotate(${-coreRotation * 0.8}deg)`
+                    }}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
 
-        {/* V6 Info Panel - Outside the rotating container */}
+        {/* V6 Info Panel - Custom positioning */}
         {isV6Selected && (
           <div 
             className="absolute z-50"
             style={{ 
-              animation: 'slideInFromRight 0.5s ease-out',
-              left: '75%',
-              top: '50%',
-              transform: 'translateY(-50%)',
+              left: `${v6Data.panelPosition.x}px`,
+              top: `${v6Data.panelPosition.y}px`,
+              transform: v6Data.panelPosition.align === 'center' ? 'translate(-50%, -50%)' :
+                        v6Data.panelPosition.align === 'right' ? 'translate(-100%, -50%)' : 'translateY(-50%)',
               width: '320px',
               maxWidth: '80vw'
             }}
           >
             <div 
-              className="backdrop-blur-lg rounded-xl border border-opacity-40 p-6 relative overflow-hidden"
+              className="backdrop-blur-sm rounded-xl border border-opacity-40 p-6 relative"
               style={{
-                background: `linear-gradient(135deg, ${v6Data.glowColor}, rgba(0,0,0,0.8))`,
+                background: `linear-gradient(135deg, ${v6Data.color}20, rgba(0,0,0,0.9))`,
                 borderColor: v6Data.color,
-                boxShadow: `0 20px 40px ${v6Data.glowColor}, inset 0 0 30px ${v6Data.glowColor}`
+                boxShadow: `0 8px 24px ${v6Data.glowColor}`
               }}
             >
               {/* Header */}
               <div className="flex items-center gap-3 mb-4">
                 <div 
-                  className="w-3 h-3 rounded-full animate-pulse"
+                  className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: v6Data.color }}
                 />
                 <h3 className="text-white text-xl font-bold">{v6Data.title}</h3>
                 <span 
                   className="text-sm px-2 py-1 rounded-full"
                   style={{ 
-                    backgroundColor: v6Data.glowColor,
+                    backgroundColor: v6Data.color + '30',
                     color: v6Data.color
                   }}
                 >
@@ -530,7 +501,7 @@ const GalaxySection2 = () => {
                     className="text-lg font-bold"
                     style={{ 
                       color: v6Data.color,
-                      textShadow: `0 0 10px ${v6Data.color}`
+                      textShadow: `0 0 8px ${v6Data.color}`
                     }}
                   >
                     {v6Data.prize}
@@ -539,7 +510,7 @@ const GalaxySection2 = () => {
               </div>
 
               {/* Summary */}
-              <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: v6Data.color }}>
+              <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-50 border border-opacity-30" style={{ borderColor: v6Data.color }}>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {v6Data.summary[0]}
                 </p>
@@ -551,10 +522,10 @@ const GalaxySection2 = () => {
               {/* Action Buttons */}
               <div className="flex gap-3 mt-4">
                 <button 
-                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-transform duration-200 flex items-center justify-center gap-2 hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
-                    boxShadow: `0 4px 20px ${v6Data.glowColor}`
+                    boxShadow: `0 4px 12px ${v6Data.glowColor}`
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -566,10 +537,10 @@ const GalaxySection2 = () => {
                 </button>
                 
                 <button 
-                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                  className="flex-1 py-3 px-4 rounded-lg font-semibold transition-transform duration-200 flex items-center justify-center gap-2 hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${v6Data.color}, ${v6Data.color}80)`,
-                    boxShadow: `0 4px 20px ${v6Data.glowColor}`
+                    boxShadow: `0 4px 12px ${v6Data.glowColor}`
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -580,17 +551,6 @@ const GalaxySection2 = () => {
                   <ExternalLink className="w-4 h-4 text-white" />
                 </button>
               </div>
-
-              {/* Holographic scan lines */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div 
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    background: `repeating-linear-gradient(90deg, transparent, transparent 2px, ${v6Data.color} 2px, ${v6Data.color} 4px)`,
-                    animation: 'scan 3s linear infinite'
-                  }}
-                />
-              </div>
             </div>
           </div>
         )}
@@ -599,10 +559,10 @@ const GalaxySection2 = () => {
   };
 
   return (
-    <section id="previous" className="relative w-full min-h-screen overflow-hidden perspective-1000" style={{ backgroundColor: '#0E0B16' }}>
-      {/* Background */}
+    <section id="previous" className="relative w-full min-h-screen overflow-hidden" style={{ backgroundColor: '#0E0B16' }}>
+      {/* Background - simplified */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 via-purple-900/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/5 to-transparent" />
       </div>
 
       {/* Title Section */}
@@ -619,7 +579,6 @@ const GalaxySection2 = () => {
       <div 
         ref={containerRef}
         className="relative w-full h-screen flex items-center justify-center"
-        style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Central Core - United Hacks V6 */}
         {renderV6Core()}
@@ -633,35 +592,28 @@ const GalaxySection2 = () => {
         </div>
       </div>
 
-      {/* Custom CSS animations */}
+      {/* Simplified CSS animations */}
       <style>{`
-        @keyframes slideInFromRight {
-          from {
-            opacity: 0;
-            transform: translateY(-50%) translateX(50px) perspective(1000px) rotateY(-15deg);
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        /* Safari-specific optimizations */
+        @media screen and (-webkit-min-device-pixel-ratio: 1) {
+          .transition-all {
+            transition-duration: 0.2s;
           }
-          to {
-            opacity: 1;
-            transform: translateY(-50%) translateX(0) perspective(1000px) rotateY(-5deg);
+          
+          [style*="backdrop-blur"] {
+            backdrop-filter: none;
+            background: rgba(0, 0, 0, 0.8) !important;
           }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotateZ(0deg); }
-          50% { transform: translateY(-10px) rotateZ(5deg); }
-        }
-
-        @keyframes scan {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        .bg-gradient-radial {
-          background: radial-gradient(circle, var(--tw-gradient-stops));
         }
       `}</style>
     </section>

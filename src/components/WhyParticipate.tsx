@@ -12,7 +12,7 @@ const COLORS = {
   TEXT_MAIN: '#E0E0E0',         // Soft White
   TEXT_MUTED: '#BDBDBD',        // Light Gray
   LINK_HOVER: '#B799FF',        // Vibrant Violet
-  ERROR_WARNING: '#D9534F'       // Soft Vibrant Violet (Optional refinement)
+  ERROR_WARNING: '#D9534F'
 };
 
 // Define the stages for the hackathon journey
@@ -26,21 +26,21 @@ const stages = [
   },
   {
     id: 'learn',
-    icon: "/icons/learn.png",
+    icon: "/icons/learn.png", // Assuming this path is correct in your public folder
     title: 'Learn & Grow',
     subtitle: 'Expand your skills with expert guidance',
     description: 'Join workshops, mentorships, and masterclasses led by top tech professionals. Level up your abilities and accelerate your developer journey.',
   },
   {
     id: 'network',
-    icon: "/icons/collab.png",
+    icon: "/icons/collab.png", // Assuming this path is correct in your public folder
     title: 'Collaborate & Network',
     subtitle: 'Build lasting connections',
     description: 'Meet and team up with developers, founders, and innovators from around the world. Forge partnerships that go beyond the hackathon.',
   },
   {
     id: 'win',
-    icon: "/icons/win.png",
+    icon: "/icons/win.png", // Assuming this path is correct in your public folder
     title: 'Win Big',
     subtitle: 'Unlock prizes and opportunities',
     description: 'Stand out and earn recognition, cash rewards, and career-changing opportunities that can shape your future.',
@@ -82,9 +82,9 @@ const StageCard = ({ stage, index }: { stage: any, index: number }) => {
   return (
     <motion.div
       ref={cardRef}
-      className="relative backdrop-blur-sm border rounded-2xl p-6 shadow-xl"
+      className="relative border rounded-2xl p-6 shadow-xl"
       style={{
-        backgroundColor: `${COLORS.SURFACE}80`, // 50% opacity
+        backgroundColor: `rgba(${parseInt(COLORS.SURFACE.slice(1,3), 16)}, ${parseInt(COLORS.SURFACE.slice(3,5), 16)}, ${parseInt(COLORS.SURFACE.slice(5,7), 16)}, 0.9)`, // Increased opacity for solid background
         borderColor: `${COLORS.PRIMARY_ACCENT}1A` // 10% opacity
       }}
       // Initial state of the animation
@@ -102,6 +102,7 @@ const StageCard = ({ stage, index }: { stage: any, index: number }) => {
       // Hover animation
       whileHover={{
         scale: 1.02,
+        boxShadow: `0 8px 20px ${COLORS.PRIMARY_ACCENT}30`, // Slightly reduced shadow
         transition: { duration: 0.2 }
       }}
     >
@@ -181,50 +182,80 @@ function WhyParticipate() {
   const containerRef = useRef(null);
   
   return (
-    <section id="why-join" className="relative min-h-screen py-16 overflow-hidden font-inter" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
-
+    <section
+      id="why-join"
+      className="relative min-h-screen py-16 overflow-hidden"
+      style={{ backgroundColor: COLORS.PRIMARY_BG }}
+    >
       <div ref={containerRef} className="relative max-w-5xl mx-auto px-6">
-        {/* Header section with text and animations */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div 
-            className="inline-flex items-center gap-2 bg-clip-text text-transparent mb-4"
-            style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
-          >
-            <Sparkles className="w-5 h-5" style={{ color: COLORS.PRIMARY_ACCENT }} />
-            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: COLORS.PRIMARY_ACCENT }}>The Journey</span>
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-bold mb-4 leading-tight" style={{ color: COLORS.TEXT_MAIN }}>
-            Why <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})` }}
-            >Participate?</span>
-          </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: COLORS.TEXT_MUTED }}>
-            Embark on a transformative journey through four stages of innovation
-          </p>
-        </motion.div>
 
-        {/* Journey stages section with the animated path */}
+        {/* Header Section */}
+        <div className="relative text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div
+              className="inline-flex items-center gap-2 bg-clip-text text-transparent mb-4"
+              style={{
+                backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+              }}
+            >
+              <Sparkles
+                className="w-5 h-5"
+                style={{ color: COLORS.PRIMARY_ACCENT }}
+              />
+              <span
+                className="text-sm font-semibold uppercase tracking-wider"
+                style={{ color: COLORS.PRIMARY_ACCENT }}
+              >
+                The Journey
+              </span>
+            </div>
+            <h2
+              className="text-4xl lg:text-6xl font-bold mb-4 leading-tight"
+              style={{ color: COLORS.TEXT_MAIN }}
+            >
+              Why{' '}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+                }}
+              >
+                Participate?
+              </span>
+            </h2>
+            <p
+              className="text-lg max-w-2xl mx-auto"
+              style={{ color: COLORS.TEXT_MUTED }}
+            >
+              Embark on a transformative journey through four stages of innovation
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Journey Stages Section */}
         <div className="relative">
           <AnimatedPath />
-          
-          <div className="space-y-0">
+
+          <div className="relative space-y-0">
             {stages.map((stage, index) => (
-              <div 
-                key={stage.id} 
-                className={`flex items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} ${index > 0 ? '-mt-32 lg:-mt-40' : ''}`}
+              <div
+                key={stage.id}
+                className={`relative flex items-center ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } ${index > 0 ? '-mt-32 lg:-mt-40' : ''}`}
               >
-                <div className={`w-full lg:w-1/2 ${index % 2 === 0 ? 'lg:pr-2' : 'lg:pl-2'}`}>
-                  <StageCard
-                    stage={stage}
-                    index={index}
-                  />
+                <div
+                  className={`relative w-full lg:w-1/2 ${
+                    index % 2 === 0 ? 'lg:pr-2' : 'lg:pl-2'
+                  }`}
+                >
+                  <StageCard stage={stage} index={index} />
                 </div>
                 <div className="hidden lg:block w-1/2" />
               </div>
@@ -232,42 +263,43 @@ function WhyParticipate() {
           </div>
         </div>
 
-        {/* Call to action button with motion animations */}
-        <motion.div
-          className="flex justify-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          {/* Changed from a button to a link with the provided href */}
-          <motion.a
-            href="https://unitedhacksv6.devpost.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 text-white font-bold text-lg rounded-full shadow-lg"
-            style={{
-              backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
-            }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: `0 0 30px ${COLORS.PRIMARY_ACCENT}40`
-            }}
-            whileTap={{ scale: 0.95 }}
-            animate={{
-              boxShadow: [
-                `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`,
-                `0 0 25px ${COLORS.PRIMARY_ACCENT}40`,
-                `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`
-              ]
-            }}
-            transition={{
-              boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-            }}
+        {/* Call to Action Button */}
+        <div className="relative flex justify-center mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="relative"
           >
-            Join the Movement
-          </motion.a>
-        </motion.div>
+            <motion.a
+              href="https://unitedhacksv6.devpost.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 text-white font-bold text-lg rounded-full shadow-lg"
+              style={{
+                backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
+              }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: `0 0 30px ${COLORS.PRIMARY_ACCENT}40`,
+              }}
+              whileTap={{ scale: 0.95 }}
+              animate={{
+                boxShadow: [
+                  `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`,
+                  `0 0 25px ${COLORS.PRIMARY_ACCENT}40`,
+                  `0 0 15px ${COLORS.PRIMARY_ACCENT}2A`,
+                ],
+              }}
+              transition={{
+                boxShadow: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
+              }}
+            >
+              Join the Movement
+            </motion.a>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
