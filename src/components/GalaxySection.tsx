@@ -167,7 +167,7 @@ const AnimatedCounter: React.FC<{ target: number; isVisible: boolean }> = ({ tar
   return <span>{count.toLocaleString()}</span>;
 };
 
-// New component for the info panel, now a full-screen modal
+// Mobile-optimized info panel modal
 const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onClose: () => void }) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -176,99 +176,116 @@ const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onCl
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"
       onClick={onClose}
     >
       <motion.div
         ref={panelRef}
-        initial={{ scale: 0.9, y: 50, opacity: 0 }}
+        initial={{ scale: 0.9, y: 100, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.9, y: -50, opacity: 0 }}
+        exit={{ scale: 0.9, y: 100, opacity: 0 }}
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md relative p-6 rounded-xl border border-opacity-40"
+        className="w-full max-w-sm mx-4 mb-4 sm:mb-0 relative rounded-xl border border-opacity-40 max-h-[90vh] overflow-y-auto"
         style={{
-          background: `linear-gradient(135deg, ${hackathon.color}40, rgba(0,0,0,0.8))`,
+          background: `linear-gradient(135deg, ${hackathon.color}20, rgba(0,0,0,0.95))`,
           borderColor: hackathon.color,
-          boxShadow: `0 20px 40px ${hackathon.color}40, inset 0 0 30px ${hackathon.color}40`
+          boxShadow: `0 20px 40px ${hackathon.color}40, inset 0 0 30px ${hackathon.color}20`
         }}
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-lg font-bold p-1 rounded-full bg-black bg-opacity-40 hover:bg-opacity-60 transition-colors"
+          className="absolute top-3 right-3 text-white text-xl font-bold w-8 h-8 rounded-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors flex items-center justify-center z-10"
         >
-          &times;
+          ×
         </button>
 
-        {/* Header */}
-        <div className="flex items-center gap-3 mb-4">
-          <h3 className="text-white text-xl font-bold">{hackathon.title}</h3>
-          <span
-            className="text-xs px-2 py-1 rounded-full font-bold"
-            style={{
-              backgroundColor: hackathon.color,
-              color: COLORS.PRIMARY_BG
-            }}
-          >
-            {hackathon.version}
-          </span>
-        </div>
+        <div className="p-4 sm:p-5">
+          {/* Header */}
+          <div className="flex items-start gap-3 mb-4 pr-8">
+            <div className="flex-1">
+              <h3 className="text-white text-lg sm:text-xl font-bold leading-tight">{hackathon.title}</h3>
+              <span
+                className="inline-block text-xs px-2 py-1 rounded-full font-bold mt-2"
+                style={{
+                  backgroundColor: hackathon.color,
+                  color: COLORS.PRIMARY_BG
+                }}
+              >
+                {hackathon.version}
+              </span>
+            </div>
+          </div>
 
-        {/* Info Grid */}
-        <div className="space-y-3 text-sm">
-          <div className="flex items-center gap-3 text-gray-300">
-            <Calendar className="w-4 h-4" style={{ color: hackathon.color }} />
-            <span>{hackathon.dates}</span>
+          {/* Info Grid */}
+          <div className="space-y-3 text-sm mb-4">
+            <div className="flex items-center gap-3 text-gray-300">
+              <Calendar className="w-4 h-4 flex-shrink-0" style={{ color: hackathon.color }} />
+              <span className="text-xs sm:text-sm">{hackathon.dates}</span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <div className="w-4 h-4 flex-shrink-0" style={{ color: hackathon.color }}>
+                {hackathon.themeIcon}
+              </div>
+              <span className="text-xs sm:text-sm">{hackathon.theme}</span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <Users className="w-4 h-4 flex-shrink-0" style={{ color: hackathon.color }} />
+              <span className="text-xs sm:text-sm">
+                <AnimatedCounter target={hackathon.participants} isVisible={true} /> Participants
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <DollarSign className="w-4 h-4 flex-shrink-0" style={{ color: hackathon.color }} />
+              <span className="text-base sm:text-lg font-bold" style={{ color: hackathon.color }}>
+                {hackathon.prize}
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-gray-300">
-            {hackathon.themeIcon}
-            <span>{hackathon.theme}</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-300">
-            <Users className="w-4 h-4" style={{ color: hackathon.color }} />
-            <span><AnimatedCounter target={hackathon.participants} isVisible={true} /> Participants</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-300">
-            <DollarSign className="w-4 h-4" style={{ color: hackathon.color }} />
-            <span className="text-lg font-bold" style={{ color: hackathon.color }}>{hackathon.prize}</span>
-          </div>
-        </div>
 
-        {/* Summary */}
-        <div className="mt-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" style={{ borderColor: hackathon.color }}>
-          <p className="text-gray-300 text-sm leading-relaxed">{hackathon.summary[0]}</p>
-          <p className="text-gray-400 text-xs leading-relaxed mt-1">{hackathon.summary[1]}</p>
-        </div>
+          {/* Summary */}
+          <div 
+            className="mb-4 p-3 rounded-lg bg-black bg-opacity-40 border border-opacity-30" 
+            style={{ borderColor: hackathon.color }}
+          >
+            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-1">
+              {hackathon.summary[0]}
+            </p>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              {hackathon.summary[1]}
+            </p>
+          </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-3 mt-4">
-          <a
-            href={hackathon.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
-            style={{
-              background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-              boxShadow: `0 4px 20px ${hackathon.color}40`
-            }}
-          >
-            <span className="text-white">Devpost</span>
-            <ExternalLink className="w-4 h-4 text-white" />
-          </a>
-          <a
-            href={hackathon.articleLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
-            style={{
-              background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
-              boxShadow: `0 4px 20px ${hackathon.color}40`
-            }}
-          >
-            <span className="text-white">Article</span>
-            <ExternalLink className="w-4 h-4 text-white" />
-          </a>
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href={hackathon.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
+              style={{
+                background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
+                boxShadow: `0 4px 20px ${hackathon.color}40`
+              }}
+            >
+              <span className="text-white">Devpost</span>
+              <ExternalLink className="w-4 h-4 text-white" />
+            </a>
+            <a
+              href={hackathon.articleLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 text-sm"
+              style={{
+                background: `linear-gradient(135deg, ${hackathon.color}, ${hackathon.color}80)`,
+                boxShadow: `0 4px 20px ${hackathon.color}40`
+              }}
+            >
+              <span className="text-white">Article</span>
+              <ExternalLink className="w-4 h-4 text-white" />
+            </a>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -280,33 +297,33 @@ const MobileGalaxySection = () => {
   const [selectedHackathon, setSelectedHackathon] = useState<HackathonData | null>(null);
 
   return (
-    <section id="previous" className="relative w-full min-h-screen overflow-hidden py-16" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
+    <section id="previous" className="relative w-full min-h-screen overflow-hidden py-8 sm:py-16" style={{ backgroundColor: COLORS.PRIMARY_BG }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 bg-clip-text text-transparent px-4"
             style={{
               backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
             }}
           >
             Previous Hackathons
           </h2>
-          <p className="text-lg sm:text-xl" style={{ color: COLORS.TEXT_MUTED }}>
+          <p className="text-base sm:text-lg md:text-xl px-4" style={{ color: COLORS.TEXT_MUTED }}>
             Explore our legacy of innovation
           </p>
         </motion.div>
 
         {/* Grid of cards for all devices */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {hackathons.map((hackathon) => (
             <div key={hackathon.id} className="relative">
               <motion.div
-                className="group relative cursor-pointer rounded-xl overflow-hidden shadow-lg p-6 flex flex-col justify-between h-48 transition-all duration-300 transform hover:scale-105 hover:z-30"
+                className="group relative cursor-pointer rounded-xl overflow-hidden shadow-lg p-4 sm:p-6 flex flex-col justify-between h-40 sm:h-48 transition-all duration-300 transform hover:scale-105 hover:z-30"
                 style={{
                   backgroundColor: COLORS.SURFACE,
                   borderColor: hackathon.color,
@@ -318,9 +335,9 @@ const MobileGalaxySection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 {/* Header with version and title */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-start gap-2 sm:gap-3">
                   <span
-                    className="text-sm font-bold px-3 py-1 rounded-full"
+                    className="text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-full flex-shrink-0"
                     style={{
                       backgroundColor: hackathon.color,
                       color: COLORS.PRIMARY_BG
@@ -328,13 +345,19 @@ const MobileGalaxySection = () => {
                   >
                     {hackathon.version}
                   </span>
-                  <h3 className="text-lg font-bold" style={{ color: hackathon.color }}>{hackathon.title}</h3>
+                  <h3 className="text-sm sm:text-lg font-bold leading-tight" style={{ color: hackathon.color }}>
+                    {hackathon.title}
+                  </h3>
                 </div>
 
                 {/* Main content */}
                 <div className="mt-auto">
-                  <p className="text-sm font-medium" style={{ color: COLORS.TEXT_MAIN }}>{hackathon.summary[0]}</p>
-                  <p className="text-xs" style={{ color: COLORS.TEXT_MUTED }}>{hackathon.summary[1]}</p>
+                  <p className="text-xs sm:text-sm font-medium leading-tight mb-1" style={{ color: COLORS.TEXT_MAIN }}>
+                    {hackathon.summary[0]}
+                  </p>
+                  <p className="text-xs leading-tight" style={{ color: COLORS.TEXT_MUTED }}>
+                    {hackathon.summary[1]}
+                  </p>
                 </div>
               </motion.div>
             </div>
