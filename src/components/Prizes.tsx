@@ -652,7 +652,7 @@ const Prize = () => {
                           boxShadow: `0 4px 12px ${COLORS.PRIMARY_ACCENT}40`
                         }}
                       >
-                        <IconComponent className="text-white" size={24} className="sm:w-7 sm:h-7" />
+                        <IconComponent className="text-white sm:w-7 sm:h-7" size={24} />
                       </div>
                       <div>
                         <h3 className="text-lg sm:text-xl font-bold" style={{ color: COLORS.TEXT_MAIN }}>
