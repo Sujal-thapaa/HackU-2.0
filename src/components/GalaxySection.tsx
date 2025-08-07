@@ -176,17 +176,17 @@ const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onCl
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       <motion.div
         ref={panelRef}
-        initial={{ scale: 0.9, y: 100, opacity: 0 }}
+        initial={{ scale: 0.9, y: 50, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.9, y: 100, opacity: 0 }}
+        exit={{ scale: 0.9, y: 50, opacity: 0 }}
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm mx-4 mb-4 sm:mb-0 relative rounded-xl border border-opacity-40 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-sm mx-auto relative rounded-xl border border-opacity-40 max-h-[85vh] overflow-y-auto"
         style={{
           background: `linear-gradient(135deg, ${hackathon.color}20, rgba(0,0,0,0.95))`,
           borderColor: hackathon.color,

@@ -435,17 +435,21 @@ const Navbar = () => {
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease-in-out;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           @media (max-width: 480px) {
             .logo-text {
-              font-size: 0.9rem;
+              font-size: 0.85rem;
+              max-width: 120px;
             }
           }
 
           @media (max-width: 360px) {
             .logo-text {
-              font-size: 0.8rem;
+              font-size: 0.75rem;
+              max-width: 100px;
             }
           }
 
@@ -463,6 +467,8 @@ const Navbar = () => {
             height: 100%;
             width: 100%;
             min-width: 0;
+            max-width: 100vw;
+            overflow: hidden;
           }
 
           .logo-section {
@@ -470,7 +476,7 @@ const Navbar = () => {
             align-items: center;
             flex-shrink: 1;
             min-width: 0;
-            max-width: calc(100vw - 120px);
+            max-width: calc(100vw - 140px);
           }
 
           .actions-section {
@@ -478,11 +484,21 @@ const Navbar = () => {
             align-items: center;
             gap: 0.5rem;
             flex-shrink: 0;
+            min-width: 0;
           }
 
           @media (max-width: 640px) {
             .actions-section {
               gap: 0.25rem;
+            }
+            .logo-section {
+              max-width: calc(100vw - 120px);
+            }
+          }
+
+          @media (max-width: 480px) {
+            .logo-section {
+              max-width: calc(100vw - 100px);
             }
           }
 
@@ -490,7 +506,7 @@ const Navbar = () => {
           .nav-container {
             position: relative;
             width: 100%;
-            max-width: 100%;
+            max-width: 100vw;
             overflow: hidden;
           }
 

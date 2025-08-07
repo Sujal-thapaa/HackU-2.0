@@ -184,22 +184,22 @@ const Prize = () => {
   return (
     <section
   id="prizes"
-  className="py-20 min-h-screen relative"
+  className="py-12 sm:py-20 min-h-screen relative px-4 sm:px-0"
   style={{ backgroundColor: COLORS.PRIMARY_BG }}
   onClick={handleAdvanceToNext}
 >
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent px-4 sm:px-0"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 bg-clip-text text-transparent px-2 sm:px-0"
             style={{
               backgroundImage: `linear-gradient(to right, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`
             }}
           >
             Prizes
           </h2>
-          <p className="text-lg sm:text-xl max-w-3xl mx-auto px-4 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-2 sm:px-0" style={{ color: COLORS.TEXT_MUTED }}>
             $50,700+ in prizes + other prizes
           </p>
         </div>
@@ -212,7 +212,7 @@ const Prize = () => {
                 {/* Treasure Chest */}
                 <div
                   className={`
-                    relative w-72 h-48 cursor-pointer transition-all duration-500 transform-gpu
+                    relative w-64 sm:w-72 h-40 sm:h-48 cursor-pointer transition-all duration-500 transform-gpu
                     ${!chestOpened && !isAnimating ? 'hover:scale-110 hover:rotateY-12 hover:rotateX-8' : ''}
                     ${chestOpened ? 'animate-bounce scale-105' : ''}
                     ${isAnimating ? 'animate-pulse scale-95' : ''}
@@ -233,7 +233,7 @@ const Prize = () => {
                 >
                   {/* Enhanced Base Shadow */}
                   <div
-                    className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-80 h-12 rounded-full opacity-60"
+                    className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-72 sm:w-80 h-12 rounded-full opacity-60"
                     style={{
                       background: 'radial-gradient(ellipse, rgba(0,0,0,0.8) 0%, transparent 70%)',
                       filter: 'blur(8px)'
@@ -242,7 +242,7 @@ const Prize = () => {
 
                   {/* Chest Base with Enhanced 3D Effect */}
                   <div
-                    className="absolute bottom-0 w-full h-32 rounded-lg border-4 border-yellow-600 transform-gpu"
+                    className="absolute bottom-0 w-full h-28 sm:h-32 rounded-lg border-4 border-yellow-600 transform-gpu"
                     style={{
                       background: `
                         linear-gradient(135deg, #4a2c2a 0%, #654321 15%, #8B4513 30%, #A0522D 50%, #8B4513 70%, #654321 85%, #4a2c2a 100%),
@@ -263,28 +263,28 @@ const Prize = () => {
                   >
                     {/* Enhanced Metal Bands with 3D Effect */}
                     <div 
-                      className="absolute top-4 left-4 right-4 h-2 rounded-full transform"
+                      className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 h-2 rounded-full transform"
                       style={{ 
                         background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute bottom-4 left-4 right-4 h-2 rounded-full"
+                      className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 h-2 rounded-full"
                       style={{ 
                         background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute top-4 bottom-4 left-4 w-2 rounded-full"
+                      className="absolute top-3 sm:top-4 bottom-3 sm:bottom-4 left-3 sm:left-4 w-2 rounded-full"
                       style={{ 
                         background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '2px 0 4px rgba(0,0,0,0.4), inset 1px 0 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute top-4 bottom-4 right-4 w-2 rounded-full"
+                      className="absolute top-3 sm:top-4 bottom-3 sm:bottom-4 right-3 sm:right-4 w-2 rounded-full"
                       style={{ 
                         background: 'linear-gradient(180deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '-2px 0 4px rgba(0,0,0,0.4), inset -1px 0 2px rgba(255,255,255,0.3)'
@@ -293,28 +293,28 @@ const Prize = () => {
                     
                     {/* Corner Reinforcements */}
                     <div 
-                      className="absolute top-2 left-2 w-6 h-6 rounded-full"
+                      className="absolute top-2 left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full"
                       style={{ 
                         background: 'radial-gradient(circle, #FFD700 0%, #B8860B 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute top-2 right-2 w-6 h-6 rounded-full"
+                      className="absolute top-2 right-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full"
                       style={{ 
                         background: 'radial-gradient(circle, #FFD700 0%, #B8860B 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute bottom-2 left-2 w-6 h-6 rounded-full"
+                      className="absolute bottom-2 left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full"
                       style={{ 
                         background: 'radial-gradient(circle, #FFD700 0%, #B8860B 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
                       }}
                     />
                     <div 
-                      className="absolute bottom-2 right-2 w-6 h-6 rounded-full"
+                      className="absolute bottom-2 right-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full"
                       style={{ 
                         background: 'radial-gradient(circle, #FFD700 0%, #B8860B 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.3)'
@@ -325,7 +325,7 @@ const Prize = () => {
                   {/* Chest Lid with Enhanced 3D Design */}
                   <div
                     className={`
-                      absolute top-0 w-full h-28 rounded-t-lg transition-all duration-1000 origin-bottom border-4 border-yellow-600 transform-gpu
+                      absolute top-0 w-full h-24 sm:h-28 rounded-t-lg transition-all duration-1000 origin-bottom border-4 border-yellow-600 transform-gpu
                       ${chestOpened ? 'rotateX-60 translateZ-8' : 'rotateX-0'}
                     `}
                     style={{
@@ -349,14 +349,14 @@ const Prize = () => {
                   >
                     {/* Enhanced Lid Metal Bands */}
                     <div 
-                      className="absolute top-4 left-4 right-4 h-2 rounded-full"
+                      className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 h-2 rounded-full"
                       style={{ 
                         background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.4)'
                       }}
                     />
                     <div 
-                      className="absolute bottom-4 left-4 right-4 h-2 rounded-full"
+                      className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 h-2 rounded-full"
                       style={{ 
                         background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.4)'
@@ -374,7 +374,7 @@ const Prize = () => {
                   
                   {/* Enhanced Chest Lock with 3D Effect */}
                   <div
-                    className="absolute top-12 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-4 flex items-center justify-center"
+                    className="absolute top-10 sm:top-12 left-1/2 transform -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full border-4 flex items-center justify-center"
                     style={{
                       background: `
                         radial-gradient(circle, #FFD700 0%, #FFA500 30%, #FF8C00 60%, #B8860B 100%),
@@ -392,14 +392,14 @@ const Prize = () => {
                   >
                     {/* Enhanced Keyhole */}
                     <div 
-                      className="w-4 h-4 rounded-full relative"
+                      className="w-3 h-3 sm:w-4 sm:h-4 rounded-full relative"
                       style={{ 
                         background: 'radial-gradient(circle, #2c1810 0%, #1a0f0a 100%)',
                         boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.9), 0 0 0 1px rgba(139,69,19,0.5)'
                       }}
                     >
                       <div 
-                        className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-3"
+                        className="absolute top-full left-1/2 transform -translate-x-1/2 w-1.5 h-2 sm:w-2 sm:h-3"
                         style={{ 
                           background: 'linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%)',
                           clipPath: 'polygon(0 0, 100% 0, 80% 100%, 20% 100%)'
@@ -428,7 +428,7 @@ const Prize = () => {
                       {[...Array(6)].map((_, i) => (
                         <div 
                           key={i}
-                          className="absolute w-3 h-3 rounded-full animate-ping pointer-events-none"
+                          className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-full animate-ping pointer-events-none"
                           style={{ 
                             background: i % 3 === 0 ? COLORS.SECONDARY_ACCENT : i % 3 === 1 ? COLORS.PRIMARY_ACCENT : '#FFD700',
                             top: `${20 + (i * 15)}%`,
@@ -467,11 +467,11 @@ const Prize = () => {
                 </div>
 
                 {/* Prize Counter */}
-                <div className="mt-12 text-center">
-                  <p style={{ color: COLORS.TEXT_MUTED }} className="text-lg">
+                <div className="mt-8 sm:mt-12 text-center">
+                  <p style={{ color: COLORS.TEXT_MUTED }} className="text-base sm:text-lg">
                     Prizes Discovered: {currentPrizeIndex} / {prizes.length}
                   </p>
-                  <p style={{ color: COLORS.SECONDARY_ACCENT }} className="text-sm mt-2">
+                  <p style={{ color: COLORS.SECONDARY_ACCENT }} className="text-xs sm:text-sm mt-2">
                     {isAnimating ? 'Opening chest...' : 
                      waitingForDismiss ? 'Click anywhere to continue...' : 
                      'Click the chest to discover a prize!'}
@@ -487,7 +487,7 @@ const Prize = () => {
                 style={{ animation: 'prize-reveal 0.8s ease-out' }}
               >
                 <div
-                  className="p-6 rounded-2xl border-2 max-w-md w-full transform animate-bounce relative overflow-hidden"
+                  className="p-4 sm:p-6 rounded-2xl border-2 max-w-sm sm:max-w-md w-full transform animate-bounce relative overflow-hidden max-h-[90vh] overflow-y-auto"
                   style={{
                     backgroundColor: COLORS.SURFACE,
                     borderColor: COLORS.PRIMARY_ACCENT,
@@ -514,7 +514,7 @@ const Prize = () => {
                   
                   <div className="text-center relative z-10">
                     <div
-                      className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center relative"
+                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center relative"
                       style={{ 
                         background: `
                           linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT}),
@@ -528,7 +528,7 @@ const Prize = () => {
                         `
                       }}
                     >
-                      <currentPrize.icon className="text-white relative z-10" size={32} />
+                      <currentPrize.icon className="text-white relative z-10 sm:w-8 sm:h-8" size={24} />
                       <div 
                         className="absolute inset-0 rounded-full animate-ping"
                         style={{ backgroundColor: `${COLORS.PRIMARY_ACCENT}50` }}
@@ -542,27 +542,27 @@ const Prize = () => {
                       />
                     </div>
                     
-                    <h3 className="text-2xl font-bold mb-3" style={{ color: COLORS.TEXT_MAIN }}>
+                    <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-3" style={{ color: COLORS.TEXT_MAIN }}>
                       {currentPrize.category}
                     </h3>
                     
-                    <p className="text-xl font-semibold mb-4" style={{ color: COLORS.SECONDARY_ACCENT }}>
+                    <p className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4" style={{ color: COLORS.SECONDARY_ACCENT }}>
                       {currentPrize.prize}
                     </p>
                     
-                    <p className="text-base mb-4" style={{ color: COLORS.TEXT_MUTED }}>
+                    <p className="text-sm sm:text-base mb-3 sm:mb-4" style={{ color: COLORS.TEXT_MUTED }}>
                       {currentPrize.winners}
                     </p>
                     
                     {currentPrize.description && (
-                      <p className="text-sm mb-4 italic" style={{ color: COLORS.TEXT_MUTED }}>
+                      <p className="text-xs sm:text-sm mb-3 sm:mb-4 italic" style={{ color: COLORS.TEXT_MUTED }}>
                         {currentPrize.description}
                       </p>
                     )}
                     
                     {/* Enhanced Prize Items List */}
                     <div className="text-left">
-                      <h4 className="text-base font-semibold mb-3 text-center" style={{ color: COLORS.SECONDARY_ACCENT }}>
+                      <h4 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3 text-center" style={{ color: COLORS.SECONDARY_ACCENT }}>
                         What You Get:
                       </h4>
                       <div className="space-y-2">
@@ -577,14 +577,14 @@ const Prize = () => {
                             }}
                           >
                             <Star
-                              className="mt-1 flex-shrink-0"
-                              size={14}
+                              className="mt-1 flex-shrink-0 sm:w-3.5 sm:h-3.5"
+                              size={12}
                               style={{ 
                                 color: COLORS.SECONDARY_ACCENT,
                                 filter: 'drop-shadow(0 0 4px currentColor)'
                               }}
                             />
-                            <p className="text-sm font-medium" style={{ color: COLORS.TEXT_MAIN }}>
+                            <p className="text-xs sm:text-sm font-medium" style={{ color: COLORS.TEXT_MAIN }}>
                               {item}
                             </p>
                           </div>
@@ -592,8 +592,8 @@ const Prize = () => {
                       </div>
                     </div>
                     
-                    <div className="mt-4 text-center">
-                      <p className="text-sm animate-pulse" style={{ color: COLORS.SECONDARY_ACCENT }}>
+                    <div className="mt-3 sm:mt-4 text-center">
+                      <p className="text-xs sm:text-sm animate-pulse" style={{ color: COLORS.SECONDARY_ACCENT }}>
                         Click anywhere to continue...
                       </p>
                     </div>
@@ -605,8 +605,8 @@ const Prize = () => {
         ) : (
           <>
             {/* All Prizes Revealed - Enhanced Grid Layout */}
-            <div className="text-center mb-12">
-              <h3 className="text-4xl font-bold mb-6" style={{ color: COLORS.SECONDARY_ACCENT }}>
+            <div className="text-center mb-8 sm:mb-12">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6" style={{ color: COLORS.SECONDARY_ACCENT }}>
                 🎉 All Prizes Discovered! 🎉
               </h3>
               <button
@@ -614,25 +614,25 @@ const Prize = () => {
                   e.stopPropagation();
                   handleReset();
                 }}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl transform"
+                className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl transform text-sm sm:text-base"
                 style={{
                   backgroundColor: COLORS.PRIMARY_ACCENT,
                   color: COLORS.TEXT_MAIN,
                   boxShadow: `0 8px 20px ${COLORS.PRIMARY_ACCENT}40`
                 }}
               >
-                <RotateCcw size={24} />
-                
+                <RotateCcw size={20} className="sm:w-6 sm:h-6" />
+                <span>Reset & Discover Again</span>
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
               {prizes.map((prize, index) => {
                 const IconComponent = prize.icon;
                 return (
                   <div
                     key={index}
-                    className="p-6 sm:p-8 rounded-2xl border transition-all duration-500 hover:transform hover:scale-105 hover:rotate-1 animate-fadeInUp cursor-pointer"
+                    className="p-4 sm:p-6 lg:p-8 rounded-2xl border transition-all duration-500 hover:transform hover:scale-105 hover:rotate-1 animate-fadeInUp cursor-pointer"
                     style={{
                       backgroundColor: COLORS.SURFACE,
                       borderColor: `${COLORS.PRIMARY_ACCENT}30`,
@@ -645,18 +645,18 @@ const Prize = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 lg:mb-6">
                       <div
-                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center"
+                        className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center"
                         style={{ 
                           backgroundColor: COLORS.PRIMARY_ACCENT,
                           boxShadow: `0 4px 12px ${COLORS.PRIMARY_ACCENT}40`
                         }}
                       >
-                        <IconComponent className="text-white" size={24} className="sm:w-7 sm:h-7" />
+                        <IconComponent className="text-white sm:w-6 sm:h-6 lg:w-7 lg:h-7" size={20} />
                       </div>
                       <div>
-                        <h3 className="text-lg sm:text-xl font-bold" style={{ color: COLORS.TEXT_MAIN }}>
+                        <h3 className="text-base sm:text-lg lg:text-xl font-bold" style={{ color: COLORS.TEXT_MAIN }}>
                           {prize.category}
                         </h3>
                         <p className="text-xs sm:text-sm" style={{ color: COLORS.TEXT_MUTED }}>
@@ -665,8 +665,8 @@ const Prize = () => {
                       </div>
                     </div>
 
-                    <div className="mb-4 sm:mb-6">
-                      <p className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 sm:mb-3" style={{ color: COLORS.SECONDARY_ACCENT }}>
+                    <div className="mb-3 sm:mb-4 lg:mb-6">
+                      <p className="text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold mb-2 sm:mb-3" style={{ color: COLORS.SECONDARY_ACCENT }}>
                         {prize.prize}
                       </p>
                       {prize.description && (
@@ -676,15 +676,15 @@ const Prize = () => {
                       )}
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       {prize.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-start gap-3">
+                        <div key={itemIndex} className="flex items-start gap-2 sm:gap-3">
                           <Star
-                            className="mt-1 flex-shrink-0"
-                            size={14}
+                            className="mt-1 flex-shrink-0 sm:w-3.5 sm:h-3.5"
+                            size={12}
                             style={{ color: COLORS.SECONDARY_ACCENT }}
                           />
-                          <p className="text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>
+                          <p className="text-xs sm:text-sm leading-relaxed" style={{ color: COLORS.TEXT_MUTED }}>
                             {item}
                           </p>
                         </div>
@@ -698,7 +698,7 @@ const Prize = () => {
             {/* Enhanced Total Prize Pool */}
             <div className="text-center">
               <div
-                className="p-10 rounded-2xl relative overflow-hidden"
+                className="p-6 sm:p-8 lg:p-10 rounded-2xl relative overflow-hidden"
                 style={{
                   backgroundImage: `linear-gradient(135deg, ${COLORS.PRIMARY_ACCENT}, ${COLORS.SECONDARY_ACCENT})`,
                   boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
@@ -710,9 +710,9 @@ const Prize = () => {
                     background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent)'
                   }}
                 />
-                <h3 className="text-4xl font-bold text-white mb-3 relative z-10">Total Prize Pool</h3>
-                <p className="text-3xl font-semibold text-white relative z-10">$50,700+</p>
-                <p className="mt-3 text-white opacity-90 text-lg relative z-10">in cash prizes and rewards</p>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 relative z-10">Total Prize Pool</h3>
+                <p className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white relative z-10">$50,700+</p>
+                <p className="mt-2 sm:mt-3 text-white opacity-90 text-sm sm:text-base lg:text-lg relative z-10">in cash prizes and rewards</p>
               </div>
             </div>
           </>
