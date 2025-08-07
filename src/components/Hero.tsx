@@ -361,7 +361,7 @@ const Hero = () => {
 
               <button
                 className="cta-button cta-secondary px-8 py-4 text-white font-semibold flex items-center justify-center gap-3 text-lg"
-                onClick={() => window.open('https://unitedhacksv6.devpost.com', '_blank')}
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSehFwBX1yMcW1BjX-8XcC-vHnUgNE9Wv8iVvbSIO3361QneWg/viewform', '_blank')}
               >
                 <UserPlus size={20} />
                 Register Now

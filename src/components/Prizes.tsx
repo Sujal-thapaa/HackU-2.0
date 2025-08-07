@@ -483,11 +483,11 @@ const Prize = () => {
             {/* Current Prize Animation */}
             {currentPrize && showCurrentPrize && (
               <div
-                className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 animate-fadeIn p-4 cursor-pointer"
+                className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 animate-fadeIn p-2 sm:p-4 cursor-pointer"
                 style={{ animation: 'prize-reveal 0.8s ease-out' }}
               >
                 <div
-                  className="p-4 sm:p-6 rounded-2xl border-2 max-w-sm sm:max-w-md w-full transform animate-bounce relative overflow-hidden max-h-[90vh] overflow-y-auto"
+                  className="p-2 sm:p-6 rounded-2xl border-2 w-full max-w-xs sm:max-w-md transform animate-bounce relative overflow-hidden max-h-[70vh] overflow-y-auto"
                   style={{
                     backgroundColor: COLORS.SURFACE,
                     borderColor: COLORS.PRIMARY_ACCENT,

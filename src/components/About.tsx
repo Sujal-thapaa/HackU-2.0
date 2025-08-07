@@ -34,7 +34,7 @@ const About = () => {
 
   return (
     <section
-    id="previous"
+    id="about"
     className="py-20 relative"
     style={{ backgroundColor: COLORS.PRIMARY_BG }}
   >

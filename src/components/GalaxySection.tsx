@@ -176,7 +176,7 @@ const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onCl
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-2 sm:p-4"
       onClick={onClose}
     >
       <motion.div
@@ -186,7 +186,7 @@ const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onCl
         exit={{ scale: 0.9, y: 50, opacity: 0 }}
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm mx-auto relative rounded-xl border border-opacity-40 max-h-[85vh] overflow-y-auto"
+        className="w-full max-w-xs sm:max-w-sm mx-auto relative rounded-xl border border-opacity-40 max-h-[70vh] overflow-y-auto"
         style={{
           background: `linear-gradient(135deg, ${hackathon.color}20, rgba(0,0,0,0.95))`,
           borderColor: hackathon.color,
@@ -201,7 +201,7 @@ const InfoPanelModal = ({ hackathon, onClose }: { hackathon: HackathonData; onCl
           ×
         </button>
 
-        <div className="p-4 sm:p-5">
+        <div className="p-2 sm:p-5">
           {/* Header */}
           <div className="flex items-start gap-3 mb-4 pr-8">
             <div className="flex-1">
