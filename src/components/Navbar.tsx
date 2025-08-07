@@ -104,17 +104,28 @@ const Navbar = () => {
             font-family: var(--font-code);
           }
 
+          /* Mobile-first responsive design */
+          * {
+            box-sizing: border-box;
+          }
+
+          /* Prevent horizontal scroll */
+          .navbar-container {
+            max-width: 100%;
+            overflow: hidden;
+          }
+
           /* Logo entrance animation */
           .logo-container {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
 
-.logo-container.loaded {
-  opacity: 1;
-  transform: none;
-}
+          .logo-container.loaded {
+            opacity: 1;
+            transform: none;
+          }
 
           /* Enhanced nav link animations */
           .nav-link {
@@ -174,133 +185,140 @@ const Navbar = () => {
             transform-origin: bottom left;
           }
 
-     .flame-button {
-  position: relative;
-  background: linear-gradient(45deg, #6a0dad, #8e44ad, #a084ca, #6a0dad);
-  background-size: 300% 300%;
-  animation: flameGradient 5s ease-in-out infinite, flamePulse 3s ease-in-out infinite;
-  box-shadow:
-    0 0 4px rgba(138, 43, 226, 0.25),
-    0 0 8px rgba(155, 89, 182, 0.2),
-    0 0 10px rgba(200, 162, 255, 0.15),
-    inset 0 0 4px rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(200, 162, 255, 0.3);
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 4px rgba(200, 162, 255, 0.1);
-  cursor: pointer;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  border-radius: 6px;
-}
+          /* Responsive flame button */
+          .flame-button {
+            position: relative;
+            background: linear-gradient(45deg, #6a0dad, #8e44ad, #a084ca, #6a0dad);
+            background-size: 300% 300%;
+            animation: flameGradient 5s ease-in-out infinite, flamePulse 3s ease-in-out infinite;
+            box-shadow:
+              0 0 4px rgba(138, 43, 226, 0.25),
+              0 0 8px rgba(155, 89, 182, 0.2),
+              0 0 10px rgba(200, 162, 255, 0.15),
+              inset 0 0 4px rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(200, 162, 255, 0.3);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2), 0 0 4px rgba(200, 162, 255, 0.1);
+            cursor: pointer;
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            white-space: nowrap;
+            min-width: auto;
+          }
 
-.flame-button::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg,
-    transparent,
-    rgba(138, 43, 226, 0.15),
-    rgba(155, 89, 182, 0.2),
-    rgba(200, 162, 255, 0.15),
-    transparent
-  );
-  border-radius: inherit;
-  z-index: -1;
-  animation: flameHalo 3s ease-in-out infinite;
-  filter: blur(1px);
-  opacity: 0.4;
-}
+          @media (max-width: 640px) {
+            .flame-button {
+              padding: 6px 12px;
+              font-size: 0.75rem;
+            }
+          }
 
-.flame-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 45%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.05) 55%,
-    transparent 100%
-  );
-  border-radius: inherit;
-  animation: flameShimmer 5s linear infinite;
-  pointer-events: none;
-}
+          .flame-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+              transparent,
+              rgba(138, 43, 226, 0.15),
+              rgba(155, 89, 182, 0.2),
+              rgba(200, 162, 255, 0.15),
+              transparent
+            );
+            border-radius: inherit;
+            z-index: -1;
+            animation: flameHalo 3s ease-in-out infinite;
+            filter: blur(1px);
+            opacity: 0.4;
+          }
 
-.flame-button:hover {
-  animation:
-    flameGradient 3s ease-in-out infinite,
-    flamePulse 1.5s ease-in-out infinite,
-    flameShake 1s ease-in-out infinite;
-  box-shadow:
-    0 0 6px rgba(138, 43, 226, 0.3),
-    0 0 12px rgba(155, 89, 182, 0.25),
-    0 0 18px rgba(200, 162, 255, 0.2),
-    inset 0 0 8px rgba(255, 255, 255, 0.05);
-  transform: scale(1.03) translateY(-1px);
-  border-color: rgba(200, 162, 255, 0.4);
-}
+          .flame-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg,
+              transparent 0%,
+              rgba(255, 255, 255, 0.05) 45%,
+              rgba(255, 255, 255, 0.08) 50%,
+              rgba(255, 255, 255, 0.05) 55%,
+              transparent 100%
+            );
+            border-radius: inherit;
+            animation: flameShimmer 5s linear infinite;
+            pointer-events: none;
+          }
 
-.flame-button .flame-text {
-  position: relative;
-  z-index: 2;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  animation: flameTextGlow 3s ease-in-out infinite;
-  font-size: 0.75rem;
-  color: #f0e8ff;
-}
+          .flame-button:hover {
+            animation:
+              flameGradient 3s ease-in-out infinite,
+              flamePulse 1.5s ease-in-out infinite,
+              flameShake 1s ease-in-out infinite;
+            box-shadow:
+              0 0 6px rgba(138, 43, 226, 0.3),
+              0 0 12px rgba(155, 89, 182, 0.25),
+              0 0 18px rgba(200, 162, 255, 0.2),
+              inset 0 0 8px rgba(255, 255, 255, 0.05);
+            transform: scale(1.03) translateY(-1px);
+            border-color: rgba(200, 162, 255, 0.4);
+          }
 
-/* Animations */
-@keyframes flameGradient {
-  0%, 100% { background-position: 0% 50%; }
-  25% { background-position: 100% 0%; }
-  50% { background-position: 100% 100%; }
-  75% { background-position: 0% 100%; }
-}
+          .flame-button .flame-text {
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            animation: flameTextGlow 3s ease-in-out infinite;
+            color: #f0e8ff;
+          }
 
-@keyframes flamePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
+          /* Animations */
+          @keyframes flameGradient {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+          }
 
-@keyframes flameHalo {
-  0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
-  50% { opacity: 0.6; transform: scale(1.03) rotate(180deg); }
-}
+          @keyframes flamePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+          }
 
-@keyframes flameShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
+          @keyframes flameHalo {
+            0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.6; transform: scale(1.03) rotate(180deg); }
+          }
 
-@keyframes flameShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-0.5px); }
-  75% { transform: translateX(0.5px); }
-}
+          @keyframes flameShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
 
-@keyframes flameTextGlow {
-  0%, 100% {
-    text-shadow:
-      0 0 1px rgba(255, 255, 255, 0.2),
-      0 0 2px rgba(200, 162, 255, 0.15),
-      0 0 3px rgba(155, 89, 182, 0.1);
-  }
-  50% {
-    text-shadow:
-      0 0 2px rgba(255, 255, 255, 0.3),
-      0 0 4px rgba(200, 162, 255, 0.2),
-      0 0 6px rgba(155, 89, 182, 0.15);
-  }
-}
+          @keyframes flameShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-0.5px); }
+            75% { transform: translateX(0.5px); }
+          }
 
-
+          @keyframes flameTextGlow {
+            0%, 100% {
+              text-shadow:
+                0 0 1px rgba(255, 255, 255, 0.2),
+                0 0 2px rgba(200, 162, 255, 0.15),
+                0 0 3px rgba(155, 89, 182, 0.1);
+            }
+            50% {
+              text-shadow:
+                0 0 2px rgba(255, 255, 255, 0.3),
+                0 0 4px rgba(200, 162, 255, 0.2),
+                0 0 6px rgba(155, 89, 182, 0.15);
+            }
+          }
 
           /* Glassmorphism navbar */
           .navbar-glass {
@@ -317,12 +335,20 @@ const Navbar = () => {
             -webkit-backdrop-filter: blur(5px);
           }
 
-          /* Mobile menu animation */
+          /* Mobile menu animation - improved */
           .mobile-menu {
-            background: rgba(26, 22, 43, 0.95);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: rgba(26, 22, 43, 0.98);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             animation: slideDown 0.3s ease-out;
+            border-top: 1px solid rgba(183, 153, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
           }
 
           @keyframes slideDown {
@@ -340,6 +366,8 @@ const Navbar = () => {
           .mobile-nav-item {
             transition: all 0.2s ease-in-out;
             border-left: 3px solid transparent;
+            display: block;
+            width: 100%;
           }
 
           .mobile-nav-item:hover {
@@ -351,6 +379,10 @@ const Navbar = () => {
           /* Hamburger menu animation */
           .hamburger-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .hamburger-btn:hover {
@@ -364,7 +396,16 @@ const Navbar = () => {
           }
 
           .navbar-normal {
-            height: 80px;
+            height: 70px;
+          }
+
+          @media (max-width: 640px) {
+            .navbar-scrolled {
+              height: 56px;
+            }
+            .navbar-normal {
+              height: 64px;
+            }
           }
 
           /* Focus styles for accessibility */
@@ -374,7 +415,7 @@ const Navbar = () => {
             outline-offset: 2px;
           }
 
-          /* Logo hover effect */
+          /* Logo hover effect - mobile friendly */
           .logo-link:hover .logo-image {
             transform: scale(1.05) rotate(2deg);
             filter: drop-shadow(0 0 10px rgba(108, 43, 217, 0.5));
@@ -382,21 +423,75 @@ const Navbar = () => {
 
           .logo-image {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
           }
 
+          /* Mobile responsive logo */
           .logo-text {
-            color: #ffffff; /* Changed to white */
+            color: #ffffff;
             font-weight: 700;
             letter-spacing: -0.02em;
             position: relative;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease-in-out;
+            white-space: nowrap;
+          }
+
+          @media (max-width: 480px) {
+            .logo-text {
+              font-size: 0.9rem;
+            }
+          }
+
+          @media (max-width: 360px) {
+            .logo-text {
+              font-size: 0.8rem;
+            }
           }
 
           .logo-text:hover {
             color: #ffffff;
             transform: none;
             filter: none;
+          }
+
+          /* Responsive container fixes */
+          .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            min-width: 0;
+          }
+
+          .logo-section {
+            display: flex;
+            align-items: center;
+            flex-shrink: 1;
+            min-width: 0;
+            max-width: calc(100vw - 120px);
+          }
+
+          .actions-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+          }
+
+          @media (max-width: 640px) {
+            .actions-section {
+              gap: 0.25rem;
+            }
+          }
+
+          /* Prevent layout shift */
+          .nav-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
           }
 
           @keyframes gradientShift {
@@ -416,49 +511,112 @@ const Navbar = () => {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-          <div className="flex justify-between items-center h-full">
-            {/* Logo Section */}
-            <div className={`flex items-center `}>
-              <a 
-                href="#home" 
-                className="logo-link flex items-center focus:outline-none"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#home');
-                }}
-                onKeyDown={(e) => handleKeyDown(e, '#home')}
-                tabIndex={0}
-                aria-label="HackUnited V6 Home"
-              >
-                <img
-                  src="/images/logo.webp"
-                  alt="United Hacks V6 Logo"
-                  className="logo-image h-12 w-12 rounded-lg object-cover"
-                />
-                <span className="logo-text ml-3 text-xl font-bold font-heading">
-                  <span className="relative">
+        <div className="nav-container">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 h-full">
+            <div className="navbar-content">
+              {/* Logo Section */}
+              <div className="logo-section">
+                <a 
+                  href="#home" 
+                  className="logo-link flex items-center focus:outline-none min-w-0"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick('#home');
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e, '#home')}
+                  tabIndex={0}
+                  aria-label="HackUnited V6 Home"
+                >
+                  <img
+                    src="/images/logo.webp"
+                    alt="United Hacks V6 Logo"
+                    className="logo-image h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover"
+                  />
+                  <span className="logo-text ml-2 sm:ml-3 text-lg sm:text-xl font-bold font-heading truncate">
                     HackUnited V6
                   </span>
-                </span>
-              </a>
-            </div>
+                </a>
+              </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex flex-grow justify-center items-center">
-              <div className="flex items-center space-x-2">
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex flex-grow justify-center items-center">
+                <div className="flex items-center space-x-2">
+                  {navItems.map((item, index) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                        activeSection === item.href.substring(1) ? 'active' : ''
+                      }`}
+                      style={{ 
+                        color: activeSection === item.href.substring(1) 
+                          ? COLORS.LINK_HOVER 
+                          : COLORS.TEXT_MUTED,
+                        animationDelay: `${index * 50}ms`
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      }}
+                      onKeyDown={(e) => handleKeyDown(e, item.href)}
+                      tabIndex={0}
+                      role="button"
+                      aria-current={activeSection === item.href.substring(1) ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions Section */}
+              <div className="actions-section">
+                <a
+                  href="https://unitedhacksv6.devpost.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:flex flame-button"
+                >
+                  <span className="flame-text">Hackathon</span>
+                </a>
+                <div className="lg:hidden">
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="hamburger-btn p-2.5 sm:p-3 rounded-lg transition-all duration-300 focus:outline-none"
+                    style={{
+                      backgroundColor: isOpen ? 'rgba(108, 43, 217, 0.2)' : 'transparent',
+                      color: COLORS.TEXT_MAIN
+                    }}
+                    aria-expanded={isOpen}
+                    aria-controls="mobile-menu"
+                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                  >
+                    {isOpen ? <X size={20} /> : <Menu size={20} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          {isOpen && (
+            <div 
+              id="mobile-menu"
+              className="mobile-menu lg:hidden"
+            >
+              <div className="px-4 pt-4 pb-6 space-y-1">
                 {navItems.map((item, index) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className={`nav-link px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                    className={`mobile-nav-item px-4 py-3 text-base font-medium transition-all duration-200 ${
                       activeSection === item.href.substring(1) ? 'active' : ''
                     }`}
                     style={{ 
                       color: activeSection === item.href.substring(1) 
                         ? COLORS.LINK_HOVER 
                         : COLORS.TEXT_MUTED,
-                      animationDelay: `${index * 50}ms`
+                      animationDelay: `${index * 30}ms`
                     }}
                     onClick={(e) => {
                       e.preventDefault();
@@ -472,74 +630,20 @@ const Navbar = () => {
                     {item.name}
                   </a>
                 ))}
+                <div className="pt-4 px-4 sm:hidden">
+                  <a
+                    href="https://unitedhacksv6.devpost.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flame-button w-full flex justify-center"
+                  >
+                    <span className="flame-text">Hackathon</span>
+                  </a>
+                </div>
               </div>
             </div>
-
-            {/* Hackathon Button and Mobile Menu Button */}
-            <div className="flex items-center space-x-4">
-              <a
-                href="https://unitedhacksv6.devpost.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden lg:flex px-6 py-3 rounded-lg text-white font-semibold transition-all duration-500 flame-button"
-              >
-                <span className="flame-text"> Hackathon </span>
-              </a>
-              <div className="lg:hidden">
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="hamburger-btn p-3 rounded-lg transition-all duration-300 focus:outline-none"
-                  style={{
-                    backgroundColor: isOpen ? 'rgba(108, 43, 217, 0.2)' : 'transparent',
-                    color: COLORS.TEXT_MAIN
-                  }}
-                  aria-expanded={isOpen}
-                  aria-controls="mobile-menu"
-                  aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                >
-                  {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div 
-            id="mobile-menu"
-            className="mobile-menu lg:hidden border-t border-opacity-20"
-            style={{ borderColor: COLORS.SURFACE }}
-          >
-            <div className="px-4 pt-4 pb-6 space-y-2">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`mobile-nav-item block px-4 py-3 text-base font-medium transition-all duration-200 ${
-                    activeSection === item.href.substring(1) ? 'active' : ''
-                  }`}
-                  style={{ 
-                    color: activeSection === item.href.substring(1) 
-                      ? COLORS.LINK_HOVER 
-                      : COLORS.TEXT_MUTED,
-                    animationDelay: `${index * 30}ms`
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  onKeyDown={(e) => handleKeyDown(e, item.href)}
-                  tabIndex={0}
-                  role="button"
-                  aria-current={activeSection === item.href.substring(1) ? 'page' : undefined}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </nav>
     </>
   );
